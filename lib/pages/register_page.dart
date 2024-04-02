@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:bethany_app/pages/app/doa_konseling_page.dart';
 import 'package:bethany_app/pages/login_Page.dart';
 import 'package:bethany_app/pages/nav_pages/main_page.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -23,7 +24,7 @@ class RegisterPage extends StatelessWidget {
       print("fill all fields");
     } else {
       try {
-        String uri = "http://10.0.2.2/bethanyapp_api/insert_record";
+        String uri = "https://antidepressant-shed.000webhostapp.com/";
 
         var res = await http.post(Uri.parse(uri), body: {
           "name": usernameController.text,
@@ -163,7 +164,7 @@ class RegisterPage extends StatelessWidget {
                   ),
                   onTap: () {
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (BuildContext context) => const MainPage()));
+                        builder: (BuildContext context) => DoaPage()));
                   },
                 )
               ],

@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.all(12),
+        padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(10),
@@ -32,8 +32,12 @@ class MyApp extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Image.network(imagePath,
-                width: 300, height: 50, fit: BoxFit.fitHeight),
+            Image.asset(
+              width: 300,
+              height: 50,
+              fit: BoxFit.fitHeight,
+              imagePath,
+            ),
             const SizedBox(
               height: 8,
             ),

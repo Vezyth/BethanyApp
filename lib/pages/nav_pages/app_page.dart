@@ -1,15 +1,33 @@
+import 'dart:convert';
+
 import 'package:bethany_app/components/my_app.dart';
+import 'package:bethany_app/pages/app/doa_konseling_page.dart';
 import 'package:bethany_app/pages/nav_pages/main_page.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class AppPage extends StatefulWidget {
-  AppPage({super.key});
+  const AppPage({super.key});
+
+  //Bible API
 
   @override
   State<AppPage> createState() => _AppPageState();
 }
 
 class _AppPageState extends State<AppPage> {
+  String _references = "";
+  String _text = "";
+  Future getVerse() async {
+    var response =
+        await http.get(Uri.http("bible-api.com", "", {"random": "verse"}));
+    var jsonData = jsonDecode(response.body);
+    var reference = jsonData['reference'];
+    var text = jsonData['text'];
+    _references = reference;
+    _text = text;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,11 +47,10 @@ class _AppPageState extends State<AppPage> {
                 child: MyApp(
                     onTap: () {
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (BuildContext context) => const MainPage()));
+                          builder: (BuildContext context) => DoaPage()));
                     },
                     name: "Doa & Konseling",
-                    imagePath:
-                        "https://cdn.discordapp.com/attachments/852892372072923147/1215443037174632468/image.png?ex=65fcc489&is=65ea4f89&hm=cda9aab434ba60dceae373d5ea99f890be602d8e47da2147a49c5c03921a63c0&")),
+                    imagePath: "assets/pray.png")),
             const SizedBox(width: 10),
             Expanded(
                 child: MyApp(
@@ -42,8 +59,7 @@ class _AppPageState extends State<AppPage> {
                           builder: (BuildContext context) => const MainPage()));
                     },
                     name: "\nFamily Altar",
-                    imagePath:
-                        "https://cdn.discordapp.com/attachments/852892372072923147/1215443037174632468/image.png?ex=65fcc489&is=65ea4f89&hm=cda9aab434ba60dceae373d5ea99f890be602d8e47da2147a49c5c03921a63c0&")),
+                    imagePath: "assets/bible.png")),
             const SizedBox(width: 10),
             Expanded(
                 child: MyApp(
@@ -52,8 +68,7 @@ class _AppPageState extends State<AppPage> {
                           builder: (BuildContext context) => const MainPage()));
                     },
                     name: "\nSOM",
-                    imagePath:
-                        "https://cdn.discordapp.com/attachments/852892372072923147/1215443037174632468/image.png?ex=65fcc489&is=65ea4f89&hm=cda9aab434ba60dceae373d5ea99f890be602d8e47da2147a49c5c03921a63c0&")),
+                    imagePath: "assets/blackboard.png")),
             const SizedBox(width: 10),
             Expanded(
                 child: MyApp(
@@ -62,8 +77,7 @@ class _AppPageState extends State<AppPage> {
                           builder: (BuildContext context) => const MainPage()));
                     },
                     name: "\nPernikahan",
-                    imagePath:
-                        "https://cdn.discordapp.com/attachments/852892372072923147/1215443037174632468/image.png?ex=65fcc489&is=65ea4f89&hm=cda9aab434ba60dceae373d5ea99f890be602d8e47da2147a49c5c03921a63c0&")),
+                    imagePath: "assets/blackboard.png")),
             const SizedBox(width: 10),
           ],
         ),
@@ -87,8 +101,7 @@ class _AppPageState extends State<AppPage> {
                           builder: (BuildContext context) => const MainPage()));
                     },
                     name: "\nContact Us",
-                    imagePath:
-                        "https://cdn.discordapp.com/attachments/852892372072923147/1215443037174632468/image.png?ex=65fcc489&is=65ea4f89&hm=cda9aab434ba60dceae373d5ea99f890be602d8e47da2147a49c5c03921a63c0&")),
+                    imagePath: "assets/pray.png")),
             const SizedBox(width: 10),
             Expanded(
                 child: MyApp(
@@ -97,37 +110,60 @@ class _AppPageState extends State<AppPage> {
                           builder: (BuildContext context) => const MainPage()));
                     },
                     name: "Bethany Nginden",
-                    imagePath:
-                        "https://cdn.discordapp.com/attachments/852892372072923147/1215443037174632468/image.png?ex=65fcc489&is=65ea4f89&hm=cda9aab434ba60dceae373d5ea99f890be602d8e47da2147a49c5c03921a63c0&")),
+                    imagePath: "assets/pray.png")),
             const SizedBox(width: 185),
           ],
         ),
-        Stack(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(10),
-                        topRight: Radius.circular(10))),
-                height: 30,
-                width: MediaQuery.of(context).size.width,
-                color: Colors.amber,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                decoration: BoxDecoration(
-                    border: Border.all(width: 1, color: Colors.amber),
-                    borderRadius: BorderRadius.circular(10)),
-                height: MediaQuery.of(context).size.height / 6,
-                width: MediaQuery.of(context).size.width,
-              ),
-            ),
-          ],
-        )
+        FutureBuilder(
+            future: getVerse(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                return Stack(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        height: 30,
+                        width: MediaQuery.of(context).size.width,
+                        color: Colors.amber,
+                      ),
+                    ),
+                    Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Align(
+                          alignment: Alignment.topLeft,
+                          child: Text(_references),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 0,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          _text,
+                          style:
+                              const TextStyle(overflow: TextOverflow.ellipsis),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            border: Border.all(width: 1, color: Colors.amber),
+                            borderRadius: BorderRadius.circular(10)),
+                        height: MediaQuery.of(context).size.height / 6,
+                        width: MediaQuery.of(context).size.width,
+                      ),
+                    ),
+                  ],
+                );
+              } else {
+                return const CircularProgressIndicator();
+              }
+            }),
       ],
     ));
   }
