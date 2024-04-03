@@ -24,7 +24,7 @@ class RegisterPage extends StatelessWidget {
       print("fill all fields");
     } else {
       try {
-        String uri = "https://antidepressant-shed.000webhostapp.com/";
+        String uri = "https://bethany-app.000webhostapp.com/user_add.php";
 
         var res = await http.post(Uri.parse(uri), body: {
           "name": usernameController.text,
@@ -79,6 +79,7 @@ class RegisterPage extends StatelessWidget {
               controller: usernameController,
               hintText: 'Username',
               obscureText: false,
+              fieldHeight: 10,
             ),
 
             const SizedBox(
@@ -89,6 +90,7 @@ class RegisterPage extends StatelessWidget {
               controller: emailController,
               hintText: 'Email',
               obscureText: false,
+              fieldHeight: 10,
             ),
 
             const SizedBox(
@@ -100,6 +102,7 @@ class RegisterPage extends StatelessWidget {
               controller: passwordController,
               hintText: 'Password',
               obscureText: true,
+              fieldHeight: 10,
             ),
 
             // forgot password
