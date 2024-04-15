@@ -10,40 +10,9 @@ import 'package:flutter/material.dart';
 class RegisterPage extends StatelessWidget {
   RegisterPage({super.key});
 
-  // text editing controller
   final usernameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-
-  //sign up method
-
-  Future<void> signUp() async {
-    if (usernameController.text == "" ||
-        emailController.text == "" ||
-        passwordController.text == "") {
-      print("fill all fields");
-    } else {
-      try {
-        String uri = "https://bethany-app.000webhostapp.com/user_add.php";
-
-        var res = await http.post(Uri.parse(uri), body: {
-          "name": usernameController.text,
-          "email": emailController.text,
-          "password": passwordController.text
-        });
-
-        var response = jsonDecode(res.body);
-        if (response["success"] == "true") {
-          print("Record Inserted");
-          Fluttertoast.showToast(msg: "Register successfull!");
-        } else {
-          print("Insert Failed");
-        }
-      } catch (e) {
-        print(e);
-      }
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -132,20 +101,44 @@ class RegisterPage extends StatelessWidget {
                       fontSize: 16),
                 )),
               ),
-              onTap: () {
-                signUp();
+              onTap: () async {
+                // signUp();
+
+                if (usernameController.text == "" ||
+                    emailController.text == "" ||
+                    passwordController.text == "") {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text("Fill all fields!")));
+                } else {
+                  try {
+                    String uri =
+                        "https://bethany-app.000webhostapp.com/user_add.php";
+
+                    var res = await http.post(Uri.parse(uri), body: {
+                      "name": usernameController.text,
+                      "email": emailController.text,
+                      "password": passwordController.text
+                    });
+
+                    var response = jsonDecode(res.body);
+
+                    if (response["success"] == 1) {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text("Register successfull!")));
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: const Text("Register Failed!")));
+                    }
+                  } catch (e) {
+                    print(e);
+                  }
+                }
               },
             ),
 
             const SizedBox(
               height: 50,
             ),
-
-            // or continue with
-
-            // icons buttons
-
-            //register
 
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -167,7 +160,7 @@ class RegisterPage extends StatelessWidget {
                   ),
                   onTap: () {
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (BuildContext context) => DoaPage()));
+                        builder: (BuildContext context) => const MainPage()));
                   },
                 )
               ],

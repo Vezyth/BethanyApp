@@ -28,14 +28,16 @@ Timer? _timer;
 
 class _HomePageState extends State<HomePage> {
   void startTimer() {
-    _timer = Timer.periodic(Duration(seconds: 3), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 3), (timer) {
       if (_pageController.page == imagesPaths.length - 1) {
         //check if current page is last
         _pageController.animateToPage(0,
-            duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.easeInOut);
       } else {
         _pageController.nextPage(
-            duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeInOut);
       }
     });
   }

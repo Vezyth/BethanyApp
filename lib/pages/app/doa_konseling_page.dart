@@ -1,35 +1,68 @@
-import 'package:bethany_app/components/my_radioButton.dart';
+import 'dart:convert';
+
 import 'package:bethany_app/components/my_textfield.dart';
-import 'package:bethany_app/controller/button_controller.dart';
-import 'package:bethany_app/pages/nav_pages/app_page.dart';
+import 'package:http/http.dart' as http;
+import 'package:bethany_app/pages/nav_pages/main_page.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
-const List<String> list = <String>[
-  'Bisnis dan Keuangan',
-  'Hubungan dan Pertemanan',
-  'Keluarga, Saudara dan Pernihakan',
-  'Kesehatan',
-  "Keselamatan",
-  "Studi dan Sekolah",
-  "Lainnya"
-];
+class DoaPage extends StatefulWidget {
+  const DoaPage({super.key});
 
-class DoaPage extends StatelessWidget {
-  DoaPage({super.key});
+  @override
+  State<DoaPage> createState() => _DoaPageState();
+}
 
-  final testController = TextEditingController();
-  final usernameController = TextEditingController();
+class _DoaPageState extends State<DoaPage> {
+  int permintaan = 1, gender = 1;
+  bool bersedia = false;
+
+  final nameController = TextEditingController();
+  final nomorController = TextEditingController();
+  final umurController = TextEditingController();
+  final permintaanController = TextEditingController();
+
+  Future<void> kirimPermohonan() async {
+    if (nameController.text == "" ||
+        nomorController.text == "" ||
+        umurController.text == "") {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Please fill all the fields")));
+    } else {
+      try {
+        String uri = "https://bethany-app.000webhostapp.com/doa_add.php";
+
+        var res = await http.post(Uri.parse(uri), body: {
+          "nama_lengkap": nameController.text,
+          "nomor_handphone": 0123456789,
+          "umur": 12,
+          "gender": 1,
+          "kategori": 1,
+          "permintaan_khusus": permintaanController.text,
+          "bersedia_dihubungi": true,
+        });
+
+        var response = jsonDecode(res.body);
+        if (response["success"] == 1) {
+          ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text("Permintaan berhasil dikirim")));
+        } else {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(const SnackBar(content: Text("Gagal")));
+        }
+      } catch (e) {
+        print(e);
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    Get.put(ButtonController());
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(
           onPressed: () {
             Navigator.of(context).pushReplacement(MaterialPageRoute(
-                builder: (BuildContext context) => const AppPage()));
+                builder: (BuildContext context) => const MainPage()));
           },
         ),
         centerTitle: true,
@@ -39,8 +72,7 @@ class DoaPage extends StatelessWidget {
       body: SafeArea(
         child: Center(
           child: Padding(
-              padding: const EdgeInsets.only(
-                  right: 10, left: 10, bottom: 100, top: 10),
+              padding: const EdgeInsets.all(10.0),
               child: Scaffold(
                 body: Column(
                   children: [
@@ -48,20 +80,34 @@ class DoaPage extends StatelessWidget {
                       height: 10,
                     ),
                     //TextField
-                    const Text("Nama Lengkap"),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 25.0),
+                      child: Row(
+                        children: [
+                          Text("Nama Lengkap"),
+                        ],
+                      ),
+                    ),
                     MyTextField(
-                      controller: testController,
-                      hintText: " Nama Lengkap",
+                      controller: nameController,
+                      hintText: "Nama Lengkap",
                       obscureText: false,
-                      fieldHeight: 10,
+                      fieldHeight: 8,
                     ),
                     const SizedBox(
-                      height: 5,
+                      height: 10,
                     ),
-                    const Text("Nomor Handphone"),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 25.0),
+                      child: Row(
+                        children: [
+                          Text("Nomor Handphone"),
+                        ],
+                      ),
+                    ),
                     MyTextField(
-                      controller: usernameController,
-                      hintText: " Nomor Handphone",
+                      controller: nomorController,
+                      hintText: "Nomor Handphone",
                       obscureText: false,
                       fieldHeight: 10,
                     ),
@@ -82,13 +128,35 @@ class DoaPage extends StatelessWidget {
                       children: [
                         Expanded(
                             child: MyTextField(
-                          controller: testController,
+                          controller: umurController,
                           hintText: " Umur",
                           obscureText: false,
-                          fieldHeight: 10,
+                          fieldHeight: 8,
                         )),
-                        const MyRadioButton(gender: "Pria", title: "Pria"),
-                        const MyRadioButton(gender: "Wanita", title: "Wanita"),
+                        Expanded(
+                          child: Column(children: [
+                            RadioListTile(
+                              title: const Text('Pria'),
+                              value: 1,
+                              groupValue: gender,
+                              onChanged: (value) {
+                                setState(() {
+                                  gender = value!;
+                                });
+                              },
+                            ),
+                            RadioListTile(
+                              title: const Text('Wanita'),
+                              value: 2,
+                              groupValue: gender,
+                              onChanged: (value) {
+                                setState(() {
+                                  gender = value!;
+                                });
+                              },
+                            ),
+                          ]),
+                        ),
                         const SizedBox(
                           width: 30.0,
                         )
@@ -96,18 +164,60 @@ class DoaPage extends StatelessWidget {
                     ),
                     //kategori
                     const Padding(
-                      padding: EdgeInsets.only(left: 25, right: 25, top: 10),
+                      padding: EdgeInsets.symmetric(horizontal: 25),
                       child: Row(
                         children: [Text("Kategori")],
                       ),
                     ),
-                    const DropdownButtonExample(),
+
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                      child: DropdownButton(
+                        items: const [
+                          DropdownMenuItem(
+                            value: 1,
+                            child: Text('Bisnis dan Keuangan'),
+                          ),
+                          DropdownMenuItem(
+                            value: 2,
+                            child: Text('Hubungan dan Pertemanan'),
+                          ),
+                          DropdownMenuItem(
+                            value: 3,
+                            child: Text('Keluarga, Saudara dan Pernikahan'),
+                          ),
+                          DropdownMenuItem(
+                            value: 4,
+                            child: Text('Kesehatan'),
+                          ),
+                          DropdownMenuItem(
+                            value: 5,
+                            child: Text('Keselamatan'),
+                          ),
+                          DropdownMenuItem(
+                            value: 6,
+                            child: Text('Studi dan Sekolah'),
+                          ),
+                          DropdownMenuItem(
+                            value: 7,
+                            child: Text('Lainnya'),
+                          ),
+                        ],
+                        value: permintaan,
+                        onChanged: (value) {
+                          setState(() {
+                            permintaan = value!;
+                          });
+                        },
+                        isExpanded: true,
+                      ),
+                    ),
                     const Text("Permintaan Khusus"),
 
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 25),
                       child: TextField(
-                        controller: testController,
+                        controller: permintaanController,
                         decoration: InputDecoration(
                             contentPadding:
                                 const EdgeInsets.symmetric(vertical: 40.0),
@@ -124,7 +234,7 @@ class DoaPage extends StatelessWidget {
                     ),
                     const Text("ini ga tau gimana :v"),
                     const SizedBox(
-                      height: 20,
+                      height: 10,
                     ),
                     const Padding(
                       padding: EdgeInsets.symmetric(horizontal: 25),
@@ -138,6 +248,19 @@ class DoaPage extends StatelessWidget {
 
                     const SizedBox(
                       height: 10,
+                    ),
+                    Row(
+                      children: [
+                        Checkbox(
+                          value: true,
+                          onChanged: (value) {
+                            setState(() {
+                              bersedia = value!;
+                            });
+                          },
+                        ),
+                        const Text("Saya bersedia dihubungi untuk konseling.")
+                      ],
                     ),
                     GestureDetector(
                       child: Container(
@@ -155,57 +278,14 @@ class DoaPage extends StatelessWidget {
                               fontSize: 16),
                         )),
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        kirimPermohonan();
+                      },
                     ),
                   ],
                 ),
               )),
         ),
-      ),
-    );
-  }
-}
-
-class DropdownButtonExample extends StatefulWidget {
-  const DropdownButtonExample({super.key});
-
-  @override
-  State<DropdownButtonExample> createState() => _DropdownButtonExampleState();
-}
-
-class _DropdownButtonExampleState extends State<DropdownButtonExample> {
-  String dropdownValue = list.first;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(
-        right: 25,
-        left: 25,
-      ),
-      child: DropdownButton<String>(
-        isExpanded: true,
-        value: dropdownValue,
-        // icon: const Icon(Icons.arrow_downward),
-        elevation: 16,
-        style: const TextStyle(color: Colors.deepPurple),
-
-        underline: Container(
-          height: 2,
-          color: Colors.deepPurpleAccent,
-        ),
-        onChanged: (String? value) {
-          // This is called when the user selects an item.
-          setState(() {
-            dropdownValue = value!;
-          });
-        },
-        items: list.map<DropdownMenuItem<String>>((String value) {
-          return DropdownMenuItem<String>(
-            value: value,
-            child: Text(value),
-          );
-        }).toList(),
       ),
     );
   }

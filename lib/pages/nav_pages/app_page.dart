@@ -33,9 +33,16 @@ class _AppPageState extends State<AppPage> {
     return Scaffold(
         body: Column(
       children: [
-        const Text(
-          "Bethany Lampung App",
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+        const Padding(
+          padding: EdgeInsets.only(left: 8),
+          child: Row(
+            children: [
+              Text(
+                "Bethany Lampung App",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+              ),
+            ],
+          ),
         ),
         const SizedBox(
           height: 15,
@@ -47,7 +54,7 @@ class _AppPageState extends State<AppPage> {
                 child: MyApp(
                     onTap: () {
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (BuildContext context) => DoaPage()));
+                          builder: (BuildContext context) => const DoaPage()));
                     },
                     name: "Doa & Konseling",
                     imagePath: "assets/pray.png")),
@@ -84,9 +91,16 @@ class _AppPageState extends State<AppPage> {
         const SizedBox(
           height: 15,
         ),
-        const Text(
-          "Informations",
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+        const Padding(
+          padding: EdgeInsets.only(left: 8, top: 25),
+          child: Row(
+            children: [
+              Text(
+                "Informations",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+              ),
+            ],
+          ),
         ),
         const SizedBox(
           height: 15,
@@ -114,6 +128,18 @@ class _AppPageState extends State<AppPage> {
             const SizedBox(width: 185),
           ],
         ),
+        const SizedBox(height: 130),
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 8),
+          child: Row(
+            children: [
+              Text(
+                "Bible verse of the day",
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+        ),
         FutureBuilder(
             future: getVerse(),
             builder: (context, snapshot) {
@@ -123,28 +149,30 @@ class _AppPageState extends State<AppPage> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
+                        decoration: const BoxDecoration(
+                            color: Colors.amber,
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(10),
+                                topRight: Radius.circular(10))),
                         height: 30,
                         width: MediaQuery.of(context).size.width,
-                        color: Colors.amber,
                       ),
                     ),
-                    Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Align(
-                          alignment: Alignment.topLeft,
-                          child: Text(_references),
-                        ),
+                    Padding(
+                      padding: const EdgeInsets.all(12),
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(_references),
                       ),
                     ),
-                    Positioned(
-                      bottom: 0,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(top: 40, left: 10, right: 8),
+                      child: Positioned(
+                        width: MediaQuery.of(context).size.width,
+                        bottom: 0,
                         child: Text(
                           _text,
-                          style:
-                              const TextStyle(overflow: TextOverflow.ellipsis),
                         ),
                       ),
                     ),
