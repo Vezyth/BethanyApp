@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:bethany_app/components/my_app.dart';
 import 'package:bethany_app/pages/app/doa_konseling_page.dart';
+import 'package:bethany_app/pages/app/pernikahan_pria.dart';
 import 'package:bethany_app/pages/nav_pages/main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -63,7 +64,8 @@ class _AppPageState extends State<AppPage> {
                 child: MyApp(
                     onTap: () {
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (BuildContext context) => const MainPage()));
+                          builder: (BuildContext context) =>
+                              PernikahanPriaPage()));
                     },
                     name: "\nFamily Altar",
                     imagePath: "assets/bible.png")),
