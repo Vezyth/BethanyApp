@@ -129,7 +129,7 @@ class _DoaPageState extends State<DoaPage> {
                         Expanded(
                             child: MyTextField(
                           controller: umurController,
-                          hintText: " Umur",
+                          hintText: "Umur",
                           obscureText: false,
                           fieldHeight: 8,
                         )),
