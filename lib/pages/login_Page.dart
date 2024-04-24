@@ -49,6 +49,7 @@ class LoginPage extends StatelessWidget {
               hintText: 'Username',
               obscureText: false,
               fieldHeight: 10,
+              fieldWidth: 200,
             ),
 
             const SizedBox(
@@ -60,6 +61,7 @@ class LoginPage extends StatelessWidget {
               hintText: 'Password',
               obscureText: true,
               fieldHeight: 10,
+              fieldWidth: 200,
             ),
 
             // forgot password

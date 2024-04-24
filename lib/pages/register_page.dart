@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:bethany_app/pages/app/Pemberkatan_nikah_page.dart';
 import 'package:bethany_app/pages/app/doa_konseling_page.dart';
 import 'package:bethany_app/pages/login_Page.dart';
 import 'package:bethany_app/pages/nav_pages/main_page.dart';
@@ -49,6 +50,7 @@ class RegisterPage extends StatelessWidget {
               hintText: 'Username',
               obscureText: false,
               fieldHeight: 10,
+              fieldWidth: 50,
             ),
 
             const SizedBox(
@@ -60,6 +62,7 @@ class RegisterPage extends StatelessWidget {
               hintText: 'Email',
               obscureText: false,
               fieldHeight: 10,
+              fieldWidth: 50,
             ),
 
             const SizedBox(
@@ -72,6 +75,7 @@ class RegisterPage extends StatelessWidget {
               hintText: 'Password',
               obscureText: true,
               fieldHeight: 10,
+              fieldWidth: 50,
             ),
 
             // forgot password
@@ -160,7 +164,7 @@ class RegisterPage extends StatelessWidget {
                   ),
                   onTap: () {
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (BuildContext context) => const MainPage()));
+                        builder: (BuildContext context) =>  PemberkatanNikahPage()));
                   },
                 )
               ],

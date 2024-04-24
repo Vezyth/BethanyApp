@@ -93,6 +93,7 @@ class _DoaPageState extends State<DoaPage> {
                       hintText: "Nama Lengkap",
                       obscureText: false,
                       fieldHeight: 8,
+                      fieldWidth: 200,
                     ),
                     const SizedBox(
                       height: 10,
@@ -110,6 +111,7 @@ class _DoaPageState extends State<DoaPage> {
                       hintText: "Nomor Handphone",
                       obscureText: false,
                       fieldHeight: 10,
+                      fieldWidth: 200,
                     ),
                     // umur & gender
                     const Padding(
@@ -132,6 +134,7 @@ class _DoaPageState extends State<DoaPage> {
                           hintText: " Umur",
                           obscureText: false,
                           fieldHeight: 8,
+                          fieldWidth: 200,
                         )),
                         Expanded(
                           child: Column(children: [
@@ -251,8 +254,8 @@ class _DoaPageState extends State<DoaPage> {
                     ),
                     Row(
                       children: [
-                        Checkbox(
-                          value: true,
+                         Checkbox(
+                          value: bersedia,
                           onChanged: (value) {
                             setState(() {
                               bersedia = value!;
