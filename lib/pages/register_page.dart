@@ -164,7 +164,7 @@ class RegisterPage extends StatelessWidget {
                   ),
                   onTap: () {
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (BuildContext context) =>  PemberkatanNikahPage()));
+                        builder: (BuildContext context) =>  const MainPage()));
                   },
                 )
               ],

@@ -1,4 +1,5 @@
 import 'package:bethany_app/components/my_textfield.dart';
+import 'package:bethany_app/pages/app/Pemberkatan_nikah_page.dart';
 import 'package:bethany_app/pages/nav_pages/main_page.dart';
 import 'package:flutter/material.dart';
 
@@ -204,7 +205,10 @@ class PernikahanWanitaPage extends StatelessWidget {
                               fontSize: 16),
                         )),
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                builder: (BuildContext context) =>  const PemberkatanNikahPage()));
+                      },
                     ),
                   ],
                 ),

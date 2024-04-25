@@ -1,15 +1,20 @@
-import 'dart:ffi';
+
 
 import 'package:bethany_app/components/my_textfield.dart';
 import 'package:bethany_app/pages/nav_pages/main_page.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
-class PemberkatanNikahPage extends StatelessWidget {
-  PemberkatanNikahPage({super.key});
+class PemberkatanNikahPage extends StatefulWidget {
+  const PemberkatanNikahPage({super.key});
 
+  @override
+  State<PemberkatanNikahPage> createState() => _PemberkatanNikahPageState();
+}
+
+class _PemberkatanNikahPageState extends State<PemberkatanNikahPage> {
   final nameController = TextEditingController();
+
+  bool bersedia = false;
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +67,7 @@ class PemberkatanNikahPage extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(height: 5,),
+                    const SizedBox(height: 5,),
                     Row(
                       children: [
 
@@ -73,7 +78,7 @@ class PemberkatanNikahPage extends StatelessWidget {
                         
                       ],
                     ),
-                    SizedBox(height: 5,),
+                    const SizedBox(height: 5,),
                     const Padding(
                       padding: EdgeInsets.symmetric(horizontal: 25.0),
                       child: Row(
@@ -105,12 +110,10 @@ class PemberkatanNikahPage extends StatelessWidget {
                       obscureText: false,
                       fieldHeight: 25,fieldWidth: 50,
                     ),
-                    SizedBox(height: 10,),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 25),
-                      child: Row(
-                        children: [Text("Data ini telah kami isi sesuai dengan yang sebenarnya. kami bertanggung jawab sepenuhnya akan hal tersebut. Dan kami bersedia memenuhi persyaratan untuk pemberkatan Nikah di Bethany Lampung", overflow: TextOverflow.ellipsis,), ],
-                      ),
+                    const SizedBox(height: 10,),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 25),
+                      child: Text("Data ini telah kami isi sesuai dengan yang sebenarnya. kami bertanggung jawab sepenuhnya akan hal tersebut. Dan kami bersedia memenuhi persyaratan untuk pemberkatan Nikah di Bethany Lampung", overflow: TextOverflow.clip,textAlign: TextAlign.justify, style: TextStyle(fontSize: 12),),
                     ),
 
                     
@@ -118,6 +121,23 @@ class PemberkatanNikahPage extends StatelessWidget {
 
                     const SizedBox(
                       height: 10,
+                    ),
+
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: Row(
+                        children: [
+                           Checkbox(
+                            value: bersedia,
+                            onChanged: (value) {
+                              setState(() {
+                                bersedia = value!;
+                              });
+                            },
+                          ),
+                          const Text("Saya bersedia dihubungi untuk konseling.")
+                        ],
+                      ),
                     ),
                     GestureDetector(
                       child: Container(

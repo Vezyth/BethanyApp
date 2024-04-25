@@ -83,7 +83,7 @@ class _AppPageState extends State<AppPage> {
                 child: MyApp(
                     onTap: () {
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (BuildContext context) => const MainPage()));
+                          builder: (BuildContext context) =>  PernikahanPriaPage()));
                     },
                     name: "\nPernikahan",
                     imagePath: "assets/blackboard.png")),
