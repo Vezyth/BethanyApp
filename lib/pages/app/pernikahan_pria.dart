@@ -1,7 +1,10 @@
 import 'package:bethany_app/components/my_textfield.dart';
 import 'package:bethany_app/pages/app/pernikahan_wanita.dart';
 import 'package:bethany_app/pages/nav_pages/main_page.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 
 class PernikahanPriaPage extends StatelessWidget {
   PernikahanPriaPage({super.key});
@@ -14,8 +17,7 @@ class PernikahanPriaPage extends StatelessWidget {
       appBar: AppBar(
         leading: BackButton(
           onPressed: () {
-            Navigator.of(context).pushReplacement(MaterialPageRoute(
-                builder: (BuildContext context) => const MainPage()));
+            Navigator.of(context).pop();
           },
         ),
         centerTitle: true,
@@ -83,18 +85,55 @@ class PernikahanPriaPage extends StatelessWidget {
 
                     //no telp
 
-                    const Padding(
-                      padding: EdgeInsets.only(top: 10, left: 25, right: 25),
-                      child: Row(
+                    
+                    
+                    
+                    
+                    Column(
                         children: [
-                          Text("Nomor Hp"),
-                          SizedBox(
-                            width: 105,
+                          Row(
+                            children: [
+                              Expanded(child: Text("Nomor Hp")),
+                              
+                              Expanded(child: Text("Telp Rumah")),
+                            ],
                           ),
-                          Text("Telp Rumah")
+                          Row(
+                            children: [
+                              
+                              Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 20),
+                              child: MyTextField(
+                                                        controller: nameController,
+                                                        hintText: "Nomor Hp",
+                                                        obscureText: false,
+                                                        fieldHeight: 8,
+                                                        fieldWidth: 200,
+                                                      ),
+                            )),Expanded(
+                            child: Container(
+                              transform: Matrix4.translationValues(-25, 0, 0),
+                              child: MyTextField(
+                                                        controller: nameController,
+                                                        hintText: "Telp Rumah",
+                                                        obscureText: false,
+                                                        fieldHeight: 8,
+                                                        fieldWidth: 200,
+                                                      ),
+                            )),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              
+                              Expanded(child: Text("Nomor Hp")),Expanded(child: Text("Nomor Hp")),
+                            ],
+                          ),
+                          
                         ],
                       ),
-                    ),
+                    
                     Row(
                       children: [
                         Expanded(
@@ -139,6 +178,7 @@ class PernikahanPriaPage extends StatelessWidget {
                           fieldHeight: 8,
                           fieldWidth: 200,
                         )),
+                        
                         Expanded(
                             child: MyTextField(
                           controller: nameController,
@@ -189,6 +229,8 @@ class PernikahanPriaPage extends StatelessWidget {
                     const SizedBox(
                       height: 10,
                     ),
+
+                    
                     GestureDetector(
                       child: Container(
                         margin: const EdgeInsets.symmetric(horizontal: 25),

@@ -54,16 +54,16 @@ class _AppPageState extends State<AppPage> {
             Expanded(
                 child: MyApp(
                     onTap: () {
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      Navigator.of(context).push(MaterialPageRoute(
                           builder: (BuildContext context) => const DoaPage()));
                     },
-                    name: "Doa & Konseling",
+                    name: "\nDoa & Konseling",
                     imagePath: "assets/pray.png")),
             const SizedBox(width: 10),
             Expanded(
                 child: MyApp(
                     onTap: () {
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      Navigator.of(context).push(MaterialPageRoute(
                           builder: (BuildContext context) =>
                               PernikahanPriaPage()));
                     },
@@ -113,7 +113,7 @@ class _AppPageState extends State<AppPage> {
             Expanded(
                 child: MyApp(
                     onTap: () {
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      Navigator.of(context).push(MaterialPageRoute(
                           builder: (BuildContext context) => const MainPage()));
                     },
                     name: "\nContact Us",
@@ -125,7 +125,7 @@ class _AppPageState extends State<AppPage> {
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
                           builder: (BuildContext context) => const MainPage()));
                     },
-                    name: "Bethany Nginden",
+                    name: "\nBethany Nginden",
                     imagePath: "assets/pray.png")),
             const SizedBox(width: 185),
           ],

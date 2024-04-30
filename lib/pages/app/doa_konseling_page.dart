@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:bethany_app/components/my_textfield.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:bethany_app/pages/nav_pages/main_page.dart';
 import 'package:flutter/material.dart';
@@ -13,32 +15,36 @@ class DoaPage extends StatefulWidget {
 }
 
 class _DoaPageState extends State<DoaPage> {
-  int permintaan = 1, gender = 1;
-  bool bersedia = false;
+  int kategori = 1, gender = 1, bersedia = 1;
+  
 
   final nameController = TextEditingController();
   final nomorController = TextEditingController();
   final umurController = TextEditingController();
   final permintaanController = TextEditingController();
 
+  ScrollController _scrollController = ScrollController();
+
   Future<void> kirimPermohonan() async {
+    
     if (nameController.text == "" ||
         nomorController.text == "" ||
         umurController.text == "") {
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Please fill all the fields")));
     } else {
+      
       try {
         String uri = "https://bethany-app.000webhostapp.com/doa_add.php";
 
         var res = await http.post(Uri.parse(uri), body: {
           "nama_lengkap": nameController.text,
-          "nomor_handphone": 0123456789,
-          "umur": 12,
-          "gender": 1,
-          "kategori": 1,
+          "nomor_handphone": nomorController.text,
+          "umur": umurController.text,
+          "gender": gender.toString(),
+          "kategori": kategori.toString(),
           "permintaan_khusus": permintaanController.text,
-          "bersedia_dihubungi": true,
+          "bersedia_dihubungi": bersedia.toString(),
         });
 
         var response = jsonDecode(res.body);
@@ -47,7 +53,7 @@ class _DoaPageState extends State<DoaPage> {
               const SnackBar(content: Text("Permintaan berhasil dikirim")));
         } else {
           ScaffoldMessenger.of(context)
-              .showSnackBar(const SnackBar(content: Text("Gagal")));
+              .showSnackBar( SnackBar(content: Text(response["message"])));
         }
       } catch (e) {
         print(e);
@@ -61,8 +67,7 @@ class _DoaPageState extends State<DoaPage> {
       appBar: AppBar(
         leading: BackButton(
           onPressed: () {
-            Navigator.of(context).pushReplacement(MaterialPageRoute(
-                builder: (BuildContext context) => const MainPage()));
+            Navigator.of(context).pop();
           },
         ),
         centerTitle: true,
@@ -206,10 +211,10 @@ class _DoaPageState extends State<DoaPage> {
                             child: Text('Lainnya'),
                           ),
                         ],
-                        value: permintaan,
+                        value: kategori,
                         onChanged: (value) {
                           setState(() {
-                            permintaan = value!;
+                            kategori = value!;
                           });
                         },
                         isExpanded: true,
@@ -219,20 +224,30 @@ class _DoaPageState extends State<DoaPage> {
 
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 25),
-                      child: TextField(
-                        controller: permintaanController,
-                        decoration: InputDecoration(
-                            contentPadding:
-                                const EdgeInsets.symmetric(vertical: 40.0),
-                            enabledBorder: const OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.grey)),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Colors.grey.shade400),
-                            ),
-                            fillColor: Colors.white,
-                            filled: true,
-                            hintStyle: TextStyle(color: Colors.grey[500])),
+                      child: Scrollbar(
+                        controller: _scrollController,
+                        child: TextField(
+                          scrollController: _scrollController,
+                          controller: permintaanController,
+                          textAlignVertical: TextAlignVertical.top,
+                          minLines: 3,
+                          maxLines: 3,
+                          maxLength: 500,
+                          
+                          decoration: InputDecoration(
+                              
+                              contentPadding:
+                                  const EdgeInsets.only( left: 8,top: 8),
+                              enabledBorder: const OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.grey)),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.grey.shade400),
+                              ),
+                              fillColor: Colors.white,
+                              filled: true,
+                              hintStyle: TextStyle(color: Colors.grey[500])),
+                        ),
                       ),
                     ),
                     const Text("ini ga tau gimana :v"),
@@ -255,10 +270,10 @@ class _DoaPageState extends State<DoaPage> {
                     Row(
                       children: [
                          Checkbox(
-                          value: bersedia,
+                          value: bersedia==1?true:false,
                           onChanged: (value) {
                             setState(() {
-                              bersedia = value!;
+                              bersedia = bersedia==1?0:1;
                             });
                           },
                         ),
@@ -282,6 +297,7 @@ class _DoaPageState extends State<DoaPage> {
                         )),
                       ),
                       onTap: () {
+                        
                         kirimPermohonan();
                       },
                     ),

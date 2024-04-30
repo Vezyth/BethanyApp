@@ -6,6 +6,7 @@ class MyTextField extends StatelessWidget {
   final bool obscureText;
   final double fieldHeight;
   final double fieldWidth;
+  
 
   const MyTextField({
     super.key,
