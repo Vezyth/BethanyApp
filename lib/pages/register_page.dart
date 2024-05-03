@@ -50,7 +50,7 @@ class RegisterPage extends StatelessWidget {
               hintText: 'Username',
               obscureText: false,
               fieldHeight: 10,
-              fieldWidth: 50,
+              
             ),
 
             const SizedBox(
@@ -62,7 +62,8 @@ class RegisterPage extends StatelessWidget {
               hintText: 'Email',
               obscureText: false,
               fieldHeight: 10,
-              fieldWidth: 50,
+              
+              
             ),
 
             const SizedBox(
@@ -75,7 +76,7 @@ class RegisterPage extends StatelessWidget {
               hintText: 'Password',
               obscureText: true,
               fieldHeight: 10,
-              fieldWidth: 50,
+              
             ),
 
             // forgot password

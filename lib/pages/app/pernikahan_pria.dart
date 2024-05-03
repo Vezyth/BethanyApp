@@ -1,10 +1,11 @@
 import 'package:bethany_app/components/my_textfield.dart';
 import 'package:bethany_app/pages/app/pernikahan_wanita.dart';
-import 'package:bethany_app/pages/nav_pages/main_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+
+
 
 class PernikahanPriaPage extends StatelessWidget {
   PernikahanPriaPage({super.key});
@@ -24,7 +25,9 @@ class PernikahanPriaPage extends StatelessWidget {
         title: const Text("Pernikahan"),
       ),
       backgroundColor: Colors.grey[300],
-      body: SafeArea(
+      body: Container(
+        decoration: const BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(25))),
+        height: 550,
         child: Center(
           child: Padding(
               padding: const EdgeInsets.all(10.0),
@@ -59,10 +62,10 @@ class PernikahanPriaPage extends StatelessWidget {
                     ),
                     MyTextField(
                       controller: nameController,
-                      hintText: "Nama Lengkap",
                       obscureText: false,
                       fieldHeight: 8,
-                      fieldWidth: 200,
+                      paddingLeft: 25,
+                      paddingRight: 25,
                     ),
                     const SizedBox(
                       height: 8,
@@ -71,159 +74,136 @@ class PernikahanPriaPage extends StatelessWidget {
                       padding: EdgeInsets.symmetric(horizontal: 25.0),
                       child: Row(
                         children: [
-                          Text("Nama Lengkap"),
+                          Text("Alamat Lengkap"),
                         ],
                       ),
                     ),
                     MyTextField(
                       controller: nameController,
-                      hintText: "Nama Lengkap",
                       obscureText: false,
-                      fieldHeight: 25,
-                      fieldWidth: 200,
+                      fieldHeight: 8,
+                      fieldBottom: 50,
+           
                     ),
 
-                    //no telp
+                    
 
                     
                     
                     
                     
-                    Column(
+                SizedBox(height: 10,),
+         
+                Column(
                         children: [
-                          Row(
+                          const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 25),
+                          child: Row(
                             children: [
-                              Expanded(child: Text("Nomor Hp")),
-                              
-                              Expanded(child: Text("Telp Rumah")),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              
-                              Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 20),
-                              child: MyTextField(
-                                                        controller: nameController,
-                                                        hintText: "Nomor Hp",
-                                                        obscureText: false,
-                                                        fieldHeight: 8,
-                                                        fieldWidth: 200,
-                                                      ),
-                            )),Expanded(
-                            child: Container(
-                              transform: Matrix4.translationValues(-25, 0, 0),
-                              child: MyTextField(
-                                                        controller: nameController,
-                                                        hintText: "Telp Rumah",
-                                                        obscureText: false,
-                                                        fieldHeight: 8,
-                                                        fieldWidth: 200,
-                                                      ),
-                            )),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              
-                              Expanded(child: Text("Nomor Hp")),Expanded(child: Text("Nomor Hp")),
-                            ],
-                          ),
+                            Expanded(child: Text("Telp Rumah")),
+                            Expanded(child: Text("Nomor Hp")),
+                          ],
+                      ),
+                    ),
+
+                    Row(
+                      children: [
+                        Expanded(
+                            child: MyTextField(
+                          controller: nameController,
+                         
+                          obscureText: false,
+                          fieldHeight: 8,
+                          paddingRight: 5,
                           
+                        )),
+                        Expanded(
+                            child: MyTextField(
+                          controller: nameController,
+                         
+                          obscureText: false,
+                          fieldHeight: 8,
+                          paddingLeft: 0,
+                          
+                        )),
+                      ],
+                    ),
+
+                    SizedBox(height: 10,),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 25),
+                      child: Row(
+                        children: [
+                          
+                          Expanded(child: Text("Tempat Lahir")),
+                          Expanded(child: Text("Tanggal Lahir"))
                         ],
                       ),
+                    ),
+
+                    Row(
+                      children: [
+                        Expanded(
+                            child: MyTextField(
+                          controller: nameController,
+                          obscureText: false,
+                          fieldHeight: 8,
+                          paddingRight: 5,
+                          
+                        )),
+                        Expanded(
+                            child: MyTextField(
+                          controller: nameController,
+                          obscureText: false,
+                          fieldHeight: 8,
+                          paddingLeft: 0,
+                          
+                        )),
+                      ],
+                    ),
+
+                    SizedBox(height: 10,),
+                            
+                           const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 25),
+                      child: Row(
+                        children: [
+                          
+                          Expanded(child: Text("Nama Ayah Kandung")),
+                          Expanded(child: Text("Nama Ibu Kandung"))
+                        ],
+                      ),
+                    ),
+
+                    Row(
+                      children: [
+                        Expanded(
+                            child: MyTextField(
+                          controller: nameController,
+                          
+                          obscureText: false,
+                          fieldHeight: 8,
+                          paddingRight: 5,
+                          
+                        )),
+                        Expanded(
+                            child: MyTextField(
+                          controller: nameController,
+                          
+                          obscureText: false,
+                          fieldHeight: 8,
+                          paddingLeft: 0,
+                          
+                        )),
+                      ],
+                    ),
+
+                  ],
+                ),
                     
-                    Row(
-                      children: [
-                        Expanded(
-                            child: MyTextField(
-                          controller: nameController,
-                          hintText: "Nomor Hp",
-                          obscureText: false,
-                          fieldHeight: 8,
-                          fieldWidth: 200,
-                        )),
-                        Expanded(
-                            child: MyTextField(
-                          controller: nameController,
-                          hintText: "Telp Rumah",
-                          obscureText: false,
-                          fieldHeight: 8,
-                          fieldWidth: 200,
-                        )),
-                      ],
-                    ),
-                    // tempat tanggal lahir
-
-                    const Padding(
-                      padding: EdgeInsets.only(top: 10, left: 25, right: 25),
-                      child: Row(
-                        children: [
-                          Text("Tempat Lahir"),
-                          SizedBox(
-                            width: 85,
-                          ),
-                          Text("Tanggal Lahir")
-                        ],
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                            child: MyTextField(
-                          controller: nameController,
-                          hintText: "Tempat Lahir",
-                          obscureText: false,
-                          fieldHeight: 8,
-                          fieldWidth: 200,
-                        )),
-                        
-                        Expanded(
-                            child: MyTextField(
-                          controller: nameController,
-                          hintText: "Tanggal Lahir",
-                          obscureText: false,
-                          fieldHeight: 8,
-                          fieldWidth: 200,
-                        )),
-                      ],
-                    ),
-
-                    // nama orang tua
-
-                    const Padding(
-                      padding: EdgeInsets.only(top: 10, left: 25, right: 25),
-                      child: Row(
-                        children: [
-                          Text("Nama Ayah Kandung"),
-                          SizedBox(
-                            width: 35,
-                          ),
-                          Text("Nama Ibu Kandung")
-                        ],
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                            child: MyTextField(
-                          controller: nameController,
-                          hintText: "Nama Ayah Kandung",
-                          obscureText: false,
-                          fieldHeight: 8,
-                          fieldWidth: 200,
-                        )),
-                        Expanded(
-                            child: MyTextField(
-                          controller: nameController,
-                          hintText: "Nama Ibu Kandung",
-                          obscureText: false,
-                          fieldHeight: 8,
-                          fieldWidth: 200,
-                        )),
-                      ],
-                    ),
+                    
+                    
+                    
                     // button kirim
 
                     const SizedBox(
@@ -260,42 +240,5 @@ class PernikahanPriaPage extends StatelessWidget {
     );
   }
 
-  // Scaffold(
-  //     appBar: AppBar(
-  //       leading: BackButton(
-  //         onPressed: () {
-  //           Navigator.of(context).pushReplacement(MaterialPageRoute(
-  //               builder: (BuildContext context) => const MainPage()));
-  //         },
-  //       ),
-  //       centerTitle: true,
-  //       title: const Text("Doa & Konseling"),
-  //     ),
-  //     backgroundColor: Colors.grey[300],
-  //     body: const SafeArea(
-  //         child: Center(
-  //       child: Padding(
-  //         padding: EdgeInsets.all(10.0),
-  //         child: Scaffold(
-  //           body: Column(
-  //             children: [
-  //               Padding(
-  //                   padding: EdgeInsets.all(8.0),
-  //                   child: Text(
-  //                     "Data Calon Mempelai Pria",
-  //                     style:
-  //                         TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
-  //                   )),
-  //               MyTextField(
-  //                   controller: nameController,
-  //                   hintText: "",
-  //                   obscureText: true,
-  //                   fieldHeight: 10)
-  //             ],
-  //           ),
-  //         ),
-  //       ),
-  //     )),
-  //   );
-  // }
+  
 }
