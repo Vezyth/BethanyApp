@@ -1,10 +1,6 @@
 import 'dart:convert';
-import 'dart:math';
-
 import 'package:bethany_app/components/my_textfield.dart';
-import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:bethany_app/pages/nav_pages/main_page.dart';
 import 'package:flutter/material.dart';
 
 class DoaPage extends StatefulWidget {
@@ -16,24 +12,21 @@ class DoaPage extends StatefulWidget {
 
 class _DoaPageState extends State<DoaPage> {
   int kategori = 1, gender = 1, bersedia = 1;
-  
 
   final nameController = TextEditingController();
   final nomorController = TextEditingController();
   final umurController = TextEditingController();
   final permintaanController = TextEditingController();
 
-  ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController();
 
   Future<void> kirimPermohonan() async {
-    
     if (nameController.text == "" ||
         nomorController.text == "" ||
         umurController.text == "") {
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Please fill all the fields")));
     } else {
-      
       try {
         String uri = "https://bethany-app.000webhostapp.com/doa_add.php";
 
@@ -53,7 +46,7 @@ class _DoaPageState extends State<DoaPage> {
               const SnackBar(content: Text("Permintaan berhasil dikirim")));
         } else {
           ScaffoldMessenger.of(context)
-              .showSnackBar( SnackBar(content: Text(response["message"])));
+              .showSnackBar(SnackBar(content: Text(response["message"])));
         }
       } catch (e) {
         print(e);
@@ -95,10 +88,8 @@ class _DoaPageState extends State<DoaPage> {
                     ),
                     MyTextField(
                       controller: nameController,
-                      hintText: "Nama Lengkap",
                       obscureText: false,
                       fieldHeight: 8,
-                      fieldWidth: 200,
                     ),
                     const SizedBox(
                       height: 10,
@@ -113,10 +104,9 @@ class _DoaPageState extends State<DoaPage> {
                     ),
                     MyTextField(
                       controller: nomorController,
-                      hintText: "Nomor Handphone",
                       obscureText: false,
                       fieldHeight: 10,
-                      fieldWidth: 200,
+                      inputType: TextInputType.number,
                     ),
                     // umur & gender
                     const Padding(
@@ -136,10 +126,10 @@ class _DoaPageState extends State<DoaPage> {
                         Expanded(
                             child: MyTextField(
                           controller: umurController,
-                          hintText: "Umur",
                           obscureText: false,
                           fieldHeight: 8,
-                          fieldWidth: 200,
+                          paddingRight: 0,
+                          inputType: TextInputType.number,
                         )),
                         Expanded(
                           child: Column(children: [
@@ -233,11 +223,9 @@ class _DoaPageState extends State<DoaPage> {
                           minLines: 3,
                           maxLines: 3,
                           maxLength: 500,
-                          
                           decoration: InputDecoration(
-                              
                               contentPadding:
-                                  const EdgeInsets.only( left: 8,top: 8),
+                                  const EdgeInsets.only(left: 8, top: 8),
                               enabledBorder: const OutlineInputBorder(
                                   borderSide: BorderSide(color: Colors.grey)),
                               focusedBorder: OutlineInputBorder(
@@ -250,7 +238,7 @@ class _DoaPageState extends State<DoaPage> {
                         ),
                       ),
                     ),
-                    const Text("ini ga tau gimana :v"),
+
                     const SizedBox(
                       height: 10,
                     ),
@@ -267,18 +255,21 @@ class _DoaPageState extends State<DoaPage> {
                     const SizedBox(
                       height: 10,
                     ),
-                    Row(
-                      children: [
-                         Checkbox(
-                          value: bersedia==1?true:false,
-                          onChanged: (value) {
-                            setState(() {
-                              bersedia = bersedia==1?0:1;
-                            });
-                          },
-                        ),
-                        const Text("Saya bersedia dihubungi untuk konseling.")
-                      ],
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Row(
+                        children: [
+                          Checkbox(
+                            value: bersedia == 1 ? true : false,
+                            onChanged: (value) {
+                              setState(() {
+                                bersedia = bersedia == 1 ? 0 : 1;
+                              });
+                            },
+                          ),
+                          const Text("Saya bersedia dihubungi untuk konseling.")
+                        ],
+                      ),
                     ),
                     GestureDetector(
                       child: Container(
@@ -297,7 +288,6 @@ class _DoaPageState extends State<DoaPage> {
                         )),
                       ),
                       onTap: () {
-                        
                         kirimPermohonan();
                       },
                     ),

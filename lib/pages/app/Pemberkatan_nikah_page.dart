@@ -1,7 +1,4 @@
-
-
 import 'package:bethany_app/components/my_textfield.dart';
-import 'package:bethany_app/pages/nav_pages/main_page.dart';
 import 'package:flutter/material.dart';
 
 class PemberkatanNikahPage extends StatefulWidget {
@@ -12,9 +9,13 @@ class PemberkatanNikahPage extends StatefulWidget {
 }
 
 class _PemberkatanNikahPageState extends State<PemberkatanNikahPage> {
-  final nameController = TextEditingController();
+  final hariController = TextEditingController();
+  final tanggalController = TextEditingController();
+  final jamController = TextEditingController();
+  final alamatController = TextEditingController();
+  final telpController = TextEditingController();
 
-  bool bersedia = false;
+  int bersedia = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +23,7 @@ class _PemberkatanNikahPageState extends State<PemberkatanNikahPage> {
       appBar: AppBar(
         leading: BackButton(
           onPressed: () {
-            Navigator.of(context).pushReplacement(MaterialPageRoute(
-                builder: (BuildContext context) => const MainPage()));
+            Navigator.of(context).pop();
           },
         ),
         centerTitle: true,
@@ -55,30 +55,50 @@ class _PemberkatanNikahPageState extends State<PemberkatanNikahPage> {
                     const SizedBox(
                       height: 10,
                     ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 25),
-                      child: Row(
-                        children: [
-                          Text("Hari"),
-                          SizedBox(width: 95,),
-                          Text("Tanggal"),
-                          SizedBox(width: 80,),
-                          Text("Jam")
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 5,),
-                    Row(
+                    Column(
                       children: [
-
-                        
-                        Expanded(child: MyTextField(controller: nameController, hintText: "", obscureText: false, fieldHeight: 10,fieldWidth: 50,)),
-                        Expanded(child: MyTextField(controller: nameController, hintText: "", obscureText: false, fieldHeight: 10,fieldWidth: 50,)),
-                        Expanded(child: MyTextField(controller: nameController, hintText: "", obscureText: false, fieldHeight: 10,fieldWidth: 50,)),
-                        
+                        const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 25),
+                          child: Row(
+                            children: [
+                              Expanded(child: Text("Hari")),
+                              Expanded(child: Text("Tanggal")),
+                              Expanded(child: Text(" Jam"))
+                            ],
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                                child: MyTextField(
+                              controller: hariController,
+                              obscureText: false,
+                              fieldHeight: 10,
+                              paddingRight: 0,
+                            )),
+                            Expanded(
+                                child: MyTextField(
+                              controller: tanggalController,
+                              obscureText: false,
+                              fieldHeight: 10,
+                              paddingLeft: 5,
+                              paddingRight: 5,
+                            )),
+                            Expanded(
+                                child: MyTextField(
+                              controller: jamController,
+                              obscureText: false,
+                              fieldHeight: 10,
+                              paddingLeft: 0,
+                            )),
+                          ],
+                        )
                       ],
                     ),
-                    const SizedBox(height: 5,),
+
+                    const SizedBox(
+                      height: 5,
+                    ),
                     const Padding(
                       padding: EdgeInsets.symmetric(horizontal: 25.0),
                       child: Row(
@@ -88,10 +108,10 @@ class _PemberkatanNikahPageState extends State<PemberkatanNikahPage> {
                       ),
                     ),
                     MyTextField(
-                      controller: nameController,
+                      controller: alamatController,
                       hintText: "",
                       obscureText: false,
-                      fieldHeight: 50,fieldWidth: 50,
+                      fieldBottom: 50,
                     ),
                     const SizedBox(
                       height: 8,
@@ -105,18 +125,23 @@ class _PemberkatanNikahPageState extends State<PemberkatanNikahPage> {
                       ),
                     ),
                     MyTextField(
-                      controller: nameController,
+                      controller: telpController,
                       hintText: "",
                       obscureText: false,
-                      fieldHeight: 25,fieldWidth: 50,
                     ),
-                    const SizedBox(height: 10,),
+                    const SizedBox(
+                      height: 10,
+                    ),
                     const Padding(
                       padding: EdgeInsets.symmetric(horizontal: 25),
-                      child: Text("Data ini telah kami isi sesuai dengan yang sebenarnya. kami bertanggung jawab sepenuhnya akan hal tersebut. Dan kami bersedia memenuhi persyaratan untuk pemberkatan Nikah di Bethany Lampung", overflow: TextOverflow.clip,textAlign: TextAlign.justify, style: TextStyle(fontSize: 12),),
+                      child: Text(
+                        "Data ini telah kami isi sesuai dengan yang sebenarnya. kami bertanggung jawab sepenuhnya akan hal tersebut. Dan kami bersedia memenuhi persyaratan untuk pemberkatan Nikah di Bethany Lampung",
+                        overflow: TextOverflow.clip,
+                        textAlign: TextAlign.justify,
+                        style: TextStyle(fontSize: 12),
+                      ),
                     ),
 
-                    
                     // button kirim
 
                     const SizedBox(
@@ -124,20 +149,23 @@ class _PemberkatanNikahPageState extends State<PemberkatanNikahPage> {
                     ),
 
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Row(
                         children: [
-                           Checkbox(
-                            value: bersedia,
+                          Checkbox(
+                            value: bersedia == 1 ? true : false,
                             onChanged: (value) {
                               setState(() {
-                                bersedia = value!;
+                                bersedia = bersedia == 1 ? 0 : 1;
                               });
                             },
                           ),
-                          const Text("Saya bersedia dihubungi untuk konseling.")
+                          const Text("Kami setuju dengan pernyataan diatas.")
                         ],
                       ),
+                    ),
+                    const SizedBox(
+                      height: 20,
                     ),
                     GestureDetector(
                       child: Container(
