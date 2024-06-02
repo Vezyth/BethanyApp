@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:bethany_app/components/my_app.dart';
+import 'package:bethany_app/pages/app/baptis_page.dart';
 import 'package:bethany_app/pages/app/doa_konseling_page.dart';
 import 'package:bethany_app/pages/app/pernikahan_pria.dart';
 import 'package:bethany_app/pages/nav_pages/main_page.dart';
@@ -48,53 +49,134 @@ class _AppPageState extends State<AppPage> {
         const SizedBox(
           height: 15,
         ),
-        Row(
-          children: [
-            const SizedBox(width: 10),
-            Expanded(
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Row(
+            children: [
+              const SizedBox(width: 10),
+              SizedBox(
+                width: MediaQuery.of(context).size.width / 5,
                 child: MyApp(
-                    onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (BuildContext context) => const DoaPage()));
-                    },
-                    name: "\nDoa & Konseling",
-                    imagePath: "assets/pray.png")),
-            const SizedBox(width: 10),
-            Expanded(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (BuildContext context) => const DoaPage()));
+                  },
+                  name: "Doa & Konseling",
+                  imagePath: "assets/pray.png",
+                  isVisible: true,
+                ),
+              ),
+              const SizedBox(width: 10),
+              SizedBox(
+                width: MediaQuery.of(context).size.width / 5,
                 child: MyApp(
-                    onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (BuildContext context) =>
-                              PernikahanPriaPage()));
-                    },
-                    name: "\nFamily Altar",
-                    imagePath: "assets/bible.png")),
-            const SizedBox(width: 10),
-            Expanded(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (BuildContext context) => const MainPage()));
+                  },
+                  name: "Family Altar",
+                  imagePath: "assets/bible.png",
+                  isVisible: true,
+                ),
+              ),
+              const SizedBox(width: 10),
+              SizedBox(
+                width: MediaQuery.of(context).size.width / 5,
                 child: MyApp(
-                    onTap: () {
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (BuildContext context) => const MainPage()));
-                    },
-                    name: "\nSOM",
-                    imagePath: "assets/blackboard.png")),
-            const SizedBox(width: 10),
-            Expanded(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (BuildContext context) => const MainPage()));
+                  },
+                  name: "\nSOM",
+                  imagePath: "assets/blackboard.png",
+                  isVisible: true,
+                ),
+              ),
+              const SizedBox(width: 10),
+              SizedBox(
+                width: MediaQuery.of(context).size.width / 5,
                 child: MyApp(
-                    onTap: () {
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (BuildContext context) =>  PernikahanPriaPage()));
-                    },
-                    name: "\nPernikahan",
-                    imagePath: "assets/blackboard.png")),
-            const SizedBox(width: 10),
-          ],
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                            PernikahanPriaPage()));
+                  },
+                  name: "\nPernikahan",
+                  imagePath: "assets/blackboard.png",
+                  isVisible: true,
+                ),
+              ),
+              const SizedBox(width: 10),
+            ],
+          ),
+        ),
+        const SizedBox(
+          height: 15,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Row(
+            children: [
+              const SizedBox(width: 10),
+              SizedBox(
+                width: MediaQuery.of(context).size.width / 5,
+                child: MyApp(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (BuildContext context) => const BaptisPage()));
+                  },
+                  name: "\nBaptisan",
+                  imagePath: "assets/blackboard.png",
+                  isVisible: true,
+                ),
+              ),
+              const SizedBox(width: 10),
+              SizedBox(
+                width: MediaQuery.of(context).size.width / 5,
+                child: MyApp(
+                  onTap: () {},
+                  name: "Contact Us",
+                  imagePath: "assets/pray.png",
+                  isVisible: false,
+                ),
+              ),
+              const SizedBox(width: 10),
+              SizedBox(
+                width: MediaQuery.of(context).size.width / 5,
+                child: MyApp(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (BuildContext context) => const MainPage()));
+                  },
+                  name: "Contact Us",
+                  imagePath: "assets/pray.png",
+                  isVisible: false,
+                ),
+              ),
+              const SizedBox(width: 10),
+              SizedBox(
+                width: MediaQuery.of(context).size.width / 5,
+                child: MyApp(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (BuildContext context) => const MainPage()));
+                  },
+                  name: "Contact Us",
+                  imagePath: "assets/pray.png",
+                  isVisible: false,
+                ),
+              ),
+              const SizedBox(width: 10),
+            ],
+          ),
         ),
         const SizedBox(
           height: 15,
         ),
         const Padding(
-          padding: EdgeInsets.only(left: 8, top: 25),
+          padding: EdgeInsets.only(
+            left: 8,
+          ),
           child: Row(
             children: [
               Text(
@@ -105,32 +187,69 @@ class _AppPageState extends State<AppPage> {
           ),
         ),
         const SizedBox(
-          height: 15,
+          height: 10,
         ),
-        Row(
-          children: [
-            const SizedBox(width: 10),
-            Expanded(
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Row(
+            children: [
+              const SizedBox(width: 10),
+              SizedBox(
+                width: MediaQuery.of(context).size.width / 5,
                 child: MyApp(
-                    onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (BuildContext context) => const MainPage()));
-                    },
-                    name: "\nContact Us",
-                    imagePath: "assets/pray.png")),
-            const SizedBox(width: 10),
-            Expanded(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (BuildContext context) => const MainPage()));
+                  },
+                  name: "\nContact Us",
+                  imagePath: "assets/pray.png",
+                  isVisible: true,
+                ),
+              ),
+              const SizedBox(width: 10),
+              SizedBox(
+                width: MediaQuery.of(context).size.width / 5,
                 child: MyApp(
-                    onTap: () {
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (BuildContext context) => const MainPage()));
-                    },
-                    name: "\nBethany Nginden",
-                    imagePath: "assets/pray.png")),
-            const SizedBox(width: 185),
-          ],
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (BuildContext context) => const MainPage()));
+                  },
+                  name: "Bethany Nginden",
+                  imagePath: "assets/pray.png",
+                  isVisible: true,
+                ),
+              ),
+              const SizedBox(width: 10),
+              SizedBox(
+                width: MediaQuery.of(context).size.width / 5,
+                child: MyApp(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (BuildContext context) => const MainPage()));
+                  },
+                  name: "Contact Us",
+                  imagePath: "assets/pray.png",
+                  isVisible: false,
+                ),
+              ),
+              const SizedBox(width: 10),
+              SizedBox(
+                width: MediaQuery.of(context).size.width / 5,
+                child: MyApp(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (BuildContext context) => const MainPage()));
+                  },
+                  name: "Contact Us",
+                  imagePath: "assets/pray.png",
+                  isVisible: false,
+                ),
+              ),
+              const SizedBox(width: 10),
+            ],
+          ),
         ),
-        const SizedBox(height: 130),
+        const SizedBox(height: 30),
         const Padding(
           padding: EdgeInsets.symmetric(horizontal: 8),
           child: Row(

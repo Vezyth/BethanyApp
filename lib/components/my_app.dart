@@ -3,54 +3,59 @@ import 'package:flutter/material.dart';
 class MyApp extends StatelessWidget {
   final Function()? onTap;
 
+  final bool isVisible;
   final String name;
   final String imagePath;
 
   const MyApp(
       {super.key,
+      required this.isVisible,
       required this.onTap,
       required this.name,
       required this.imagePath});
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: [
-              BoxShadow(
-                  offset: const Offset(0, 5),
-                  color: Theme.of(context).primaryColor.withOpacity(.2),
-                  spreadRadius: 2,
-                  blurRadius: 5)
-            ]),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Image.asset(
-              width: 300,
-              height: 50,
-              fit: BoxFit.fitHeight,
-              imagePath,
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            Text(
-              name,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: Colors.black,
-                fontSize: 9,
-                fontWeight: FontWeight.w500,
+    return Visibility(
+      visible: isVisible,
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+              boxShadow: [
+                BoxShadow(
+                    offset: const Offset(0, 5),
+                    color: Theme.of(context).primaryColor.withOpacity(.2),
+                    spreadRadius: 2,
+                    blurRadius: 5)
+              ]),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Image.asset(
+                width: 300,
+                height: 50,
+                fit: BoxFit.fitHeight,
+                imagePath,
               ),
-            ),
-          ],
+              const SizedBox(
+                height: 8,
+              ),
+              Text(
+                name,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 9,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
