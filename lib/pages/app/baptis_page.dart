@@ -16,7 +16,7 @@ class _BaptisPageState extends State<BaptisPage> {
   final nameController = TextEditingController();
   final nomorController = TextEditingController();
   final umurController = TextEditingController();
-  final permintaanController = TextEditingController();
+  final alamatController = TextEditingController();
   final tempatController = TextEditingController();
   final tanggalController = TextEditingController();
   final telpController = TextEditingController();
@@ -38,7 +38,16 @@ class _BaptisPageState extends State<BaptisPage> {
         String uri = "https://bethany-app.000webhostapp.com/doa_add.php";
 
         var res = await http.post(Uri.parse(uri), body: {
-          "nama_lengkap": nameController.text,
+          "Full_Name": nameController.text,
+          "Gender": gender.toString(),
+          "Born_Place": tempatController.text,
+          "Born_Date": tanggalController.text,
+          "Father_Name": ayahController.text,
+          "Mother_Name": ibuController.text,
+          "Address": alamatController.text,
+          "Phone_Number": hpController.text,
+          "Home_Phone_Number": telpController.text,
+          "Church_Name": ,
           "nomor_handphone": nomorController.text,
           "umur": umurController.text,
           "gender": gender.toString(),
@@ -190,7 +199,7 @@ class _BaptisPageState extends State<BaptisPage> {
                         controller: _scrollController,
                         child: TextField(
                           scrollController: _scrollController,
-                          controller: permintaanController,
+                          controller: alamatController,
                           textAlignVertical: TextAlignVertical.top,
                           minLines: 3,
                           maxLines: 3,
