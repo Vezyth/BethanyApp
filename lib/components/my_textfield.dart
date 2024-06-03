@@ -13,6 +13,7 @@ class MyTextField extends StatelessWidget {
   final double paddingLeft;
   final double paddingRight;
   final TextInputType inputType;
+  final bool enabled;
 
   const MyTextField(
       {super.key,
@@ -27,7 +28,8 @@ class MyTextField extends StatelessWidget {
       this.paddingBottom = 0,
       this.paddingLeft = 25,
       this.paddingRight = 25,
-      this.inputType = TextInputType.text});
+      this.inputType = TextInputType.text,
+      this.enabled=true});
 
   @override
   Widget build(BuildContext context) {
@@ -40,27 +42,33 @@ class MyTextField extends StatelessWidget {
       child: Row(
         children: [
           Flexible(
-            child: TextField(
-              controller: controller,
-              obscureText: obscureText,
-              textAlignVertical: TextAlignVertical.top,
-              keyboardType: inputType,
-              decoration: InputDecoration(
-                  contentPadding: EdgeInsets.only(
-                      top: fieldHeight,
-                      bottom: fieldBottom,
-                      left: fieldWidth,
-                      right: fieldWidth),
-                  enabledBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey)),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey.shade400),
-                  ),
-                  fillColor: Colors.white,
-                  filled: true,
-                  hintText: hintText,
-                  hintStyle: TextStyle(color: Colors.grey[500])),
-            ),
+            child: Container(
+  decoration: BoxDecoration(
+    border: Border.all(color: enabled ? Colors.grey : Colors.grey.withOpacity(0.5)), 
+    
+  ),
+  child: TextField(
+    controller: controller,
+    obscureText: obscureText,
+    textAlignVertical: TextAlignVertical.top,
+    keyboardType: inputType,
+    enabled: enabled,
+    decoration: InputDecoration(
+      contentPadding: EdgeInsets.only(
+        top: fieldHeight,
+        bottom: fieldBottom,
+        left: fieldWidth,
+        right: fieldWidth,
+      ),
+      fillColor: Colors.white,
+      filled: true,
+      hintText: hintText,
+      hintStyle: TextStyle(color: Colors.grey[500]),
+      border: InputBorder.none, // Remove default border
+    ),
+  ),
+),
+            
           ),
         ],
       ),

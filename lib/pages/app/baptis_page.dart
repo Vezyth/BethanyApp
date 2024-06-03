@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'package:bethany_app/components/my_textfield.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
@@ -14,8 +16,6 @@ class _BaptisPageState extends State<BaptisPage> {
   int kategori = 1, gender = 1, bergereja = 1;
 
   final nameController = TextEditingController();
-  final nomorController = TextEditingController();
-  final umurController = TextEditingController();
   final alamatController = TextEditingController();
   final tempatController = TextEditingController();
   final tanggalController = TextEditingController();
@@ -29,13 +29,19 @@ class _BaptisPageState extends State<BaptisPage> {
 
   Future<void> kirimPermohonan() async {
     if (nameController.text == "" ||
-        nomorController.text == "" ||
-        umurController.text == "") {
+        alamatController.text == "" ||
+        tempatController.text == ""|| tanggalController == ""||telpController==""||hpController==""||ayahController==""||ibuController=="") {
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Please fill all the fields")));
-    } else {
+    } else if (bergereja == 0){
+      if(nameController.text == ""){
+          ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Please fill all the fields")));
+      }
+    }
+    else {
       try {
-        String uri = "https://bethany-app.000webhostapp.com/doa_add.php";
+        String uri = "https://bethany-app.000webhostapp.com/baptism_add.php";
 
         var res = await http.post(Uri.parse(uri), body: {
           "Full_Name": nameController.text,
@@ -47,19 +53,13 @@ class _BaptisPageState extends State<BaptisPage> {
           "Address": alamatController.text,
           "Phone_Number": hpController.text,
           "Home_Phone_Number": telpController.text,
-          "Church_Name": ,
-          "nomor_handphone": nomorController.text,
-          "umur": umurController.text,
-          "gender": gender.toString(),
-          "kategori": kategori.toString(),
-          "permintaan_khusus": permintaanController.text,
-          "bergereja_dihubungi": bergereja.toString(),
+          "Church_Name": bergereja == 1 ? "Bethany Lampung" : gerejaController.text,
         });
 
         var response = jsonDecode(res.body);
         if (response["success"] == 1) {
           ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text("Permintaan berhasil dikirim")));
+              const SnackBar(content: Text("pendaftaran terkirim!")));
         } else {
           ScaffoldMessenger.of(context)
               .showSnackBar(SnackBar(content: Text(response["message"])));
@@ -129,7 +129,7 @@ class _BaptisPageState extends State<BaptisPage> {
                               obscureText: false,
                               fieldHeight: 8,
                               paddingRight: 5,
-                              inputType: TextInputType.number,
+                              
                             )),
                             Expanded(
                                 child: MyTextField(
@@ -310,44 +310,34 @@ class _BaptisPageState extends State<BaptisPage> {
                     Column(
                       children: [
                         if (bergereja == 0) ...[
-                          const Visibility(
-                            visible: true,
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 25.0),
-                              child: Row(
-                                children: [
-                                  Text("Nama Gereja"),
-                                ],
-                              ),
+                          const Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 25.0),
+                            child: Row(
+                              children: [
+                                Text("Nama Gereja"),
+                              ],
                             ),
                           ),
-                          Visibility(
-                            visible: true,
-                            child: MyTextField(
-                              controller: gerejaController,
-                              obscureText: false,
-                              fieldHeight: 8,
-                            ),
+                          MyTextField(
+                            controller: gerejaController,
+                            obscureText: false,
+                            fieldHeight: 8,
+                            enabled: true,
                           ),
                         ] else if (bergereja == 1) ...[
-                          const Visibility(
-                            visible: false,
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 25.0),
-                              child: Row(
-                                children: [
-                                  Text("Nama Gereja"),
-                                ],
-                              ),
+                          const Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 25.0),
+                            child: Row(
+                              children: [
+                                Opacity(opacity: 0.5,child: Text("Nama Gereja")),
+                              ],
                             ),
                           ),
-                          Visibility(
-                            visible: false,
-                            child: MyTextField(
-                              controller: gerejaController,
-                              obscureText: false,
-                              fieldHeight: 8,
-                            ),
+                          MyTextField(
+                            controller: gerejaController,
+                            obscureText: false,
+                            fieldHeight: 8,
+                            enabled: false,
                           ),
                         ],
                       ],
