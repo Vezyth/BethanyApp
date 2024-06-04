@@ -31,13 +31,13 @@ class _DoaPageState extends State<DoaPage> {
         String uri = "https://bethany-app.000webhostapp.com/doa_add.php";
 
         var res = await http.post(Uri.parse(uri), body: {
-          "nama_lengkap": nameController.text,
-          "nomor_handphone": nomorController.text,
-          "umur": umurController.text,
-          "gender": gender.toString(),
-          "kategori": kategori.toString(),
-          "permintaan_khusus": permintaanController.text,
-          "bersedia_dihubungi": bersedia.toString(),
+          "Full_Name": nameController.text,
+          "Phone_Number": nomorController.text,
+          "Born_Date": umurController.text,
+          "Gender": gender.toString(),
+          "Category_ID": kategori.toString(),
+          "Prayer_Detail": permintaanController.text,
+          "Visit": bersedia.toString(),
         });
 
         var response = jsonDecode(res.body);
@@ -113,7 +113,7 @@ class _DoaPageState extends State<DoaPage> {
                       padding: EdgeInsets.only(top: 10, left: 25, right: 25),
                       child: Row(
                         children: [
-                          Text("Umur"),
+                          Text("Tanggal Lahir"),
                           SizedBox(
                             width: 100,
                           ),

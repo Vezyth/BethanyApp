@@ -3,32 +3,32 @@
     header("Access-Control-Allow-Methods: GET, OPTIONS");
     $response = array();
     try {
-    	if (isset($_POST["nama_lengkap"]) && isset($_POST["nomor_handphone"])) {
-    		$nama_lengkap = $_POST["nama_lengkap"];
-    		$nomor_handphone = $_POST["nomor_handphone"];
-			$umur = $_POST["umur"];
-            $gender = $_POST["gender"];
-            $kategori =$_POST["kategori"]
-            $permintaan_khusus = $_POST["permintaan_khusus"];
-            $bersedia_dihubungi = $_POST["bersedia_dihubungi"];
+    	if (isset($_POST["Full_Name"]) && isset($_POST["Phone_Number"])) {
+    		$Full_Name = $_POST["Full_Name"];
+    		$Phone_Number = $_POST["Phone_Number"];
+			$Born_Date = $_POST["Born_Date"];
+            $Gender = $_POST["Gender"];
+            $Category_ID =$_POST["Category_ID"];
+            $Prayer_Detail = $_POST["Prayer_Detail"];
+            $Visit = $_POST["Visit"];
             
     		
     		require_once("db_connect.php");
     		$result = $con->prepare(
-        		"SELECT nomor_handphone 
-        		    FROM tb_user 
-        		    WHERE nomor_handphone = ?"
+        		"SELECT Full_Name 
+        		    FROM tb_doa
+        		    WHERE Full_Name = ?"
         	);
-        	$result->execute([$nomor_handphone]);
+        	$result->execute([$Phone_Number]);
         	if (($row = $result->fetch(PDO::FETCH_ASSOC)) !== false) {
         		$response["success"] = 0;
-        	    $response["message"] = "nomor_handphone sudah terdaftar !";
+        	    $response["message"] = "permintaan sudah terdaftar !";
         	} else {
         		$result = $con->prepare(
-    				"INSERT INTO tb_user(nama_lengkap, nomor_handphone, umur, gender, kategori, permintaan_khusus, bersedia_dihubungi) 
-    					VALUES(?, ?, ?)"
+    				"INSERT INTO tb_doa(Full_Name, Phone_Number, Born_Date, gender, Category_ID, Prayer_Detail, bersedia_dihubungi) 
+    					VALUES(?, ?, ?, ?, ?, ?, ?)"
     			);
-    			if ($result->execute([$nama_lengkap, $nomor_handphone,$umur,$gender,$kategori,$permintaan_khusus,$bersedia_dihubungi])) {
+    			if ($result->execute([$nama_lengkap, $Phone_Number,$Born_Date,$gender,$Category_ID,$Prayer_Detail,$bersedia_dihubungi])) {
     				$response["success"] = 1;
         	        $response["message"] = "Success.";
     			}

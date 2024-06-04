@@ -2,6 +2,8 @@ import 'package:bethany_app/components/my_textfield.dart';
 import 'package:bethany_app/pages/app/pernikahan_wanita_page.dart';
 import 'package:flutter/material.dart';
 
+
+
 class PernikahanPriaPage extends StatelessWidget {
   PernikahanPriaPage({super.key});
 

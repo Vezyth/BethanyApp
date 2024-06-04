@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
+
 class BaptisPage extends StatefulWidget {
   const BaptisPage({super.key});
 
@@ -30,15 +31,22 @@ class _BaptisPageState extends State<BaptisPage> {
   Future<void> kirimPermohonan() async {
     if (nameController.text == "" ||
         alamatController.text == "" ||
-        tempatController.text == ""|| tanggalController == ""||telpController==""||hpController==""||ayahController==""||ibuController=="") {
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Please fill all the fields")));
-    } else if (bergereja == 0){
-      if(nameController.text == ""){
+        tempatController.text == ""|| 
+        tanggalController.text == ""||
+        telpController.text ==""||
+        hpController.text ==""||
+        ayahController.text ==""||
+        ibuController.text =="") {
           ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Please fill all the fields")));
-      }
-    }
+              const SnackBar(content: Text("please fill all fields")));
+          
+      
+    }else if (bergereja == 0){
+            if (gerejaController.text == ""){
+              ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text("please fill all fields")));
+            }
+          } 
     else {
       try {
         String uri = "https://bethany-app.000webhostapp.com/baptism_add.php";
@@ -68,6 +76,7 @@ class _BaptisPageState extends State<BaptisPage> {
         print(e);
       }
     }
+    
   }
 
   @override
