@@ -1,6 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+
 
 class MyTextField extends StatelessWidget {
+  final Function()? onTap;
+
   final controller;
   final String hintText;
   final bool obscureText;
@@ -14,6 +19,8 @@ class MyTextField extends StatelessWidget {
   final double paddingRight;
   final TextInputType inputType;
   final bool enabled;
+  final bool onTapDatePicker;
+ 
 
   const MyTextField(
       {super.key,
@@ -29,7 +36,11 @@ class MyTextField extends StatelessWidget {
       this.paddingLeft = 25,
       this.paddingRight = 25,
       this.inputType = TextInputType.text,
-      this.enabled=true});
+      this.enabled=true,
+      this.onTapDatePicker = false,
+      this.onTap = null,
+      // this.onTap
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -64,8 +75,22 @@ class MyTextField extends StatelessWidget {
       filled: true,
       hintText: hintText,
       hintStyle: TextStyle(color: Colors.grey[500]),
-      border: InputBorder.none, 
+      border: InputBorder.none,   
     ),
+    onTap: onTap
+    //  () async {
+    //   if (onTapDatePicker == true){
+    //     DateTime? pickedDate = await showDatePicker(
+    //                   context: context,
+    //                    initialDate: DateTime.now(), //get today's date
+    //                   firstDate:DateTime(2000), //DateTime.now() - not to allow to choose before today.
+    //                   lastDate: DateTime(2101)
+    //               );
+    //   }else {
+    //     return;
+    //   }
+      
+    // } 
   ),
 ),
             

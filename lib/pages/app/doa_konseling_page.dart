@@ -12,18 +12,20 @@ class DoaPage extends StatefulWidget {
 
 class _DoaPageState extends State<DoaPage> {
   int kategori = 1, gender = 1, bersedia = 1;
+  String tanggalLahir = "";
 
   final nameController = TextEditingController();
   final nomorController = TextEditingController();
-  final umurController = TextEditingController();
+  final tanggalController = TextEditingController();
   final permintaanController = TextEditingController();
+
 
   final ScrollController _scrollController = ScrollController();
 
   Future<void> kirimPermohonan() async {
     if (nameController.text == "" ||
         nomorController.text == "" ||
-        umurController.text == "") {
+        tanggalController.text == ""|| tanggalLahir == "") {
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Please fill all the fields")));
     } else {
@@ -33,7 +35,7 @@ class _DoaPageState extends State<DoaPage> {
         var res = await http.post(Uri.parse(uri), body: {
           "Full_Name": nameController.text,
           "Phone_Number": nomorController.text,
-          "Born_Date": umurController.text,
+          "Born_Date": tanggalLahir,
           "Gender": gender.toString(),
           "Category_ID": kategori.toString(),
           "Prayer_Detail": permintaanController.text,
@@ -125,11 +127,30 @@ class _DoaPageState extends State<DoaPage> {
                       children: [
                         Expanded(
                             child: MyTextField(
-                          controller: umurController,
+                          controller: tanggalController,
                           obscureText: false,
                           fieldHeight: 8,
                           paddingRight: 0,
                           inputType: TextInputType.number,
+                          
+                          onTap: () async {
+                            DateTime? pickedDate = await showDatePicker(
+                      context: context,
+                       initialDate: DateTime.now(), //get today's date
+                      firstDate:DateTime(2000), //DateTime.now() - not to allow to choose before today.
+                      lastDate: DateTime(2101)
+                  );
+                  
+                  tanggalLahir = pickedDate.toString().split(' ')[0];
+                  tanggalController.text = tanggalLahir.split('-')[2]+"-"+tanggalLahir.split('-')[1]+"-"+tanggalLahir.split('-')[0];
+                  
+                  
+                  
+                  
+                          },
+                          
+
+                          
                         )),
                         Expanded(
                           child: Column(children: [

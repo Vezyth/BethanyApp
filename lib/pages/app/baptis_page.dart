@@ -152,9 +152,7 @@ class _BaptisPageState extends State<BaptisPage> {
                         ),
                       ],
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
+                    
                     // umur & gender
                     const Padding(
                       padding: EdgeInsets.symmetric(horizontal: 25.0),

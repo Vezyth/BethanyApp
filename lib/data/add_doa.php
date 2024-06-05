@@ -16,30 +16,30 @@
     		require_once("db_connect.php");
     		$result = $con->prepare(
         		"SELECT Full_Name 
-        		    FROM tb_doa
+        		    FROM Prayer
         		    WHERE Full_Name = ?"
         	);
-        	$result->execute([$Phone_Number]);
+        	$result->execute([$Full_Name]);
         	if (($row = $result->fetch(PDO::FETCH_ASSOC)) !== false) {
         		$response["success"] = 0;
         	    $response["message"] = "permintaan sudah terdaftar !";
         	} else {
         		$result = $con->prepare(
-    				"INSERT INTO tb_doa(Full_Name, Phone_Number, Born_Date, gender, Category_ID, Prayer_Detail, bersedia_dihubungi) 
+    				"INSERT INTO Prayer(Full_Name, Phone_Number, Born_Date, Gender, Category_ID, Prayer_Detail, Visit) 
     					VALUES(?, ?, ?, ?, ?, ?, ?)"
     			);
-    			if ($result->execute([$nama_lengkap, $Phone_Number,$Born_Date,$gender,$Category_ID,$Prayer_Detail,$bersedia_dihubungi])) {
+    			if ($result->execute([$Full_Name, $Phone_Number,$Born_Date,$Gender,$Category_ID,$Prayer_Detail,$Visit])) {
     				$response["success"] = 1;
         	        $response["message"] = "Success.";
     			}
         	}
     	} else {
         	$response["success"] = 0;
-        	$response["message"] = "Error.";
+        	$response["message"] = "Error.1";
     	}
     } catch (PDOException $e) {
     	$response["success"] = 0;
-    	$response["message"] = "Error.";
+    	$response["message"] = "Error.".$e;
     }
     echo json_encode($response);
 ?>
