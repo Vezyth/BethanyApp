@@ -3,43 +3,46 @@
     header("Access-Control-Allow-Methods: GET, OPTIONS");
     $response = array();
     try {
-    	if (isset($_POST["Full_Name"]) && isset($_POST["Phone_Number"])) {
+    	if (isset($_POST["Full_Name"]) && isset($_POST["Gender"])  ) {
     		$Full_Name = $_POST["Full_Name"];
-    		$Phone_Number = $_POST["Phone_Number"];
-			$Born_Date = $_POST["Born_Date"];
-            $Gender = $_POST["Gender"];
-            $Category_ID =$_POST["Category_ID"];
-            $Prayer_Detail = $_POST["Prayer_Detail"];
-            $Visit = $_POST["Visit"];
+    		$Gender = $_POST["Gender"];
+			$Born_Place = $_POST["Born_Place"];
+            $Born_Date = $_POST["Born_Date"];
+            $Father_Name =$_POST["Father_Name"];
+            $Mother_Name = $_POST["Mother_Name"];
+			$Address = $_POST["Address"];
+            $Phone_Number = $_POST["Phone_Number"];
+			$Home_Phone_Number = $_POST["Home_Phone_Number"];
+			$Church_Name = $_POST["Church_Name"];
             
     		
     		require_once("db_connect.php");
     		$result = $con->prepare(
         		"SELECT Full_Name 
-        		    FROM Prayer
+        		    FROM Baptism
         		    WHERE Full_Name = ?"
         	);
         	$result->execute([$Full_Name]);
         	if (($row = $result->fetch(PDO::FETCH_ASSOC)) !== false) {
         		$response["success"] = 0;
-        	    $response["message"] = "permintaan sudah terdaftar !";
+        	    $response["message"] = "Anda sudah terdaftar !";
         	} else {
         		$result = $con->prepare(
-    				"INSERT INTO Prayer(Full_Name, Phone_Number, Born_Date, Gender, Category_ID, Prayer_Detail, Visit) 
-    					VALUES(?, ?, ?, ?, ?, ?, ?)"
+    				"INSERT INTO Baptism(Full_Name, Gender, Born_Place, Born_Date, Father_Name, Mother_Name, Address, Phone_Number, Hone_Phone_Number, Church_Name) 
+    					VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
     			);
-    			if ($result->execute([$Full_Name, $Phone_Number,$Born_Date,$Gender,$Category_ID,$Prayer_Detail,$Visit])) {
+    			if ($result->execute([$Full_Name, $Gender, $Born_Place, $Born_Date, $Father_Name, $Mother_Name, $Address, $Phone_Number, $Hone_Phone_Number, $Church_Name])) {
     				$response["success"] = 1;
         	        $response["message"] = "Success.";
     			}
         	}
     	} else {
         	$response["success"] = 0;
-        	$response["message"] = "Error.1";
+        	$response["message"] = "Error.";
     	}
     } catch (PDOException $e) {
     	$response["success"] = 0;
-    	$response["message"] = "Error.".$e;
+    	$response["message"] = "Error.";
     }
     echo json_encode($response);
 ?>

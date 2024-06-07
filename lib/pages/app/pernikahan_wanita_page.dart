@@ -3,8 +3,12 @@ import 'package:bethany_app/pages/app/pemberkatan_nikah_page.dart';
 import 'package:flutter/material.dart';
 
 class PernikahanWanitaPage extends StatelessWidget {
-  PernikahanWanitaPage({super.key});
+  final List<String> groomInfo;
 
+  PernikahanWanitaPage( this.groomInfo,{super.key});
+
+  
+  
   final nameController = TextEditingController();
   final alamatController = TextEditingController();
   final telpController = TextEditingController();
@@ -13,7 +17,7 @@ class PernikahanWanitaPage extends StatelessWidget {
   final tempatController = TextEditingController();
   final ayahController = TextEditingController();
   final ibuController = TextEditingController();
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -192,6 +196,7 @@ class PernikahanWanitaPage extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
+                      
 
                       GestureDetector(
                         child: Container(
@@ -215,6 +220,9 @@ class PernikahanWanitaPage extends StatelessWidget {
                                   const PemberkatanNikahPage()));
                         },
                       ),
+                      
+                      
+            
                     ],
                   ),
                 )),

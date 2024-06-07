@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 
 
 
+
 class PernikahanPriaPage extends StatelessWidget {
   PernikahanPriaPage({super.key});
+   
 
   final nameController = TextEditingController();
   final alamatController = TextEditingController();
@@ -18,6 +20,7 @@ class PernikahanPriaPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<String> groomInfo = [nameController.text, alamatController.text, telpController.text, hpController.text, tanggalController.text, tempatController.text,ayahController.text,ibuController.text];
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(
@@ -211,9 +214,13 @@ class PernikahanPriaPage extends StatelessWidget {
                         )),
                       ),
                       onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (BuildContext context) =>
-                                PernikahanWanitaPage()));
+                        Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => PernikahanWanitaPage(groomInfo),
+              ),
+            );
+            
                       },
                     ),
                   ],
@@ -224,3 +231,4 @@ class PernikahanPriaPage extends StatelessWidget {
     );
   }
 }
+

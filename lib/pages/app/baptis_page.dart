@@ -15,6 +15,7 @@ class BaptisPage extends StatefulWidget {
 
 class _BaptisPageState extends State<BaptisPage> {
   int kategori = 1, gender = 1, bergereja = 1;
+  String tanggalLahir = "";
 
   final nameController = TextEditingController();
   final alamatController = TextEditingController();
@@ -55,7 +56,7 @@ class _BaptisPageState extends State<BaptisPage> {
           "Full_Name": nameController.text,
           "Gender": gender.toString(),
           "Born_Place": tempatController.text,
-          "Born_Date": tanggalController.text,
+          "Born_Date": tanggalLahir,
           "Father_Name": ayahController.text,
           "Mother_Name": ibuController.text,
           "Address": alamatController.text,
@@ -147,6 +148,22 @@ class _BaptisPageState extends State<BaptisPage> {
                               fieldHeight: 8,
                               paddingLeft: 0,
                               inputType: TextInputType.number,
+                              onTap: () async {
+                            DateTime? pickedDate = await showDatePicker(
+                      context: context,
+                       initialDate: DateTime.now(), //get today's date
+                      firstDate:DateTime(2000), //DateTime.now() - not to allow to choose before today.
+                      lastDate: DateTime(2101)
+                  );
+                  
+                  
+                  tanggalLahir = pickedDate.toString().split(' ')[0];
+                  tanggalController.text = tanggalLahir.split('-')[2]+"-"+tanggalLahir.split('-')[1]+"-"+tanggalLahir.split('-')[0];
+                  
+                  
+                  
+                  
+                          },
                             )),
                           ],
                         ),
