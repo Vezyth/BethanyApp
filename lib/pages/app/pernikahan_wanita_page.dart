@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 
 class PernikahanWanitaPage extends StatelessWidget {
   final List<String> groomInfo;
-
-  PernikahanWanitaPage( this.groomInfo,{super.key});
-
+  // String? groomName, groomAddress, groomPhone,groomHomePhone, groomDate, groomPlace, groomFather, groomMother;
+  // PernikahanWanitaPage( this.groomAddress,this.groomDate,this.groomFather,this.groomHomePhone,this.groomMother,this.groomName,this.groomPhone,this.groomPlace,{super.key});
+  PernikahanWanitaPage({super.key, required this.groomInfo});
   
   
   final nameController = TextEditingController();
@@ -20,6 +20,7 @@ class PernikahanWanitaPage extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
+    List<String> brideInfo = [];
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(
@@ -215,9 +216,16 @@ class PernikahanWanitaPage extends StatelessWidget {
                           )),
                         ),
                         onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (BuildContext context) =>
-                                  const PemberkatanNikahPage()));
+                          
+                          
+                        Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => PernikahanWanitaPage(groomInfo: [nameController.text, alamatController.text, telpController.text, hpController.text, tanggalController.text, tempatController.text,ayahController.text,ibuController.text],),
+              ),
+            );
+            
+                      
                         },
                       ),
                       
