@@ -1,10 +1,7 @@
 import 'dart:convert';
 import 'package:bethany_app/components/my_textfield.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-
 
 class BaptisPage extends StatefulWidget {
   const BaptisPage({super.key});
@@ -32,23 +29,20 @@ class _BaptisPageState extends State<BaptisPage> {
   Future<void> kirimPermohonan() async {
     if (nameController.text == "" ||
         alamatController.text == "" ||
-        tempatController.text == ""|| 
-        tanggalController.text == ""||
-        telpController.text ==""||
-        hpController.text ==""||
-        ayahController.text ==""||
-        ibuController.text =="") {
-          ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text("please fill all fields")));
-          
-      
-    }else if (bergereja == 0){
-            if (gerejaController.text == ""){
-              ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text("please fill all fields")));
-            }
-          } 
-    else {
+        tempatController.text == "" ||
+        tanggalController.text == "" ||
+        telpController.text == "" ||
+        hpController.text == "" ||
+        ayahController.text == "" ||
+        ibuController.text == "") {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("please fill all fields")));
+    } else if (bergereja == 0) {
+      if (gerejaController.text == "") {
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text("please fill all fields")));
+      }
+    } else {
       try {
         String uri = "https://bethany-app.000webhostapp.com/baptism_add.php";
 
@@ -62,7 +56,8 @@ class _BaptisPageState extends State<BaptisPage> {
           "Address": alamatController.text,
           "Phone_Number": hpController.text,
           "Home_Phone_Number": telpController.text,
-          "Church_Name": bergereja == 1 ? "Bethany Lampung" : gerejaController.text,
+          "Church_Name":
+              bergereja == 1 ? "Bethany Lampung" : gerejaController.text,
         });
 
         var response = jsonDecode(res.body);
@@ -77,7 +72,6 @@ class _BaptisPageState extends State<BaptisPage> {
         print(e);
       }
     }
-    
   }
 
   @override
@@ -139,7 +133,6 @@ class _BaptisPageState extends State<BaptisPage> {
                               obscureText: false,
                               fieldHeight: 8,
                               paddingRight: 5,
-                              
                             )),
                             Expanded(
                                 child: MyTextField(
@@ -149,27 +142,29 @@ class _BaptisPageState extends State<BaptisPage> {
                               paddingLeft: 0,
                               inputType: TextInputType.number,
                               onTap: () async {
-                            DateTime? pickedDate = await showDatePicker(
-                      context: context,
-                       initialDate: DateTime.now(), //get today's date
-                      firstDate:DateTime(2000), //DateTime.now() - not to allow to choose before today.
-                      lastDate: DateTime(2101)
-                  );
-                  
-                  
-                  tanggalLahir = pickedDate.toString().split(' ')[0];
-                  tanggalController.text = tanggalLahir.split('-')[2]+"-"+tanggalLahir.split('-')[1]+"-"+tanggalLahir.split('-')[0];
-                  
-                  
-                  
-                  
-                          },
+                                DateTime? pickedDate = await showDatePicker(
+                                    context: context,
+                                    initialDate:
+                                        DateTime.now(), //get today's date
+                                    firstDate: DateTime(
+                                        2000), //DateTime.now() - not to allow to choose before today.
+                                    lastDate: DateTime(2101));
+
+                                tanggalLahir =
+                                    pickedDate.toString().split(' ')[0];
+                                tanggalController.text =
+                                    tanggalLahir.split('-')[2] +
+                                        "-" +
+                                        tanggalLahir.split('-')[1] +
+                                        "-" +
+                                        tanggalLahir.split('-')[0];
+                              },
                             )),
                           ],
                         ),
                       ],
                     ),
-                    
+
                     // umur & gender
                     const Padding(
                       padding: EdgeInsets.symmetric(horizontal: 25.0),
@@ -353,7 +348,8 @@ class _BaptisPageState extends State<BaptisPage> {
                             padding: EdgeInsets.symmetric(horizontal: 25.0),
                             child: Row(
                               children: [
-                                Opacity(opacity: 0.5,child: Text("Nama Gereja")),
+                                Opacity(
+                                    opacity: 0.5, child: Text("Nama Gereja")),
                               ],
                             ),
                           ),

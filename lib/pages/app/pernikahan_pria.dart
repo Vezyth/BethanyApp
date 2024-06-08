@@ -2,25 +2,34 @@ import 'package:bethany_app/components/my_textfield.dart';
 import 'package:bethany_app/pages/app/pernikahan_wanita_page.dart';
 import 'package:flutter/material.dart';
 
-
-
-
-class PernikahanPriaPage extends StatelessWidget {
+class PernikahanPriaPage extends StatefulWidget {
   PernikahanPriaPage({super.key});
-   
+
+  @override
+  State<PernikahanPriaPage> createState() => _PernikahanPriaPageState();
+}
+
+class _PernikahanPriaPageState extends State<PernikahanPriaPage> {
+  String tanggalLahir = "";
 
   final nameController = TextEditingController();
+
   final alamatController = TextEditingController();
+
   final telpController = TextEditingController();
+
   final hpController = TextEditingController();
+
   final tanggalController = TextEditingController();
+
   final tempatController = TextEditingController();
+
   final ayahController = TextEditingController();
+
   final ibuController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    List<String> groomInfo = [];
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(
@@ -155,6 +164,24 @@ class PernikahanPriaPage extends StatelessWidget {
                               obscureText: false,
                               fieldHeight: 8,
                               paddingLeft: 0,
+                              onTap: () async {
+                                DateTime? pickedDate = await showDatePicker(
+                                    context: context,
+                                    initialDate:
+                                        DateTime.now(), //get today's date
+                                    firstDate: DateTime(
+                                        2000), //DateTime.now() - not to allow to choose before today.
+                                    lastDate: DateTime(2101));
+
+                                tanggalLahir =
+                                    pickedDate.toString().split(' ')[0];
+                                tanggalController.text =
+                                    tanggalLahir.split('-')[2] +
+                                        "-" +
+                                        tanggalLahir.split('-')[1] +
+                                        "-" +
+                                        tanggalLahir.split('-')[0];
+                              },
                             )),
                           ],
                         ),
@@ -214,14 +241,36 @@ class PernikahanPriaPage extends StatelessWidget {
                         )),
                       ),
                       onTap: () {
-                        Navigator.push(
-              context,
-              MaterialPageRoute(
-                // builder: (context) => PernikahanWanitaPage(nameController.text, alamatController.text, telpController.text, hpController.text, tanggalController.text, tempatController.text,ayahController.text,ibuController.text),
-                builder: (context) => PernikahanWanitaPage(groomInfo: [nameController.text, alamatController.text, telpController.text, hpController.text, tanggalController.text, tempatController.text,ayahController.text,ibuController.text],),
-              ),
-            );
-            
+                        if (nameController == "" ||
+                            alamatController == "" ||
+                            hpController == "" ||
+                            telpController == "" ||
+                            tempatController == "" ||
+                            tanggalController == "" ||
+                            ayahController == "" ||
+                            ibuController == "") {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content: Text("please fill all fields")));
+                        } else {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => PernikahanWanitaPage(
+                                groomInfo: [
+                                  nameController.text,
+                                  alamatController.text,
+                                  telpController.text,
+                                  hpController.text,
+                                  tanggalController.text,
+                                  tempatController.text,
+                                  ayahController.text,
+                                  ibuController.text
+                                ],
+                              ),
+                            ),
+                          );
+                        }
                       },
                     ),
                   ],
@@ -232,4 +281,3 @@ class PernikahanPriaPage extends StatelessWidget {
     );
   }
 }
-

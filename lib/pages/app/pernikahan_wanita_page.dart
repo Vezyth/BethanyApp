@@ -2,25 +2,36 @@ import 'package:bethany_app/components/my_textfield.dart';
 import 'package:bethany_app/pages/app/pemberkatan_nikah_page.dart';
 import 'package:flutter/material.dart';
 
-class PernikahanWanitaPage extends StatelessWidget {
+class PernikahanWanitaPage extends StatefulWidget {
   final List<String> groomInfo;
-  // String? groomName, groomAddress, groomPhone,groomHomePhone, groomDate, groomPlace, groomFather, groomMother;
-  // PernikahanWanitaPage( this.groomAddress,this.groomDate,this.groomFather,this.groomHomePhone,this.groomMother,this.groomName,this.groomPhone,this.groomPlace,{super.key});
+
   PernikahanWanitaPage({super.key, required this.groomInfo});
-  
-  
+
+  @override
+  State<PernikahanWanitaPage> createState() => _PernikahanWanitaPageState();
+}
+
+class _PernikahanWanitaPageState extends State<PernikahanWanitaPage> {
+  String tanggalLahir = "";
+
   final nameController = TextEditingController();
+
   final alamatController = TextEditingController();
+
   final telpController = TextEditingController();
+
   final hpController = TextEditingController();
+
   final tanggalController = TextEditingController();
+
   final tempatController = TextEditingController();
+
   final ayahController = TextEditingController();
+
   final ibuController = TextEditingController();
-  
+
   @override
   Widget build(BuildContext context) {
-    List<String> brideInfo = [];
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(
@@ -156,6 +167,24 @@ class PernikahanWanitaPage extends StatelessWidget {
                                 obscureText: false,
                                 fieldHeight: 8,
                                 paddingLeft: 0,
+                                onTap: () async {
+                                  DateTime? pickedDate = await showDatePicker(
+                                      context: context,
+                                      initialDate:
+                                          DateTime.now(), //get today's date
+                                      firstDate: DateTime(
+                                          2000), //DateTime.now() - not to allow to choose before today.
+                                      lastDate: DateTime(2101));
+
+                                  tanggalLahir =
+                                      pickedDate.toString().split(' ')[0];
+                                  tanggalController.text =
+                                      tanggalLahir.split('-')[2] +
+                                          "-" +
+                                          tanggalLahir.split('-')[1] +
+                                          "-" +
+                                          tanggalLahir.split('-')[0];
+                                },
                               )),
                             ],
                           ),
@@ -197,7 +226,6 @@ class PernikahanWanitaPage extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                      
 
                       GestureDetector(
                         child: Container(
@@ -216,21 +244,39 @@ class PernikahanWanitaPage extends StatelessWidget {
                           )),
                         ),
                         onTap: () {
-                          
-                          
-                        Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => PernikahanWanitaPage(groomInfo: [nameController.text, alamatController.text, telpController.text, hpController.text, tanggalController.text, tempatController.text,ayahController.text,ibuController.text],),
-              ),
-            );
-            
-                      
+                          if (nameController == "" ||
+                              alamatController == "" ||
+                              hpController == "" ||
+                              telpController == "" ||
+                              tempatController == "" ||
+                              tanggalController == "" ||
+                              ayahController == "" ||
+                              ibuController == "") {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text("please fill all fields")));
+                          } else {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => PemberkatanNikahPage(
+                                  brideInfo: [
+                                    nameController.text,
+                                    alamatController.text,
+                                    telpController.text,
+                                    hpController.text,
+                                    tanggalController.text,
+                                    tempatController.text,
+                                    ayahController.text,
+                                    ibuController.text
+                                  ],
+                                  groomInfo: widget.groomInfo,
+                                ),
+                              ),
+                            );
+                          }
                         },
                       ),
-                      
-                      
-            
                     ],
                   ),
                 )),
