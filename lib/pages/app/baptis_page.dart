@@ -140,7 +140,7 @@ class _BaptisPageState extends State<BaptisPage> {
                               obscureText: false,
                               fieldHeight: 8,
                               paddingLeft: 0,
-                              inputType: TextInputType.number,
+                              inputType: TextInputType.none,
                               onTap: () async {
                                 DateTime? pickedDate = await showDatePicker(
                                     context: context,

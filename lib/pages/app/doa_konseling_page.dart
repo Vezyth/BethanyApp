@@ -131,7 +131,7 @@ class _DoaPageState extends State<DoaPage> {
                           obscureText: false,
                           fieldHeight: 8,
                           paddingRight: 0,
-                          inputType: TextInputType.number,
+                          inputType: TextInputType.none,
                           
                           onTap: () async {
                             DateTime? pickedDate = await showDatePicker(

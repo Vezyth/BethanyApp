@@ -2,12 +2,14 @@ import 'dart:convert';
 
 import 'package:bethany_app/components/my_textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 
 class PemberkatanNikahPage extends StatefulWidget {
   final List<String> groomInfo;
   final List<String> brideInfo;
-  const PemberkatanNikahPage(
+
+  PemberkatanNikahPage(
       {super.key, required this.brideInfo, required this.groomInfo});
 
   @override
@@ -25,6 +27,7 @@ class _PemberkatanNikahPageState extends State<PemberkatanNikahPage> {
   String tanggalPemberkatan = "";
 
   Future<void> kirimPermohonan() async {
+    
     if (telpController == "") {
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("please fill all fields")));
@@ -33,7 +36,7 @@ class _PemberkatanNikahPageState extends State<PemberkatanNikahPage> {
           const SnackBar(content: Text("please fill all fields")));
     } else {
       try {
-        String uri = "https://bethany-app.000webhostapp.com/baptism_add.php";
+        String uri = "https://bethany-app.000webhostapp.com/marriage_add.php";
 
         var res = await http.post(Uri.parse(uri), body: {
           "Groom_Name": widget.groomInfo[0],
@@ -47,14 +50,14 @@ class _PemberkatanNikahPageState extends State<PemberkatanNikahPage> {
           "Bride_Name": widget.brideInfo[0],
           "Bride_Address": widget.brideInfo[1],
           "Bride_Phone_Number": widget.brideInfo[2],
-          "bride_Home_Number": widget.brideInfo[3],
+          "Bride_Home_Number": widget.brideInfo[3],
           "Bride_Born_Place": widget.brideInfo[4],
           "Bride_Born_Date": widget.brideInfo[5],
           "Bride_Father": widget.brideInfo[6],
           "Bride_Mother": widget.brideInfo[7],
-          "Blessing_Date": tanggalController,
-          "Address_After_Married": alamatSetelahController,
-          "Phone_After_Married": telpController,
+          "Blessing_Date": tanggalController.text + " " + jamController.text,
+          "Address_After_Married": alamatSetelahController.text,
+          "Phone_After_Married": telpController.text,
           "BrideGroom_Approval": bersedia == 1 ? "True" : "False",
         });
 
@@ -72,6 +75,7 @@ class _PemberkatanNikahPageState extends State<PemberkatanNikahPage> {
     }
   }
 
+  TimeOfDay selectedTime = TimeOfDay.now();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -100,7 +104,7 @@ class _PemberkatanNikahPageState extends State<PemberkatanNikahPage> {
                       child: Row(
                         children: [
                           Text(
-                            "Pemberkata Nikah",
+                            "Pemberkatan Nikah",
                             style: TextStyle(
                                 fontWeight: FontWeight.w600, fontSize: 15),
                           )
@@ -110,23 +114,55 @@ class _PemberkatanNikahPageState extends State<PemberkatanNikahPage> {
                     const SizedBox(
                       height: 10,
                     ),
-                    MyTextField(
-                      controller: tanggalController,
-                      obscureText: false,
-                      fieldHeight: 8,
-                      paddingLeft: 0,
-                      inputType: TextInputType.number,
-                      onTap: () async {
-                        DateTime? pickedDate = await showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(), //get today's date
-                            firstDate: DateTime(
-                                2000), //DateTime.now() - not to allow to choose before today.
-                            lastDate: DateTime(2101));
+                    Row(
+                      children: [
+                        Expanded(
+                          child: MyTextField(
+                            controller: tanggalController,
+                            obscureText: false,
+                            fieldHeight: 8,
+                            paddingRight: 5,
+                            inputType: TextInputType.none,
+                            onTap: () async {
+                              DateTime? pickedDate = await showDatePicker(
+                                  context: context,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime(2000),
+                                  lastDate: DateTime(2101));
 
-                        tanggalPemberkatan = pickedDate.toString();
-                        tanggalController.text = tanggalPemberkatan;
-                      },
+                              tanggalPemberkatan =
+                                  pickedDate.toString().split(' ')[0];
+                              if (tanggalPemberkatan != "") {
+                                tanggalController.text =
+                                    tanggalPemberkatan.split('-')[2] +
+                                        "-" +
+                                        tanggalPemberkatan.split('-')[1] +
+                                        "-" +
+                                        tanggalPemberkatan.split('-')[0];
+                              }
+                            },
+                          ),
+                        ),
+                        Expanded(
+                            child: MyTextField(
+                          controller: jamController,
+                          obscureText: false,
+                          paddingLeft: 5,
+                          inputType: TextInputType.none,
+                          onTap: () async {
+                            final TimeOfDay? timeOfDay = await showTimePicker(
+                                context: context,
+                                initialTime: selectedTime,
+                                initialEntryMode: TimePickerEntryMode.dial);
+                            if (timeOfDay != null) {
+                              jamController.text =
+                                  selectedTime.hour.toString() +
+                                      ":" +
+                                      selectedTime.minute.toString();
+                            }
+                          },
+                        ))
+                      ],
                     ),
 
                     const SizedBox(
@@ -216,7 +252,9 @@ class _PemberkatanNikahPageState extends State<PemberkatanNikahPage> {
                               fontSize: 16),
                         )),
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        kirimPermohonan();
+                      },
                     ),
                   ],
                 ),
