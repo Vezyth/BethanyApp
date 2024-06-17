@@ -1,11 +1,29 @@
+import 'dart:convert';
+
 import 'package:bethany_app/components/my_textfield.dart';
 import 'package:bethany_app/pages/app/pemberkatan_nikah_page.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class PernikahanWanitaPage extends StatefulWidget {
-  final List<String> groomInfo;
-
-  PernikahanWanitaPage({super.key, required this.groomInfo});
+  final String Groom_Name;
+  final String Groom_Address;
+  final String Groom_Home_Number;
+  final String Groom_Phone_Number;
+  final String Groom_Born_Date;
+  final String Groom_Born_Place;
+  final String Groom_Father;
+  final String Groom_Mother;
+  const PernikahanWanitaPage(
+      {required this.Groom_Name,
+      required this.Groom_Address,
+      required this.Groom_Home_Number,
+      required this.Groom_Phone_Number,
+      required this.Groom_Born_Date,
+      required this.Groom_Born_Place,
+      required this.Groom_Father,
+      required this.Groom_Mother,
+      super.key});
 
   @override
   State<PernikahanWanitaPage> createState() => _PernikahanWanitaPageState();
@@ -179,11 +197,7 @@ class _PernikahanWanitaPageState extends State<PernikahanWanitaPage> {
                                   tanggalLahir =
                                       pickedDate.toString().split(' ')[0];
                                   tanggalController.text =
-                                      tanggalLahir.split('-')[2] +
-                                          "-" +
-                                          tanggalLahir.split('-')[1] +
-                                          "-" +
-                                          tanggalLahir.split('-')[0];
+                                      "${tanggalLahir.split('-')[0]}-${tanggalLahir.split('-')[1]}-${tanggalLahir.split('-')[1]}";
                                 },
                               )),
                             ],
@@ -260,17 +274,22 @@ class _PernikahanWanitaPageState extends State<PernikahanWanitaPage> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => PemberkatanNikahPage(
-                                  brideInfo: [
-                                    nameController.text,
-                                    alamatController.text,
-                                    telpController.text,
-                                    hpController.text,
-                                    tanggalController.text,
-                                    tempatController.text,
-                                    ayahController.text,
-                                    ibuController.text
-                                  ],
-                                  groomInfo: widget.groomInfo,
+                                  Groom_Name: widget.Groom_Name,
+                                  Groom_Address: widget.Groom_Address,
+                                  Groom_Home_Number: widget.Groom_Home_Number,
+                                  Groom_Phone_Number: widget.Groom_Phone_Number,
+                                  Groom_Born_Date: widget.Groom_Born_Date,
+                                  Groom_Born_Place: widget.Groom_Born_Place,
+                                  Groom_Father: widget.Groom_Father,
+                                  Groom_Mother: widget.Groom_Mother,
+                                  Bride_Name: nameController.text,
+                                  Bride_Address: alamatController.text,
+                                  Bride_Home_Number: telpController.text,
+                                  Bride_Phone_Number: hpController.text,
+                                  Bride_Born_Date: tanggalController.text,
+                                  Bride_Born_Place: tempatController.text,
+                                  Bride_Father: ayahController.text,
+                                  Bride_Mother: ibuController.text,
                                 ),
                               ),
                             );

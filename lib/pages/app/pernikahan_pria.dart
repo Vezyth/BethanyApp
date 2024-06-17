@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:bethany_app/components/my_textfield.dart';
 import 'package:bethany_app/pages/app/pernikahan_wanita_page.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class PernikahanPriaPage extends StatefulWidget {
-  PernikahanPriaPage({super.key});
+  const PernikahanPriaPage({super.key});
 
   @override
   State<PernikahanPriaPage> createState() => _PernikahanPriaPageState();
@@ -156,6 +159,7 @@ class _PernikahanPriaPageState extends State<PernikahanPriaPage> {
                               controller: tempatController,
                               obscureText: false,
                               fieldHeight: 8,
+                              inputType: TextInputType.none,
                               paddingRight: 5,
                             )),
                             Expanded(
@@ -175,12 +179,10 @@ class _PernikahanPriaPageState extends State<PernikahanPriaPage> {
 
                                 tanggalLahir =
                                     pickedDate.toString().split(' ')[0];
-                                tanggalController.text =
-                                    tanggalLahir.split('-')[2] +
-                                        "-" +
-                                        tanggalLahir.split('-')[1] +
-                                        "-" +
-                                        tanggalLahir.split('-')[0];
+                                if (tanggalLahir.isNotEmpty) {
+                                  tanggalController.text =
+                                      "${tanggalLahir.split('-')[0]}-${tanggalLahir.split('-')[1]}-${tanggalLahir.split('-')[2]}";
+                                }
                               },
                             )),
                           ],
@@ -257,16 +259,14 @@ class _PernikahanPriaPageState extends State<PernikahanPriaPage> {
                             context,
                             MaterialPageRoute(
                               builder: (context) => PernikahanWanitaPage(
-                                groomInfo: [
-                                  nameController.text,
-                                  alamatController.text,
-                                  telpController.text,
-                                  hpController.text,
-                                  tanggalController.text,
-                                  tempatController.text,
-                                  ayahController.text,
-                                  ibuController.text
-                                ],
+                                Groom_Name: nameController.text,
+                                Groom_Address: alamatController.text,
+                                Groom_Home_Number: telpController.text,
+                                Groom_Phone_Number: hpController.text,
+                                Groom_Born_Date: tanggalController.text,
+                                Groom_Born_Place: tempatController.text,
+                                Groom_Father: ayahController.text,
+                                Groom_Mother: ibuController.text,
                               ),
                             ),
                           );

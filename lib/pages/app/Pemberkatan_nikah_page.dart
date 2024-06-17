@@ -2,22 +2,51 @@ import 'dart:convert';
 
 import 'package:bethany_app/components/my_textfield.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 
 class PemberkatanNikahPage extends StatefulWidget {
-  final List<String> groomInfo;
-  final List<String> brideInfo;
+  final String Groom_Name;
+  final String Groom_Address;
+  final String Groom_Home_Number;
+  final String Groom_Phone_Number;
+  final String Groom_Born_Date;
+  final String Groom_Born_Place;
+  final String Groom_Father;
+  final String Groom_Mother;
+  final String Bride_Name;
+  final String Bride_Address;
+  final String Bride_Home_Number;
+  final String Bride_Phone_Number;
+  final String Bride_Born_Date;
+  final String Bride_Born_Place;
+  final String Bride_Father;
+  final String Bride_Mother;
 
-  PemberkatanNikahPage(
-      {super.key, required this.brideInfo, required this.groomInfo});
+  const PemberkatanNikahPage({
+    super.key,
+    required this.Groom_Name,
+    required this.Groom_Address,
+    required this.Groom_Home_Number,
+    required this.Groom_Phone_Number,
+    required this.Groom_Born_Date,
+    required this.Groom_Born_Place,
+    required this.Groom_Father,
+    required this.Groom_Mother,
+    required this.Bride_Name,
+    required this.Bride_Address,
+    required this.Bride_Home_Number,
+    required this.Bride_Phone_Number,
+    required this.Bride_Born_Date,
+    required this.Bride_Born_Place,
+    required this.Bride_Father,
+    required this.Bride_Mother,
+  });
 
   @override
   State<PemberkatanNikahPage> createState() => _PemberkatanNikahPageState();
 }
 
 class _PemberkatanNikahPageState extends State<PemberkatanNikahPage> {
-  final hariController = TextEditingController();
   final tanggalController = TextEditingController();
   final jamController = TextEditingController();
   final alamatSetelahController = TextEditingController();
@@ -27,11 +56,10 @@ class _PemberkatanNikahPageState extends State<PemberkatanNikahPage> {
   String tanggalPemberkatan = "";
 
   Future<void> kirimPermohonan() async {
-    
+    String date = tanggalController.text;
+    String time = jamController.text;
+
     if (telpController == "") {
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("please fill all fields")));
-    } else if (bersedia == 0) {
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("please fill all fields")));
     } else {
@@ -39,26 +67,26 @@ class _PemberkatanNikahPageState extends State<PemberkatanNikahPage> {
         String uri = "https://bethany-app.000webhostapp.com/marriage_add.php";
 
         var res = await http.post(Uri.parse(uri), body: {
-          "Groom_Name": widget.groomInfo[0],
-          "Groom_Address": widget.groomInfo[1],
-          "Groom_Phone_Number": widget.groomInfo[2],
-          "Groom_Home_Number": widget.groomInfo[3],
-          "Groom_Born_Place": widget.groomInfo[4],
-          "Groom_Born_Date": widget.groomInfo[5],
-          "Groom_Father": widget.groomInfo[6],
-          "Groom_Mother": widget.groomInfo[7],
-          "Bride_Name": widget.brideInfo[0],
-          "Bride_Address": widget.brideInfo[1],
-          "Bride_Phone_Number": widget.brideInfo[2],
-          "Bride_Home_Number": widget.brideInfo[3],
-          "Bride_Born_Place": widget.brideInfo[4],
-          "Bride_Born_Date": widget.brideInfo[5],
-          "Bride_Father": widget.brideInfo[6],
-          "Bride_Mother": widget.brideInfo[7],
-          "Blessing_Date": tanggalController.text + " " + jamController.text,
+          "Groom_Name": widget.Groom_Name,
+          "Groom_Address": widget.Groom_Address,
+          "Groom_Phone_Number": widget.Groom_Phone_Number,
+          "Groom_Home_Number": widget.Groom_Home_Number,
+          "Groom_Born_Place": widget.Groom_Address,
+          "Groom_Born_Date": widget.Groom_Born_Date,
+          "Groom_Father": widget.Groom_Father,
+          "Groom_Mother": widget.Groom_Mother,
+          "Bride_Name": widget.Bride_Name,
+          "Bride_Address": widget.Bride_Address,
+          "Bride_Phone_Number": widget.Bride_Phone_Number,
+          "Bride_Home_Number": widget.Bride_Home_Number,
+          "Bride_Born_Place": widget.Bride_Born_Place,
+          "Bride_Born_Date": widget.Bride_Born_Date,
+          "Bride_Father": widget.Bride_Father,
+          "Bride_Mother": widget.Bride_Mother,
+          "Blessing_Date": "$date $time:00",
           "Address_After_Married": alamatSetelahController.text,
           "Phone_After_Married": telpController.text,
-          "BrideGroom_Approval": bersedia == 1 ? "True" : "False",
+          "BrideGroom_Approval": bersedia.toString(),
         });
 
         var response = jsonDecode(res.body);
@@ -66,8 +94,9 @@ class _PemberkatanNikahPageState extends State<PemberkatanNikahPage> {
           ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text("pendaftaran terkirim!")));
         } else {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text(response["message"])));
+          // ScaffoldMessenger.of(context)
+          //     .showSnackBar(SnackBar(content: Text(response["message"])));
+          print(response["message"]);
         }
       } catch (e) {
         print(e);
@@ -132,13 +161,9 @@ class _PemberkatanNikahPageState extends State<PemberkatanNikahPage> {
 
                               tanggalPemberkatan =
                                   pickedDate.toString().split(' ')[0];
-                              if (tanggalPemberkatan != "") {
+                              if (tanggalPemberkatan.isNotEmpty) {
                                 tanggalController.text =
-                                    tanggalPemberkatan.split('-')[2] +
-                                        "-" +
-                                        tanggalPemberkatan.split('-')[1] +
-                                        "-" +
-                                        tanggalPemberkatan.split('-')[0];
+                                    "${tanggalPemberkatan.split('-')[0]}-${tanggalPemberkatan.split('-')[1]}-${tanggalPemberkatan.split('-')[2]}";
                               }
                             },
                           ),
@@ -156,9 +181,7 @@ class _PemberkatanNikahPageState extends State<PemberkatanNikahPage> {
                                 initialEntryMode: TimePickerEntryMode.dial);
                             if (timeOfDay != null) {
                               jamController.text =
-                                  selectedTime.hour.toString() +
-                                      ":" +
-                                      selectedTime.minute.toString();
+                                  "${selectedTime.hour}:${selectedTime.minute}";
                             }
                           },
                         ))

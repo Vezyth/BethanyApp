@@ -153,11 +153,7 @@ class _BaptisPageState extends State<BaptisPage> {
                                 tanggalLahir =
                                     pickedDate.toString().split(' ')[0];
                                 tanggalController.text =
-                                    tanggalLahir.split('-')[2] +
-                                        "-" +
-                                        tanggalLahir.split('-')[1] +
-                                        "-" +
-                                        tanggalLahir.split('-')[0];
+                                    "${tanggalLahir.split('-')[2]}-${tanggalLahir.split('-')[1]}-${tanggalLahir.split('-')[0]}";
                               },
                             )),
                           ],

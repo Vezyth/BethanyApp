@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 
 class MyTextField extends StatelessWidget {
@@ -38,7 +36,7 @@ class MyTextField extends StatelessWidget {
       this.inputType = TextInputType.text,
       this.enabled=true,
       this.onTapDatePicker = false,
-      this.onTap = null,
+      this.onTap,
       // this.onTap
       });
 

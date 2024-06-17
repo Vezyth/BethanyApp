@@ -100,7 +100,7 @@ class _AppPageState extends State<AppPage> {
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (BuildContext context) =>
-                            PernikahanPriaPage()));
+                            const PernikahanPriaPage()));
                   },
                   name: "\nPernikahan",
                   imagePath: "assets/blackboard.png",

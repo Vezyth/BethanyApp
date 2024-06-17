@@ -22,7 +22,7 @@ class MyCard extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               ClipRRect(
-                borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
+                borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
                 child: Image.network(
                   imagePath, // Replace with your image URL
                   fit: BoxFit.cover,
@@ -34,7 +34,7 @@ class MyCard extends StatelessWidget {
                 padding: const EdgeInsets.all(16.0),
                 child: Text(
                   text,
-                  style: TextStyle(fontSize: 16),
+                  style: const TextStyle(fontSize: 16),
                   textAlign: TextAlign.center,
                 ),
               ),

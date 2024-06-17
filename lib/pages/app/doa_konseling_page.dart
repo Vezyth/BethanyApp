@@ -142,7 +142,7 @@ class _DoaPageState extends State<DoaPage> {
                   );
                   
                   tanggalLahir = pickedDate.toString().split(' ')[0];
-                  tanggalController.text = tanggalLahir.split('-')[2]+"-"+tanggalLahir.split('-')[1]+"-"+tanggalLahir.split('-')[0];
+                  tanggalController.text = "${tanggalLahir.split('-')[2]}-${tanggalLahir.split('-')[1]}-${tanggalLahir.split('-')[0]}";
                   
                   
                   
