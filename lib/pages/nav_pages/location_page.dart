@@ -1,4 +1,7 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class LocationPage extends StatelessWidget {
   const LocationPage({super.key});
@@ -11,10 +14,12 @@ class LocationPage extends StatelessWidget {
           image: AssetImage("assets/banner1.jpg"),
           fit: BoxFit.cover,
         ),
+        SizedBox(height: 10,),
         Text(
           "Gereja Bethany Lampung",
           style: TextStyle(fontWeight: FontWeight.w600),
         ),
+        SizedBox(height: 10,),
         Text(
           "Perumahan Bumi Asri Jl. Cendana III No.blok L,Kedamaian, Kec. Kedamaian, Kota Bandar Lampung, Lampung 35122",
           style: TextStyle(
@@ -22,9 +27,10 @@ class LocationPage extends StatelessWidget {
           ),
           textAlign: TextAlign.center,
         ),
+        SizedBox(height: 10,),
         Text(
           "+ 62 813 4372 6571",
-          style: TextStyle(color: Colors.red),
+          style: TextStyle(color: Colors.amber),
         ),
         Text(
           "Pdt. Linda Senduk",
@@ -51,20 +57,21 @@ class LocationPage extends StatelessWidget {
           ],
         ),
         SizedBox(
-          height: 20,
+          height: 40,
         ),
         Padding(
-          padding: EdgeInsets.only(left: 10, right: 10),
+          padding: EdgeInsets.symmetric(horizontal: 50),
           child: Column(
             children: [
               Row(
                 children: [
                   Text(
                     "Saturday",
-                    style: TextStyle(color: Colors.red),
+                    style: TextStyle(color: Colors.amber),
                   ),
                 ],
               ),
+              SizedBox(height: 10,),
               Row(
                 children: [
                   Text(
@@ -87,36 +94,38 @@ class LocationPage extends StatelessWidget {
                 children: [
                   Text(
                     "Sunday",
-                    style: TextStyle(color: Colors.red),
+                    style: TextStyle(color: Colors.amber),
                   ),
                 ],
               ),
+              SizedBox(height: 10,),
               Row(
                 children: [
                   Text(
-                    "19:00 WIB",
+                    "07:30 WIB",
                     style: TextStyle(color: Colors.grey),
                   ),
                   SizedBox(
-                    width: 20,
+                    width: 20,height: 10,
                   ),
                   Text(
-                    "Youth Bethany Lampung",
+                    "Service I & Sunday School",
                     style: TextStyle(color: Colors.grey),
                   )
                 ],
               ),
+              SizedBox(height: 5,),
               Row(
                 children: [
                   Text(
-                    "19:00 WIB",
+                    "17:00 WIB",
                     style: TextStyle(color: Colors.grey),
                   ),
                   SizedBox(
                     width: 20,
                   ),
                   Text(
-                    "Youth Bethany Lampung",
+                    "Service II & Sunday School",
                     style: TextStyle(color: Colors.grey),
                   )
                 ],
@@ -125,161 +134,51 @@ class LocationPage extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: 10,
+          height: 50,
         ),
-        Padding(
-          padding: EdgeInsets.only(left: 10),
-          child: Text(
-            "Persembahan & Persepuluhan dapat ditransfer ke rekening berikut: ",
-            style: TextStyle(color: Colors.grey),
+
+        
+        Flexible(
+          child: Padding(
+            padding: EdgeInsets.only(left: 20, right: 50),
+            child: Text(
+              "Persembahan & Persepuluhan dapat ditransfer ke rekening berikut: ",
+              style: TextStyle(color: Colors.grey),
+            ),
           ),
         ),
-        Text(
-          "Ibu Linda Senduk & Ibu Masri (Rekening Bersama)",
-          style: TextStyle(color: Colors.grey),
+        SizedBox(height: 10,),
+        Padding(
+          padding: EdgeInsets.only(left: 20),
+          child: Row(
+            children: [
+              Text(
+                "Ibu Linda Senduk & Ibu Masri (Rekening Bersama)",
+                style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
+              ),
+            ],
+          ),
         ),
-        Text(
-          "561.700.6316",
-          style: TextStyle(color: Colors.red, fontWeight: FontWeight.w600),
+        SizedBox(height: 10,),
+        Padding(
+          padding: EdgeInsets.only(left: 20),
+          child: Row(
+            children: [
+              Text(
+                "561.700.6316",
+                style: TextStyle(color: Colors.amber, fontWeight: FontWeight.w600),
+              ),
+            ],
+          ),
         ),
+        
+        
         SizedBox(
           height: 135 - 9.5,
         )
       ],
     );
 
-    // return Scaffold(
-    //   body: SafeArea(
-    //     child: Center(
-    //       child: Padding(
-    //         padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-    //         child:
-    //             Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-    //           Image.asset(
-    //             "assets/banner1.jpg",
-    //             fit: BoxFit.cover,
-    //           ),
-    //           const Text(
-    //             "Gereja Bethany Lampung",
-    //             style: TextStyle(fontWeight: FontWeight.w600),
-    //           ),
-    //           const Text(
-    //             "Perumahan Bumi Asri Jl. Cendana III No.blok L,Kedamaian, Kec. Kedamaian, Kota Bandar Lampung, Lampung 35122",
-    //             style: TextStyle(
-    //               color: Colors.grey,
-    //             ),
-    //             textAlign: TextAlign.center,
-    //           ),
-    //           const Text(
-    //             "+ 62 813 4372 6571",
-    //             style: TextStyle(color: Colors.red),
-    //           ),
-    //           const Text(
-    //             "Pdt. Linda Senduk",
-    //             style: TextStyle(fontWeight: FontWeight.w600),
-    //           ),
-    //           const SizedBox(
-    //             height: 10,
-    //           ),
-    //           const Row(
-    //             mainAxisAlignment: MainAxisAlignment.center,
-    //             children: [
-    //               Icon(
-    //                 Icons.email,
-    //                 color: Colors.grey,
-    //               ),
-    //               SizedBox(
-    //                 width: 10,
-    //               ),
-    //               Icon(Icons.email, color: Colors.grey),
-    //               SizedBox(
-    //                 width: 10,
-    //               ),
-    //               Icon(Icons.play_circle_fill_outlined, color: Colors.grey),
-    //             ],
-    //           ),
-    //           const SizedBox(
-    //             height: 20,
-    //           ),
-    //           const Text(
-    //             "Saturday",
-    //             style: TextStyle(color: Colors.red),
-    //           ),
-    //           const Row(
-    //             children: [
-    //               Text(
-    //                 "19:00 WIB",
-    //                 style: TextStyle(color: Colors.grey),
-    //               ),
-    //               SizedBox(
-    //                 width: 20,
-    //               ),
-    //               Text(
-    //                 "Youth Bethany Lampung",
-    //                 style: TextStyle(color: Colors.grey),
-    //               )
-    //             ],
-    //           ),
-    //           const Positioned(
-    //             left: 0,
-    //             child: Text(
-    //               "Sunday",
-    //               style: TextStyle(color: Colors.red),
-    //             ),
-    //           ),
-    //           const Row(
-    //             children: [
-    //               Text(
-    //                 "19:00 WIB",
-    //                 style: TextStyle(color: Colors.grey),
-    //               ),
-    //               SizedBox(
-    //                 width: 20,
-    //               ),
-    //               Text(
-    //                 "Youth Bethany Lampung",
-    //                 style: TextStyle(color: Colors.grey),
-    //               )
-    //             ],
-    //           ),
-    //           const Row(
-    //             children: [
-    //               Text(
-    //                 "19:00 WIB",
-    //                 style: TextStyle(color: Colors.grey),
-    //               ),
-    //               SizedBox(
-    //                 width: 20,
-    //               ),
-    //               Text(
-    //                 "Youth Bethany Lampung",
-    //                 style: TextStyle(color: Colors.grey),
-    //               )
-    //             ],
-    //           ),
-    //           const SizedBox(
-    //             height: 10,
-    //           ),
-    //           const Text(
-    //             "Persembahan & Persepuluhan dapat ditransfer ke rekening berikut: ",
-    //             style: TextStyle(color: Colors.grey),
-    //           ),
-    //           const Text(
-    //             "Ibu Linda Senduk & Ibu Masri (Rekening Bersama)",
-    //             style: TextStyle(color: Colors.grey),
-    //           ),
-    //           const Text(
-    //             "561.700.6316",
-    //             style:
-    //                 TextStyle(color: Colors.red, fontWeight: FontWeight.w600),
-    //           ),
-    //           const SizedBox(
-    //             height: 135,
-    //           )
-    //         ]),
-    //       ),
-    //     ),
-    //   ),
-    // );
+    
   }
 }

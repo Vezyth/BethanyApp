@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 class PemberkatanNikahPage extends StatefulWidget {
   final String Groom_Name;
   final String Groom_Address;
+  final String Groom_Office_Number;
   final String Groom_Home_Number;
   final String Groom_Phone_Number;
   final String Groom_Born_Date;
@@ -15,6 +16,7 @@ class PemberkatanNikahPage extends StatefulWidget {
   final String Groom_Mother;
   final String Bride_Name;
   final String Bride_Address;
+  final String Bride_Office_Number;
   final String Bride_Home_Number;
   final String Bride_Phone_Number;
   final String Bride_Born_Date;
@@ -26,6 +28,7 @@ class PemberkatanNikahPage extends StatefulWidget {
     super.key,
     required this.Groom_Name,
     required this.Groom_Address,
+    required this.Groom_Office_Number,
     required this.Groom_Home_Number,
     required this.Groom_Phone_Number,
     required this.Groom_Born_Date,
@@ -34,6 +37,7 @@ class PemberkatanNikahPage extends StatefulWidget {
     required this.Groom_Mother,
     required this.Bride_Name,
     required this.Bride_Address,
+    required this.Bride_Office_Number,
     required this.Bride_Home_Number,
     required this.Bride_Phone_Number,
     required this.Bride_Born_Date,
@@ -143,48 +147,62 @@ class _PemberkatanNikahPageState extends State<PemberkatanNikahPage> {
                     const SizedBox(
                       height: 10,
                     ),
-                    Row(
+                    Column(
                       children: [
-                        Expanded(
-                          child: MyTextField(
-                            controller: tanggalController,
-                            obscureText: false,
-                            fieldHeight: 8,
-                            paddingRight: 5,
-                            inputType: TextInputType.none,
-                            onTap: () async {
-                              DateTime? pickedDate = await showDatePicker(
-                                  context: context,
-                                  initialDate: DateTime.now(),
-                                  firstDate: DateTime(2000),
-                                  lastDate: DateTime(2101));
-
-                              tanggalPemberkatan =
-                                  pickedDate.toString().split(' ')[0];
-                              if (tanggalPemberkatan.isNotEmpty) {
-                                tanggalController.text =
-                                    "${tanggalPemberkatan.split('-')[0]}-${tanggalPemberkatan.split('-')[1]}-${tanggalPemberkatan.split('-')[2]}";
-                              }
-                            },
+                        const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 25),
+                          child: Row(
+                            children: [
+                              Expanded(child: Text("Tanggal")),
+                              Expanded(child: Text("Jam")),
+                            ],
                           ),
                         ),
-                        Expanded(
-                            child: MyTextField(
-                          controller: jamController,
-                          obscureText: false,
-                          paddingLeft: 5,
-                          inputType: TextInputType.none,
-                          onTap: () async {
-                            final TimeOfDay? timeOfDay = await showTimePicker(
-                                context: context,
-                                initialTime: selectedTime,
-                                initialEntryMode: TimePickerEntryMode.dial);
-                            if (timeOfDay != null) {
-                              jamController.text =
-                                  "${selectedTime.hour}:${selectedTime.minute}";
-                            }
-                          },
-                        ))
+                        SizedBox(height: 5,),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: MyTextField(
+                                controller: tanggalController,
+                                obscureText: false,
+                                fieldHeight: 8,
+                                paddingRight: 5,
+                                inputType: TextInputType.none,
+                                onTap: () async {
+                                  DateTime? pickedDate = await showDatePicker(
+                                      context: context,
+                                      initialDate: DateTime.now(),
+                                      firstDate: DateTime(2000),
+                                      lastDate: DateTime(2101));
+                        
+                                  tanggalPemberkatan =
+                                      pickedDate.toString().split(' ')[0];
+                                  if (tanggalPemberkatan.isNotEmpty) {
+                                    tanggalController.text =
+                                        "${tanggalPemberkatan.split('-')[0]}-${tanggalPemberkatan.split('-')[1]}-${tanggalPemberkatan.split('-')[2]}";
+                                  }
+                                },
+                              ),
+                            ),
+                            Expanded(
+                                child: MyTextField(
+                              controller: jamController,
+                              obscureText: false,
+                              paddingLeft: 0,
+                              inputType: TextInputType.none,
+                              onTap: () async {
+                                final TimeOfDay? timeOfDay = await showTimePicker(
+                                    context: context,
+                                    initialTime: selectedTime,
+                                    initialEntryMode: TimePickerEntryMode.dial);
+                                if (timeOfDay != null) {
+                                  jamController.text =
+                                      "${selectedTime.hour}:${selectedTime.minute}";
+                                }
+                              },
+                            ))
+                          ],
+                        ),
                       ],
                     ),
 

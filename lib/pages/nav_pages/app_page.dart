@@ -4,6 +4,7 @@ import 'package:bethany_app/components/my_app.dart';
 import 'package:bethany_app/pages/app/baptis_page.dart';
 import 'package:bethany_app/pages/app/doa_konseling_page.dart';
 import 'package:bethany_app/pages/app/pernikahan_pria.dart';
+import 'package:bethany_app/pages/app/som_page.dart';
 
 import 'package:bethany_app/pages/nav_pages/main_page.dart';
 import 'package:flutter/material.dart';
@@ -86,7 +87,7 @@ class _AppPageState extends State<AppPage> {
                 child: MyApp(
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (BuildContext context) => const MainPage()));
+                        builder: (BuildContext context) => const SOMPage()));
                   },
                   name: "\nSOM",
                   imagePath: "assets/blackboard.png",

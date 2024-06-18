@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 class PernikahanWanitaPage extends StatefulWidget {
   final String Groom_Name;
   final String Groom_Address;
+  final String Groom_Office_Number;
   final String Groom_Home_Number;
   final String Groom_Phone_Number;
   final String Groom_Born_Date;
@@ -17,6 +18,7 @@ class PernikahanWanitaPage extends StatefulWidget {
   const PernikahanWanitaPage(
       {required this.Groom_Name,
       required this.Groom_Address,
+      required this.Groom_Office_Number,
       required this.Groom_Home_Number,
       required this.Groom_Phone_Number,
       required this.Groom_Born_Date,
@@ -35,6 +37,8 @@ class _PernikahanWanitaPageState extends State<PernikahanWanitaPage> {
   final nameController = TextEditingController();
 
   final alamatController = TextEditingController();
+
+  final kantorController = TextEditingController();
 
   final telpController = TextEditingController();
 
@@ -65,7 +69,7 @@ class _PernikahanWanitaPageState extends State<PernikahanWanitaPage> {
         child: Container(
           decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(25))),
-          height: 550,
+          height: MediaQuery.of(context).size.height - MediaQuery.of(context).size.height / 3,
           child: Center(
             child: Padding(
                 padding: const EdgeInsets.all(10.0),
@@ -126,6 +130,25 @@ class _PernikahanWanitaPageState extends State<PernikahanWanitaPage> {
                       const SizedBox(
                         height: 10,
                       ),
+
+                      const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 25.0),
+                      child: Row(
+                        children: [
+                          Text("Nomor Telpon Kantor"),
+                        ],
+                      ),
+                    ),
+                    MyTextField(
+                      controller: kantorController,
+                      obscureText: false,
+                      fieldHeight: 8,
+                      paddingLeft: 25,
+                      paddingRight: 25,
+                      inputType: TextInputType.phone,
+                    ),
+
+                    SizedBox(height: 10,),
 
                       Column(
                         children: [
@@ -276,6 +299,7 @@ class _PernikahanWanitaPageState extends State<PernikahanWanitaPage> {
                                 builder: (context) => PemberkatanNikahPage(
                                   Groom_Name: widget.Groom_Name,
                                   Groom_Address: widget.Groom_Address,
+                                  Groom_Office_Number: widget.Groom_Office_Number,
                                   Groom_Home_Number: widget.Groom_Home_Number,
                                   Groom_Phone_Number: widget.Groom_Phone_Number,
                                   Groom_Born_Date: widget.Groom_Born_Date,
@@ -284,6 +308,7 @@ class _PernikahanWanitaPageState extends State<PernikahanWanitaPage> {
                                   Groom_Mother: widget.Groom_Mother,
                                   Bride_Name: nameController.text,
                                   Bride_Address: alamatController.text,
+                                  Bride_Office_Number: kantorController.text,
                                   Bride_Home_Number: telpController.text,
                                   Bride_Phone_Number: hpController.text,
                                   Bride_Born_Date: tanggalController.text,

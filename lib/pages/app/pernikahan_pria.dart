@@ -21,6 +21,8 @@ class _PernikahanPriaPageState extends State<PernikahanPriaPage> {
 
   final telpController = TextEditingController();
 
+  final kantorController = TextEditingController();
+
   final hpController = TextEditingController();
 
   final tanggalController = TextEditingController();
@@ -47,7 +49,7 @@ class _PernikahanPriaPageState extends State<PernikahanPriaPage> {
       body: Container(
         decoration: const BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(25))),
-        height: 550,
+        height: MediaQuery.of(context).size.height - MediaQuery.of(context).size.height / 3,
         child: Center(
           child: Padding(
               padding: const EdgeInsets.all(10.0),
@@ -109,6 +111,25 @@ class _PernikahanPriaPageState extends State<PernikahanPriaPage> {
                       height: 10,
                     ),
 
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 25.0),
+                      child: Row(
+                        children: [
+                          Text("Nomor Telpon Kantor"),
+                        ],
+                      ),
+                    ),
+                    MyTextField(
+                      controller: kantorController,
+                      obscureText: false,
+                      fieldHeight: 8,
+                      paddingLeft: 25,
+                      paddingRight: 25,
+                      inputType: TextInputType.phone,
+                    ),
+
+                    SizedBox(height: 10,),
+
                     Column(
                       children: [
                         const Padding(
@@ -128,7 +149,7 @@ class _PernikahanPriaPageState extends State<PernikahanPriaPage> {
                               obscureText: false,
                               fieldHeight: 8,
                               paddingRight: 5,
-                              inputType: TextInputType.number,
+                              inputType: TextInputType.phone,
                             )),
                             Expanded(
                                 child: MyTextField(
@@ -136,7 +157,7 @@ class _PernikahanPriaPageState extends State<PernikahanPriaPage> {
                               obscureText: false,
                               fieldHeight: 8,
                               paddingLeft: 0,
-                              inputType: TextInputType.number,
+                              inputType: TextInputType.phone,
                             )),
                           ],
                         ),
@@ -177,9 +198,10 @@ class _PernikahanPriaPageState extends State<PernikahanPriaPage> {
                                         2000), //DateTime.now() - not to allow to choose before today.
                                     lastDate: DateTime(2101));
 
-                                tanggalLahir =
-                                    pickedDate.toString().split(' ')[0];
+                                
                                 if (tanggalLahir.isNotEmpty) {
+                                  tanggalLahir =
+                                    pickedDate.toString().split(' ')[0];
                                   tanggalController.text =
                                       "${tanggalLahir.split('-')[0]}-${tanggalLahir.split('-')[1]}-${tanggalLahir.split('-')[2]}";
                                 }
@@ -261,6 +283,7 @@ class _PernikahanPriaPageState extends State<PernikahanPriaPage> {
                               builder: (context) => PernikahanWanitaPage(
                                 Groom_Name: nameController.text,
                                 Groom_Address: alamatController.text,
+                                Groom_Office_Number: kantorController.text,
                                 Groom_Home_Number: telpController.text,
                                 Groom_Phone_Number: hpController.text,
                                 Groom_Born_Date: tanggalController.text,
