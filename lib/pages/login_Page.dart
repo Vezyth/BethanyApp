@@ -1,13 +1,16 @@
+import 'dart:convert';
+
 import 'package:bethany_app/components/my_textfield.dart';
 import 'package:bethany_app/pages/nav_pages/main_page.dart';
 import 'package:bethany_app/pages/register_page.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
 
   // text editing controller
-  final usernameController = TextEditingController();
+  final nijController = TextEditingController();
   final passwordController = TextEditingController();
 
   //sign in method
@@ -45,11 +48,10 @@ class LoginPage extends StatelessWidget {
 
             //username text field
             MyTextField(
-              controller: usernameController,
+              controller: nijController,
               hintText: 'Username',
               obscureText: false,
               fieldHeight: 10,
-              fieldWidth: 200,
             ),
 
             const SizedBox(
@@ -61,7 +63,6 @@ class LoginPage extends StatelessWidget {
               hintText: 'Password',
               obscureText: true,
               fieldHeight: 10,
-              fieldWidth: 200,
             ),
 
             // forgot password
@@ -104,9 +105,35 @@ class LoginPage extends StatelessWidget {
                       fontSize: 16),
                 )),
               ),
-              onTap: () {
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (BuildContext context) => const MainPage()));
+              onTap: () async {
+                if (nijController.text == "" || passwordController.text == "") {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text("Fill all fields!")));
+                } else {
+                  try {
+                    String uri =
+                        "https://bethany-app.000webhostapp.com/user_login.php";
+
+                    var res = await http.post(Uri.parse(uri), body: {
+                      "NIJ": nijController.text,
+                      "Password": passwordController.text,
+                    });
+
+                    var response = jsonDecode(res.body);
+
+                    if (response["success"] == 1) {
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (BuildContext context) => const MainPage()));
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text("Welcome")));
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text(response["message"])));
+                    }
+                  } catch (e) {
+                    print(e);
+                  }
+                }
               },
             ),
 
@@ -133,16 +160,12 @@ class LoginPage extends StatelessWidget {
                   width: 4,
                 ),
                 GestureDetector(
-                  child: const Text(
-                    'Register now',
-                    style: TextStyle(
-                        color: Colors.blue, fontWeight: FontWeight.bold),
-                  ),
-                  onTap: () {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (BuildContext context) => RegisterPage()));
-                  },
-                )
+                    child: const Text(
+                      'Register now',
+                      style: TextStyle(
+                          color: Colors.blue, fontWeight: FontWeight.bold),
+                    ),
+                    onTap: () {})
               ],
             )
           ]),

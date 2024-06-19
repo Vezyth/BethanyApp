@@ -1,15 +1,32 @@
 import 'dart:convert';
+import 'package:bethany_app/pages/login_Page.dart';
 import 'package:bethany_app/pages/nav_pages/main_page.dart';
 import 'package:http/http.dart' as http;
 import 'package:bethany_app/components/my_textfield.dart';
 import 'package:flutter/material.dart';
 
-class RegisterPage extends StatelessWidget {
+class RegisterPage extends StatefulWidget {
   RegisterPage({super.key});
 
+  @override
+  State<RegisterPage> createState() => _RegisterPageState();
+}
+
+class _RegisterPageState extends State<RegisterPage> {
   final usernameController = TextEditingController();
+
   final emailController = TextEditingController();
+
   final passwordController = TextEditingController();
+
+  final telpController = TextEditingController();
+
+  final tanggalController = TextEditingController();
+
+  final nijController = TextEditingController();
+
+  String tanggalLahir = "";
+  int gender = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -18,15 +35,15 @@ class RegisterPage extends StatelessWidget {
       body: SafeArea(
         child: Center(
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-            const SizedBox(height: 50),
+            const SizedBox(height: 30),
 
             //logo
             const Icon(
               Icons.lock,
-              size: 100,
+              size: 80,
             ),
 
-            const SizedBox(height: 50),
+            const SizedBox(height: 30),
             //Welcome back, you've been missed!
             Text(
               'Welcome back You\'ve been missed!',
@@ -37,47 +54,131 @@ class RegisterPage extends StatelessWidget {
             ),
 
             const SizedBox(
-              height: 25,
+              height: 20,
             ),
 
-            //username text field
             MyTextField(
-              controller: usernameController,
-              hintText: 'Username',
+              controller: nijController,
+              hintText: 'NIJ',
               obscureText: false,
               fieldHeight: 10,
             ),
 
             const SizedBox(
-              height: 20,
+              height: 10,
+            ),
+
+            //username text field
+            MyTextField(
+              controller: usernameController,
+              hintText: 'Nama Lengkap',
+              obscureText: false,
+              fieldHeight: 10,
+            ),
+
+            const SizedBox(
+              height: 10,
             ),
             //email text field
+            MyTextField(
+              controller: telpController,
+              hintText: 'Nomor Telpon',
+              obscureText: false,
+              fieldHeight: 10,
+              inputType: TextInputType.phone,
+            ),
+
+            const SizedBox(
+              height: 10,
+            ),
+
+            MyTextField(
+              controller: tanggalController,
+              obscureText: false,
+              hintText: "Tanggal Lahir",
+              fieldHeight: 8,
+              inputType: TextInputType.none,
+              onTap: () async {
+                DateTime? pickedDate = await showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(), //get today's date
+                    firstDate: DateTime(
+                        1970), //DateTime.now() - not to allow to choose before today.
+                    lastDate: DateTime(2101));
+
+                print(pickedDate);
+                tanggalLahir = pickedDate.toString().split(' ')[0];
+                if (tanggalLahir.isNotEmpty) {
+                  tanggalController.text = tanggalLahir;
+                }
+              },
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+
+            //password text field
             MyTextField(
               controller: emailController,
               hintText: 'Email',
               obscureText: false,
               fieldHeight: 10,
             ),
-
             const SizedBox(
-              height: 20,
+              height: 10,
             ),
 
-            //password text field
             MyTextField(
               controller: passwordController,
               hintText: 'Password',
               obscureText: true,
               fieldHeight: 10,
             ),
-
-            // forgot password
             const SizedBox(
-              height: 20,
+              height: 10,
             ),
 
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 25.0),
+              child: Row(
+                children: [
+                  Text("Gender"),
+                ],
+              ),
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: RadioListTile(
+                    title: const Text('Pria'),
+                    value: 1,
+                    groupValue: gender,
+                    onChanged: (value) {
+                      setState(() {
+                        gender = value!;
+                      });
+                    },
+                  ),
+                ),
+                Expanded(
+                  child: RadioListTile(
+                    title: const Text('Wanita'),
+                    value: 2,
+                    groupValue: gender,
+                    onChanged: (value) {
+                      setState(() {
+                        gender = value!;
+                      });
+                    },
+                  ),
+                ),
+              ],
+            ),
+
+            // forgot password
+
             const SizedBox(
-              height: 50,
+              height: 20,
             ),
 
             //sign Up button
@@ -112,9 +213,13 @@ class RegisterPage extends StatelessWidget {
                         "https://bethany-app.000webhostapp.com/user_add.php";
 
                     var res = await http.post(Uri.parse(uri), body: {
-                      "name": usernameController.text,
-                      "email": emailController.text,
-                      "password": passwordController.text
+                      "NIJ": nijController.text,
+                      "Full_Name": usernameController.text,
+                      "Phone_Number": telpController.text,
+                      "Born_Date": tanggalController.text,
+                      "Email": emailController.text,
+                      "Password": passwordController.text,
+                      "Gender": gender.toString(),
                     });
 
                     var response = jsonDecode(res.body);
@@ -124,7 +229,7 @@ class RegisterPage extends StatelessWidget {
                           content: Text("Register successfull!")));
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text("Register Failed!")));
+                          SnackBar(content: Text(response["message"])));
                     }
                   } catch (e) {
                     print(e);
@@ -134,7 +239,7 @@ class RegisterPage extends StatelessWidget {
             ),
 
             const SizedBox(
-              height: 50,
+              height: 20,
             ),
 
             Row(
@@ -157,7 +262,7 @@ class RegisterPage extends StatelessWidget {
                   ),
                   onTap: () {
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (BuildContext context) => const MainPage()));
+                        builder: (BuildContext context) => LoginPage()));
                   },
                 )
               ],
