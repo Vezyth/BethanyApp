@@ -1,8 +1,9 @@
-import 'dart:convert';
+// ignore_for_file: non_constant_identifier_names, unrelated_type_equality_checks
 
 import 'package:bethany_app/components/my_textfield.dart';
 import 'package:bethany_app/pages/app/pemberkatan_nikah_page.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 class PernikahanWanitaPage extends StatefulWidget {
@@ -69,7 +70,8 @@ class _PernikahanWanitaPageState extends State<PernikahanWanitaPage> {
         child: Container(
           decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(25))),
-          height: MediaQuery.of(context).size.height - MediaQuery.of(context).size.height / 3,
+          height: MediaQuery.of(context).size.height -
+              MediaQuery.of(context).size.height / 5,
           child: Center(
             child: Padding(
                 padding: const EdgeInsets.all(10.0),
@@ -132,23 +134,25 @@ class _PernikahanWanitaPageState extends State<PernikahanWanitaPage> {
                       ),
 
                       const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 25.0),
-                      child: Row(
-                        children: [
-                          Text("Nomor Telpon Kantor"),
-                        ],
+                        padding: EdgeInsets.symmetric(horizontal: 25.0),
+                        child: Row(
+                          children: [
+                            Text("Nomor Telpon Kantor"),
+                          ],
+                        ),
                       ),
-                    ),
-                    MyTextField(
-                      controller: kantorController,
-                      obscureText: false,
-                      fieldHeight: 8,
-                      paddingLeft: 25,
-                      paddingRight: 25,
-                      inputType: TextInputType.phone,
-                    ),
+                      MyTextField(
+                        controller: kantorController,
+                        obscureText: false,
+                        fieldHeight: 8,
+                        paddingLeft: 25,
+                        paddingRight: 25,
+                        inputType: TextInputType.phone,
+                      ),
 
-                    SizedBox(height: 10,),
+                      const SizedBox(
+                        height: 10,
+                      ),
 
                       Column(
                         children: [
@@ -208,6 +212,7 @@ class _PernikahanWanitaPageState extends State<PernikahanWanitaPage> {
                                 obscureText: false,
                                 fieldHeight: 8,
                                 paddingLeft: 0,
+                                inputType: TextInputType.none,
                                 onTap: () async {
                                   DateTime? pickedDate = await showDatePicker(
                                       context: context,
@@ -219,8 +224,9 @@ class _PernikahanWanitaPageState extends State<PernikahanWanitaPage> {
 
                                   tanggalLahir =
                                       pickedDate.toString().split(' ')[0];
-                                  tanggalController.text =
-                                      "${tanggalLahir.split('-')[0]}-${tanggalLahir.split('-')[1]}-${tanggalLahir.split('-')[1]}";
+                                  if (tanggalLahir.isNotEmpty) {
+                                    tanggalController.text = tanggalLahir;
+                                  }
                                 },
                               )),
                             ],
@@ -299,7 +305,8 @@ class _PernikahanWanitaPageState extends State<PernikahanWanitaPage> {
                                 builder: (context) => PemberkatanNikahPage(
                                   Groom_Name: widget.Groom_Name,
                                   Groom_Address: widget.Groom_Address,
-                                  Groom_Office_Number: widget.Groom_Office_Number,
+                                  Groom_Office_Number:
+                                      widget.Groom_Office_Number,
                                   Groom_Home_Number: widget.Groom_Home_Number,
                                   Groom_Phone_Number: widget.Groom_Phone_Number,
                                   Groom_Born_Date: widget.Groom_Born_Date,

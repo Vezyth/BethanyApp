@@ -1,7 +1,4 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class LocationPage extends StatelessWidget {
   const LocationPage({super.key});
@@ -14,12 +11,16 @@ class LocationPage extends StatelessWidget {
           image: AssetImage("assets/banner1.jpg"),
           fit: BoxFit.cover,
         ),
-        SizedBox(height: 10,),
+        SizedBox(
+          height: 10,
+        ),
         Text(
           "Gereja Bethany Lampung",
           style: TextStyle(fontWeight: FontWeight.w600),
         ),
-        SizedBox(height: 10,),
+        SizedBox(
+          height: 10,
+        ),
         Text(
           "Perumahan Bumi Asri Jl. Cendana III No.blok L,Kedamaian, Kec. Kedamaian, Kota Bandar Lampung, Lampung 35122",
           style: TextStyle(
@@ -27,7 +28,9 @@ class LocationPage extends StatelessWidget {
           ),
           textAlign: TextAlign.center,
         ),
-        SizedBox(height: 10,),
+        SizedBox(
+          height: 10,
+        ),
         Text(
           "+ 62 813 4372 6571",
           style: TextStyle(color: Colors.amber),
@@ -71,7 +74,9 @@ class LocationPage extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 10,),
+              SizedBox(
+                height: 10,
+              ),
               Row(
                 children: [
                   Text(
@@ -98,7 +103,9 @@ class LocationPage extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 10,),
+              SizedBox(
+                height: 10,
+              ),
               Row(
                 children: [
                   Text(
@@ -106,7 +113,8 @@ class LocationPage extends StatelessWidget {
                     style: TextStyle(color: Colors.grey),
                   ),
                   SizedBox(
-                    width: 20,height: 10,
+                    width: 20,
+                    height: 10,
                   ),
                   Text(
                     "Service I & Sunday School",
@@ -114,7 +122,9 @@ class LocationPage extends StatelessWidget {
                   )
                 ],
               ),
-              SizedBox(height: 5,),
+              SizedBox(
+                height: 5,
+              ),
               Row(
                 children: [
                   Text(
@@ -136,8 +146,6 @@ class LocationPage extends StatelessWidget {
         SizedBox(
           height: 50,
         ),
-
-        
         Flexible(
           child: Padding(
             padding: EdgeInsets.only(left: 20, right: 50),
@@ -147,38 +155,40 @@ class LocationPage extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(height: 10,),
+        SizedBox(
+          height: 10,
+        ),
         Padding(
           padding: EdgeInsets.only(left: 20),
           child: Row(
             children: [
               Text(
                 "Ibu Linda Senduk & Ibu Masri (Rekening Bersama)",
-                style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
+                style:
+                    TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
               ),
             ],
           ),
         ),
-        SizedBox(height: 10,),
+        SizedBox(
+          height: 10,
+        ),
         Padding(
           padding: EdgeInsets.only(left: 20),
           child: Row(
             children: [
               Text(
                 "561.700.6316",
-                style: TextStyle(color: Colors.amber, fontWeight: FontWeight.w600),
+                style:
+                    TextStyle(color: Colors.amber, fontWeight: FontWeight.w600),
               ),
             ],
           ),
         ),
-        
-        
         SizedBox(
           height: 135 - 9.5,
         )
       ],
     );
-
-    
   }
 }

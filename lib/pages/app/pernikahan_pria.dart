@@ -1,3 +1,5 @@
+// ignore_for_file: unrelated_type_equality_checks
+
 import 'dart:convert';
 
 import 'package:bethany_app/components/my_textfield.dart';
@@ -49,7 +51,8 @@ class _PernikahanPriaPageState extends State<PernikahanPriaPage> {
       body: Container(
         decoration: const BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(25))),
-        height: MediaQuery.of(context).size.height - MediaQuery.of(context).size.height / 3,
+        height: MediaQuery.of(context).size.height -
+            MediaQuery.of(context).size.height / 5,
         child: Center(
           child: Padding(
               padding: const EdgeInsets.all(10.0),
@@ -128,7 +131,9 @@ class _PernikahanPriaPageState extends State<PernikahanPriaPage> {
                       inputType: TextInputType.phone,
                     ),
 
-                    SizedBox(height: 10,),
+                    const SizedBox(
+                      height: 10,
+                    ),
 
                     Column(
                       children: [
@@ -180,7 +185,7 @@ class _PernikahanPriaPageState extends State<PernikahanPriaPage> {
                               controller: tempatController,
                               obscureText: false,
                               fieldHeight: 8,
-                              inputType: TextInputType.none,
+                              inputType: TextInputType.text,
                               paddingRight: 5,
                             )),
                             Expanded(
@@ -189,6 +194,7 @@ class _PernikahanPriaPageState extends State<PernikahanPriaPage> {
                               obscureText: false,
                               fieldHeight: 8,
                               paddingLeft: 0,
+                              inputType: TextInputType.none,
                               onTap: () async {
                                 DateTime? pickedDate = await showDatePicker(
                                     context: context,
@@ -198,12 +204,10 @@ class _PernikahanPriaPageState extends State<PernikahanPriaPage> {
                                         2000), //DateTime.now() - not to allow to choose before today.
                                     lastDate: DateTime(2101));
 
-                                
-                                if (tanggalLahir.isNotEmpty) {
-                                  tanggalLahir =
+                                tanggalLahir =
                                     pickedDate.toString().split(' ')[0];
-                                  tanggalController.text =
-                                      "${tanggalLahir.split('-')[0]}-${tanggalLahir.split('-')[1]}-${tanggalLahir.split('-')[2]}";
+                                if (tanggalLahir.isNotEmpty) {
+                                  tanggalController.text = tanggalLahir;
                                 }
                               },
                             )),

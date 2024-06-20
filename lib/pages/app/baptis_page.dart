@@ -152,8 +152,9 @@ class _BaptisPageState extends State<BaptisPage> {
 
                                 tanggalLahir =
                                     pickedDate.toString().split(' ')[0];
-                                tanggalController.text =
-                                    "${tanggalLahir.split('-')[2]}-${tanggalLahir.split('-')[1]}-${tanggalLahir.split('-')[0]}";
+                                if (tanggalLahir.isNotEmpty) {
+                                  tanggalController.text = tanggalLahir;
+                                }
                               },
                             )),
                           ],
@@ -256,7 +257,7 @@ class _BaptisPageState extends State<BaptisPage> {
                               obscureText: false,
                               fieldHeight: 8,
                               paddingRight: 5,
-                              inputType: TextInputType.number,
+                              inputType: TextInputType.phone,
                             )),
                             Expanded(
                                 child: MyTextField(
@@ -264,7 +265,7 @@ class _BaptisPageState extends State<BaptisPage> {
                               obscureText: false,
                               fieldHeight: 8,
                               paddingLeft: 0,
-                              inputType: TextInputType.number,
+                              inputType: TextInputType.phone,
                             )),
                           ],
                         ),
