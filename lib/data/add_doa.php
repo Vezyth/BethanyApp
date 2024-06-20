@@ -5,22 +5,27 @@
     try {
     	if (isset($_POST["NIJ"]) && isset($_POST["Password"])) {
     		$NIJ = $_POST["NIJ"];
+    		
 			$Password = $_POST["Password"];
+			
     		
     		require_once("db_connect.php");
     		$result = $con->prepare(
-        		"SELECT NIJ 
+        		"SELECT * 
         		    FROM Master_User 
-        		    WHERE NIJ = $NIJ"
+        		    WHERE NIJ = ? AND Password = ?"
         	);
-        	$result->execute([$NIJ]);
+        	$result->execute([$NIJ, $Password]);
         	if (($row = $result->fetch(PDO::FETCH_ASSOC)) !== false) {
-        		$response["success"] = 1;
-        	    $response["message"] = "Success";
-        	} 
+        		$response["success"] = 0;
+        	    $response["message"] = "Anda sudah terdaftar !";
+        	} else {
+        		$response["success"] = 0;
+        		$response["message"] = "NIJ atau Password Salah";
+        	}
     	} else {
         	$response["success"] = 0;
-        	$response["message"] = "Wrong NIJ or Password !";
+        	$response["message"] = "Error.";
     	}
     } catch (PDOException $e) {
     	$response["success"] = 0;

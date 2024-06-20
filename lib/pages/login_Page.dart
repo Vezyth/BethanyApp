@@ -49,7 +49,7 @@ class LoginPage extends StatelessWidget {
             //username text field
             MyTextField(
               controller: nijController,
-              hintText: 'Username',
+              hintText: 'NIJ',
               obscureText: false,
               fieldHeight: 10,
             ),
@@ -140,12 +140,6 @@ class LoginPage extends StatelessWidget {
             const SizedBox(
               height: 50,
             ),
-
-            // or continue with
-
-            // icons buttons
-
-            //register
 
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
