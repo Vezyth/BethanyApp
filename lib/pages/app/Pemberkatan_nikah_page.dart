@@ -63,7 +63,10 @@ class _PemberkatanNikahPageState extends State<PemberkatanNikahPage> {
     String date = tanggalController.text;
     String time = jamController.text;
 
-    if (telpController == "") {
+    if (telpController.text.isEmpty ||
+        tanggalController.text.isEmpty ||
+        alamatSetelahController.text.isEmpty ||
+        jamController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("please fill all fields")));
     } else {
@@ -182,11 +185,13 @@ class _PemberkatanNikahPageState extends State<PemberkatanNikahPage> {
                                         firstDate: DateTime(2000),
                                         lastDate: DateTime(2101));
 
-                                    tanggalPemberkatan =
-                                        pickedDate.toString().split(' ')[0];
-                                    if (tanggalPemberkatan.isNotEmpty) {
-                                      tanggalController.text =
-                                          "${tanggalPemberkatan.split('-')[0]}-${tanggalPemberkatan.split('-')[1]}-${tanggalPemberkatan.split('-')[2]}";
+                                    String? tanggalLahir =
+                                        pickedDate?.toString().split(' ')[0];
+                                    if (tanggalLahir != null &&
+                                        tanggalLahir.isNotEmpty) {
+                                      tanggalController.text = tanggalLahir;
+                                    } else {
+                                      tanggalController.text = "";
                                     }
                                   },
                                 ),

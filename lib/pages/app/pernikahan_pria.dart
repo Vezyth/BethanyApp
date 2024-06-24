@@ -15,7 +15,15 @@ class PernikahanPriaPage extends StatefulWidget {
 }
 
 class _PernikahanPriaPageState extends State<PernikahanPriaPage> {
-  String tanggalLahir = "";
+  String tanggalLahir = "",
+      nameField = "",
+      alamatField = "",
+      tempatField = "",
+      telpField = "",
+      hpField = "",
+      ayahField = "",
+      ibuField = "",
+      kantorField = "";
 
   final nameController = TextEditingController();
 
@@ -91,6 +99,18 @@ class _PernikahanPriaPageState extends State<PernikahanPriaPage> {
                       fieldHeight: 8,
                       paddingLeft: 25,
                       paddingRight: 25,
+                      errorText: nameField,
+                      onChange: (String value) {
+                        if (value.isEmpty) {
+                          setState(() {
+                            nameField = 'Field is required';
+                          });
+                        } else {
+                          setState(() {
+                            nameField = "";
+                          });
+                        }
+                      },
                     ),
                     const SizedBox(
                       height: 8,
@@ -108,6 +128,18 @@ class _PernikahanPriaPageState extends State<PernikahanPriaPage> {
                       obscureText: false,
                       fieldHeight: 8,
                       fieldBottom: 50,
+                      errorText: alamatField,
+                      onChange: (String value) {
+                        if (value.isEmpty) {
+                          setState(() {
+                            alamatField = 'Field is required';
+                          });
+                        } else {
+                          setState(() {
+                            alamatField = "";
+                          });
+                        }
+                      },
                     ),
 
                     const SizedBox(
@@ -129,6 +161,18 @@ class _PernikahanPriaPageState extends State<PernikahanPriaPage> {
                       paddingLeft: 25,
                       paddingRight: 25,
                       inputType: TextInputType.phone,
+                      errorText: kantorField,
+                      onChange: (String value) {
+                        if (value.isEmpty) {
+                          setState(() {
+                            kantorField = 'Field is required';
+                          });
+                        } else {
+                          setState(() {
+                            kantorField = "";
+                          });
+                        }
+                      },
                     ),
 
                     const SizedBox(
@@ -155,6 +199,18 @@ class _PernikahanPriaPageState extends State<PernikahanPriaPage> {
                               fieldHeight: 8,
                               paddingRight: 5,
                               inputType: TextInputType.phone,
+                              errorText: hpField,
+                              onChange: (String value) {
+                                if (value.isEmpty) {
+                                  setState(() {
+                                    hpField = 'Field is required';
+                                  });
+                                } else {
+                                  setState(() {
+                                    hpField = "";
+                                  });
+                                }
+                              },
                             )),
                             Expanded(
                                 child: MyTextField(
@@ -163,6 +219,18 @@ class _PernikahanPriaPageState extends State<PernikahanPriaPage> {
                               fieldHeight: 8,
                               paddingLeft: 0,
                               inputType: TextInputType.phone,
+                              errorText: telpField,
+                              onChange: (String value) {
+                                if (value.isEmpty) {
+                                  setState(() {
+                                    telpField = 'Field is required';
+                                  });
+                                } else {
+                                  setState(() {
+                                    telpField = "";
+                                  });
+                                }
+                              },
                             )),
                           ],
                         ),
@@ -187,6 +255,18 @@ class _PernikahanPriaPageState extends State<PernikahanPriaPage> {
                               fieldHeight: 8,
                               inputType: TextInputType.text,
                               paddingRight: 5,
+                              errorText: tempatField,
+                              onChange: (String value) {
+                                if (value.isEmpty) {
+                                  setState(() {
+                                    tempatField = 'Field is required';
+                                  });
+                                } else {
+                                  setState(() {
+                                    tempatField = "";
+                                  });
+                                }
+                              },
                             )),
                             Expanded(
                                 child: MyTextField(
@@ -195,6 +275,18 @@ class _PernikahanPriaPageState extends State<PernikahanPriaPage> {
                               fieldHeight: 8,
                               paddingLeft: 0,
                               inputType: TextInputType.none,
+                              errorText: tanggalLahir,
+                              onChange: (String value) {
+                                if (value.isEmpty) {
+                                  setState(() {
+                                    tanggalLahir = 'Field is required';
+                                  });
+                                } else {
+                                  setState(() {
+                                    tanggalLahir = "";
+                                  });
+                                }
+                              },
                               onTap: () async {
                                 DateTime? pickedDate = await showDatePicker(
                                     context: context,
@@ -204,10 +296,13 @@ class _PernikahanPriaPageState extends State<PernikahanPriaPage> {
                                         2000), //DateTime.now() - not to allow to choose before today.
                                     lastDate: DateTime(2101));
 
-                                tanggalLahir =
-                                    pickedDate.toString().split(' ')[0];
-                                if (tanggalLahir.isNotEmpty) {
+                                String? tanggalLahir =
+                                    pickedDate?.toString().split(' ')[0];
+                                if (tanggalLahir != null &&
+                                    tanggalLahir.isNotEmpty) {
                                   tanggalController.text = tanggalLahir;
+                                } else {
+                                  tanggalController.text = "";
                                 }
                               },
                             )),
@@ -233,6 +328,18 @@ class _PernikahanPriaPageState extends State<PernikahanPriaPage> {
                               obscureText: false,
                               fieldHeight: 8,
                               paddingRight: 5,
+                              errorText: ayahField,
+                              onChange: (String value) {
+                                if (value.isEmpty) {
+                                  setState(() {
+                                    ayahField = 'Field is required';
+                                  });
+                                } else {
+                                  setState(() {
+                                    ayahField = "";
+                                  });
+                                }
+                              },
                             )),
                             Expanded(
                                 child: MyTextField(
@@ -240,6 +347,18 @@ class _PernikahanPriaPageState extends State<PernikahanPriaPage> {
                               obscureText: false,
                               fieldHeight: 8,
                               paddingLeft: 0,
+                              errorText: ibuField,
+                              onChange: (String value) {
+                                if (value.isEmpty) {
+                                  setState(() {
+                                    ibuField = 'Field is required';
+                                  });
+                                } else {
+                                  setState(() {
+                                    ibuField = "";
+                                  });
+                                }
+                              },
                             )),
                           ],
                         ),
@@ -269,14 +388,14 @@ class _PernikahanPriaPageState extends State<PernikahanPriaPage> {
                         )),
                       ),
                       onTap: () {
-                        if (nameController == "" ||
-                            alamatController == "" ||
-                            hpController == "" ||
-                            telpController == "" ||
-                            tempatController == "" ||
-                            tanggalController == "" ||
-                            ayahController == "" ||
-                            ibuController == "") {
+                        if (nameController.text.isEmpty ||
+                            alamatController.text.isEmpty ||
+                            hpController.text.isEmpty ||
+                            telpController.text.isEmpty ||
+                            tempatController.text.isEmpty ||
+                            tanggalController.text.isEmpty ||
+                            ayahController.text.isEmpty ||
+                            ibuController.text.isEmpty) {
                           ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                   content: Text("please fill all fields")));

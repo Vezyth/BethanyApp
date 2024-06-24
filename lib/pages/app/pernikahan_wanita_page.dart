@@ -222,10 +222,13 @@ class _PernikahanWanitaPageState extends State<PernikahanWanitaPage> {
                                           2000), //DateTime.now() - not to allow to choose before today.
                                       lastDate: DateTime(2101));
 
-                                  tanggalLahir =
-                                      pickedDate.toString().split(' ')[0];
-                                  if (tanggalLahir.isNotEmpty) {
+                                  String? tanggalLahir =
+                                      pickedDate?.toString().split(' ')[0];
+                                  if (tanggalLahir != null &&
+                                      tanggalLahir.isNotEmpty) {
                                     tanggalController.text = tanggalLahir;
+                                  } else {
+                                    tanggalController.text = "";
                                   }
                                 },
                               )),
@@ -287,14 +290,14 @@ class _PernikahanWanitaPageState extends State<PernikahanWanitaPage> {
                           )),
                         ),
                         onTap: () {
-                          if (nameController == "" ||
-                              alamatController == "" ||
-                              hpController == "" ||
-                              telpController == "" ||
-                              tempatController == "" ||
-                              tanggalController == "" ||
-                              ayahController == "" ||
-                              ibuController == "") {
+                          if (nameController.text.isEmpty ||
+                              alamatController.text.isEmpty ||
+                              hpController.text.isEmpty ||
+                              telpController.text.isEmpty ||
+                              tempatController.text.isEmpty ||
+                              tanggalController.text.isEmpty ||
+                              ayahController.text.isEmpty ||
+                              ibuController.text.isEmpty) {
                             ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
                                     content: Text("please fill all fields")));

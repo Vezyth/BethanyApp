@@ -12,20 +12,20 @@ class DoaPage extends StatefulWidget {
 
 class _DoaPageState extends State<DoaPage> {
   int kategori = 1, gender = 1, bersedia = 1;
-  String tanggalLahir = "";
+  String tanggalLahir = "", nameField = "", nomorField = "", tanggalField = "";
 
   final nameController = TextEditingController();
   final nomorController = TextEditingController();
   final tanggalController = TextEditingController();
   final permintaanController = TextEditingController();
 
-
   final ScrollController _scrollController = ScrollController();
 
   Future<void> kirimPermohonan() async {
-    if (nameController.text == "" ||
-        nomorController.text == "" ||
-        tanggalController.text == ""|| tanggalLahir == "") {
+    if (nameController.text.isEmpty ||
+        nomorController.text.isEmpty ||
+        tanggalController.text.isEmpty ||
+        tanggalController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Please fill all the fields")));
     } else {
@@ -92,6 +92,18 @@ class _DoaPageState extends State<DoaPage> {
                       controller: nameController,
                       obscureText: false,
                       fieldHeight: 8,
+                      errorText: nameField,
+                      onChange: (String value) {
+                        if (value.isEmpty) {
+                          setState(() {
+                            nameField = 'Field is required';
+                          });
+                        } else {
+                          setState(() {
+                            nameField = "";
+                          });
+                        }
+                      },
                     ),
                     const SizedBox(
                       height: 10,
@@ -109,6 +121,18 @@ class _DoaPageState extends State<DoaPage> {
                       obscureText: false,
                       fieldHeight: 10,
                       inputType: TextInputType.number,
+                      errorText: nomorField,
+                      onChange: (String value) {
+                        if (value.isEmpty) {
+                          setState(() {
+                            nomorField = 'Field is required';
+                          });
+                        } else {
+                          setState(() {
+                            nomorField = "";
+                          });
+                        }
+                      },
                     ),
                     // umur & gender
                     const Padding(
@@ -132,25 +156,34 @@ class _DoaPageState extends State<DoaPage> {
                           fieldHeight: 8,
                           paddingRight: 0,
                           inputType: TextInputType.none,
-                          
+                          errorText: tanggalField,
+                          onChange: (String value) {
+                            if (value.isEmpty) {
+                              setState(() {
+                                tanggalField = 'Field is required';
+                              });
+                            } else {
+                              setState(() {
+                                tanggalField = "";
+                              });
+                            }
+                          },
                           onTap: () async {
                             DateTime? pickedDate = await showDatePicker(
-                      context: context,
-                       initialDate: DateTime.now(), //get today's date
-                      firstDate:DateTime(2000), //DateTime.now() - not to allow to choose before today.
-                      lastDate: DateTime(2101)
-                  );
-                  
-                  tanggalLahir = pickedDate.toString().split(' ')[0];
-                  tanggalController.text = "${tanggalLahir.split('-')[2]}-${tanggalLahir.split('-')[1]}-${tanggalLahir.split('-')[0]}";
-                  
-                  
-                  
-                  
-                          },
-                          
+                                context: context,
+                                initialDate: DateTime.now(),
+                                firstDate: DateTime(2000),
+                                lastDate: DateTime(2101));
 
-                          
+                            String? tanggalLahir =
+                                pickedDate?.toString().split(' ')[0];
+                            if (tanggalLahir != null &&
+                                tanggalLahir.isNotEmpty) {
+                              tanggalController.text = tanggalLahir;
+                            } else {
+                              tanggalController.text = "";
+                            }
+                          },
                         )),
                         Expanded(
                           child: Column(children: [

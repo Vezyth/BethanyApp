@@ -12,7 +12,15 @@ class BaptisPage extends StatefulWidget {
 
 class _BaptisPageState extends State<BaptisPage> {
   int kategori = 1, gender = 1, bergereja = 1;
-  String tanggalLahir = "";
+  String tanggalLahir = "",
+      nameField = "",
+      alamatField = "",
+      tempatField = "",
+      telpField = "",
+      hpField = "",
+      ayahField = "",
+      ibuField = "",
+      gerejaField = "";
 
   final nameController = TextEditingController();
   final alamatController = TextEditingController();
@@ -26,24 +34,7 @@ class _BaptisPageState extends State<BaptisPage> {
 
   final ScrollController _scrollController = ScrollController();
 
-  String _emailErrorText = "";
-  void _validateEmail(String value) {
-    if (value.isEmpty) {
-      setState(() {
-        _emailErrorText = 'Email is required';
-      });
-    } else if (!isEmailValid(value)) {
-      setState(() {
-        _emailErrorText = 'Enter a valid email address';
-      });
-    }
-  }
-
-  bool isEmailValid(String email) {
-    // Basic email validation using regex
-    // You can implement more complex validation if needed
-    return RegExp(r'^[\w-\.]+@[a-zA-Z]+\.[a-zA-Z]{2,}$').hasMatch(email);
-  }
+  String _fieldErrorText = "";
 
   Future<void> kirimPermohonan() async {
     if (nameController.text == "" ||
@@ -129,8 +120,18 @@ class _BaptisPageState extends State<BaptisPage> {
                       controller: nameController,
                       obscureText: false,
                       fieldHeight: 8,
-                      errorText: _emailErrorText,
-                      onChange: _validateEmail,
+                      errorText: nameField,
+                      onChange: (String value) {
+                        if (value.isEmpty) {
+                          setState(() {
+                            nameField = 'Field is required';
+                          });
+                        } else {
+                          setState(() {
+                            nameField = "";
+                          });
+                        }
+                      },
                     ),
                     const SizedBox(
                       height: 10,
@@ -154,6 +155,18 @@ class _BaptisPageState extends State<BaptisPage> {
                               obscureText: false,
                               fieldHeight: 8,
                               paddingRight: 5,
+                              errorText: tempatField,
+                              onChange: (String value) {
+                                if (value.isEmpty) {
+                                  setState(() {
+                                    tempatField = 'Field is required';
+                                  });
+                                } else {
+                                  setState(() {
+                                    tempatField = "";
+                                  });
+                                }
+                              },
                             )),
                             Expanded(
                                 child: MyTextField(
@@ -162,19 +175,32 @@ class _BaptisPageState extends State<BaptisPage> {
                               fieldHeight: 8,
                               paddingLeft: 0,
                               inputType: TextInputType.none,
+                              errorText: tanggalLahir,
+                              onChange: (String value) {
+                                if (value.isEmpty) {
+                                  setState(() {
+                                    tanggalLahir = 'Field is required';
+                                  });
+                                } else {
+                                  setState(() {
+                                    tanggalLahir = "";
+                                  });
+                                }
+                              },
                               onTap: () async {
                                 DateTime? pickedDate = await showDatePicker(
                                     context: context,
-                                    initialDate:
-                                        DateTime.now(), //get today's date
-                                    firstDate: DateTime(
-                                        2000), //DateTime.now() - not to allow to choose before today.
+                                    initialDate: DateTime.now(),
+                                    firstDate: DateTime(2000),
                                     lastDate: DateTime(2101));
 
-                                tanggalLahir =
-                                    pickedDate.toString().split(' ')[0];
-                                if (tanggalLahir.isNotEmpty) {
+                                String? tanggalLahir =
+                                    pickedDate?.toString().split(' ')[0];
+                                if (tanggalLahir != null &&
+                                    tanggalLahir.isNotEmpty) {
                                   tanggalController.text = tanggalLahir;
+                                } else {
+                                  tanggalController.text = "";
                                 }
                               },
                             )),
@@ -279,6 +305,18 @@ class _BaptisPageState extends State<BaptisPage> {
                               fieldHeight: 8,
                               paddingRight: 5,
                               inputType: TextInputType.phone,
+                              errorText: hpField,
+                              onChange: (String value) {
+                                if (value.isEmpty) {
+                                  setState(() {
+                                    hpField = 'Field is required';
+                                  });
+                                } else {
+                                  setState(() {
+                                    hpField = "";
+                                  });
+                                }
+                              },
                             )),
                             Expanded(
                                 child: MyTextField(
@@ -287,6 +325,18 @@ class _BaptisPageState extends State<BaptisPage> {
                               fieldHeight: 8,
                               paddingLeft: 0,
                               inputType: TextInputType.phone,
+                              errorText: telpField,
+                              onChange: (String value) {
+                                if (value.isEmpty) {
+                                  setState(() {
+                                    telpField = 'Field is required';
+                                  });
+                                } else {
+                                  setState(() {
+                                    telpField = "";
+                                  });
+                                }
+                              },
                             )),
                           ],
                         ),
@@ -310,6 +360,18 @@ class _BaptisPageState extends State<BaptisPage> {
                               obscureText: false,
                               fieldHeight: 8,
                               paddingRight: 5,
+                              errorText: ayahField,
+                              onChange: (String value) {
+                                if (value.isEmpty) {
+                                  setState(() {
+                                    ayahField = 'Field is required';
+                                  });
+                                } else {
+                                  setState(() {
+                                    ayahField = "";
+                                  });
+                                }
+                              },
                             )),
                             Expanded(
                                 child: MyTextField(
@@ -317,6 +379,18 @@ class _BaptisPageState extends State<BaptisPage> {
                               obscureText: false,
                               fieldHeight: 8,
                               paddingLeft: 0,
+                              errorText: ibuField,
+                              onChange: (String value) {
+                                if (value.isEmpty) {
+                                  setState(() {
+                                    ibuField = 'Field is required';
+                                  });
+                                } else {
+                                  setState(() {
+                                    ibuField = "";
+                                  });
+                                }
+                              },
                             )),
                           ],
                         ),
@@ -376,6 +450,18 @@ class _BaptisPageState extends State<BaptisPage> {
                             obscureText: false,
                             fieldHeight: 8,
                             enabled: false,
+                            errorText: gerejaField,
+                            onChange: (String value) {
+                              if (value.isEmpty) {
+                                setState(() {
+                                  gerejaField = 'Field is required';
+                                });
+                              } else {
+                                setState(() {
+                                  gerejaField = "";
+                                });
+                              }
+                            },
                           ),
                         ],
                       ],

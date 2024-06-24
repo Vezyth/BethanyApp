@@ -6,16 +6,23 @@ import 'package:bethany_app/pages/register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   LoginPage({super.key});
 
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   // text editing controller
   final nijController = TextEditingController();
+
   final passwordController = TextEditingController();
 
   //sign in method
-
   void signIn() {}
+
+  String nijField = "", passwordField = "";
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +59,18 @@ class LoginPage extends StatelessWidget {
               hintText: 'NIJ',
               obscureText: false,
               fieldHeight: 10,
+              errorText: nijField,
+              onChange: (String value) {
+                if (value.isEmpty) {
+                  setState(() {
+                    nijField = 'Field is required';
+                  });
+                } else {
+                  setState(() {
+                    nijField = "";
+                  });
+                }
+              },
             ),
 
             const SizedBox(
@@ -63,6 +82,18 @@ class LoginPage extends StatelessWidget {
               hintText: 'Password',
               obscureText: true,
               fieldHeight: 10,
+              errorText: passwordField,
+              onChange: (String value) {
+                if (value.isEmpty) {
+                  setState(() {
+                    passwordField = 'Field is required';
+                  });
+                } else {
+                  setState(() {
+                    passwordField = "";
+                  });
+                }
+              },
             ),
 
             // forgot password

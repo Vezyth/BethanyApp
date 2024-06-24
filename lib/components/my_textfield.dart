@@ -23,7 +23,7 @@ class MyTextField extends StatelessWidget {
       {super.key,
       required this.controller,
       this.hintText = "",
-      required this.obscureText,
+      this.obscureText = false,
       this.fieldBottom = 10,
       this.fieldHeight = 10,
       this.fieldWidth = 8,

@@ -25,8 +25,28 @@ class _RegisterPageState extends State<RegisterPage> {
 
   final nijController = TextEditingController();
 
-  String tanggalLahir = "";
+  String tanggalLahir = "", userField = "", nomorField = "", passwordField = "";
+
   int gender = 1;
+
+  String _emailErrorText = "";
+  void _validateEmail(String value) {
+    if (value.isEmpty) {
+      setState(() {
+        _emailErrorText = 'Email is required';
+      });
+    } else {
+      setState(() {
+        _emailErrorText = "";
+      });
+    }
+  }
+
+  bool isEmailValid(String email) {
+    // Basic email validation using regex
+    // You can implement more complex validation if needed
+    return RegExp(r'^[\w-\.]+@[a-zA-Z]+\.[a-zA-Z]{2,}$').hasMatch(email);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,11 +90,22 @@ class _RegisterPageState extends State<RegisterPage> {
 
             //username text field
             MyTextField(
-              controller: usernameController,
-              hintText: 'Nama Lengkap',
-              obscureText: false,
-              fieldHeight: 10,
-            ),
+                controller: usernameController,
+                hintText: 'Nama Lengkap',
+                obscureText: false,
+                fieldHeight: 10,
+                errorText: userField,
+                onChange: (String value) {
+                  if (value.isEmpty) {
+                    setState(() {
+                      userField = 'Field is required';
+                    });
+                  } else {
+                    setState(() {
+                      userField = "";
+                    });
+                  }
+                }),
 
             const SizedBox(
               height: 10,
@@ -86,6 +117,18 @@ class _RegisterPageState extends State<RegisterPage> {
               obscureText: false,
               fieldHeight: 10,
               inputType: TextInputType.phone,
+              errorText: nomorField,
+              onChange: (String value) {
+                if (value.isEmpty) {
+                  setState(() {
+                    nomorField = 'Field is required';
+                  });
+                } else {
+                  setState(() {
+                    nomorField = "";
+                  });
+                }
+              },
             ),
 
             const SizedBox(
@@ -106,10 +149,14 @@ class _RegisterPageState extends State<RegisterPage> {
                         1970), //DateTime.now() - not to allow to choose before today.
                     lastDate: DateTime(2101));
 
-                print(pickedDate);
-                tanggalLahir = pickedDate.toString().split(' ')[0];
-                if (tanggalLahir.isNotEmpty) {
+                String? tanggalLahir = pickedDate
+                    ?.toString()
+                    .split(' ')[0]; // Use ? to handle null pickedDate
+                if (tanggalLahir != null && tanggalLahir.isNotEmpty) {
                   tanggalController.text = tanggalLahir;
+                } else {
+                  tanggalController.text =
+                      ""; // Set to empty string if tanggalLahir is null or empty
                 }
               },
             ),
@@ -123,17 +170,30 @@ class _RegisterPageState extends State<RegisterPage> {
               hintText: 'Email',
               obscureText: false,
               fieldHeight: 10,
+              errorText: _emailErrorText,
+              onChange: _validateEmail,
             ),
             const SizedBox(
               height: 10,
             ),
 
             MyTextField(
-              controller: passwordController,
-              hintText: 'Password',
-              obscureText: true,
-              fieldHeight: 10,
-            ),
+                controller: passwordController,
+                hintText: 'Password',
+                obscureText: true,
+                fieldHeight: 10,
+                errorText: passwordField,
+                onChange: (String value) {
+                  if (value.isEmpty) {
+                    setState(() {
+                      passwordField = 'Field is required';
+                    });
+                  } else {
+                    setState(() {
+                      passwordField = "";
+                    });
+                  }
+                }),
             const SizedBox(
               height: 10,
             ),
