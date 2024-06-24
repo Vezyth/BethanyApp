@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
-
 class MyTextField extends StatelessWidget {
   final Function()? onTap;
-
+  final Function(String)? onChange;
   final controller;
   final String hintText;
   final bool obscureText;
@@ -18,7 +17,7 @@ class MyTextField extends StatelessWidget {
   final TextInputType inputType;
   final bool enabled;
   final bool onTapDatePicker;
- 
+  final String errorText;
 
   const MyTextField(
       {super.key,
@@ -34,9 +33,11 @@ class MyTextField extends StatelessWidget {
       this.paddingLeft = 25,
       this.paddingRight = 25,
       this.inputType = TextInputType.text,
-      this.enabled=true,
+      this.enabled = true,
       this.onTapDatePicker = false,
       this.onTap,
+      this.errorText = "",
+      this.onChange
       // this.onTap
       });
 
@@ -52,46 +53,36 @@ class MyTextField extends StatelessWidget {
         children: [
           Flexible(
             child: Container(
-  decoration: BoxDecoration(
-    border: Border.all(color: enabled ? Colors.grey : Colors.grey.withOpacity(0.5)), 
-    
-  ),
-  child: TextField(
-    controller: controller,
-    obscureText: obscureText,
-    textAlignVertical: TextAlignVertical.top,
-    keyboardType: inputType,
-    enabled: enabled,
-    decoration: InputDecoration(
-      contentPadding: EdgeInsets.only(
-        top: fieldHeight,
-        bottom: fieldBottom,
-        left: fieldWidth,
-        right: fieldWidth,
-      ),
-      fillColor: Colors.white,
-      filled: true,
-      hintText: hintText,
-      hintStyle: TextStyle(color: Colors.grey[500]),
-      border: InputBorder.none,   
-    ),
-    onTap: onTap
-    //  () async {
-    //   if (onTapDatePicker == true){
-    //     DateTime? pickedDate = await showDatePicker(
-    //                   context: context,
-    //                    initialDate: DateTime.now(), //get today's date
-    //                   firstDate:DateTime(2000), //DateTime.now() - not to allow to choose before today.
-    //                   lastDate: DateTime(2101)
-    //               );
-    //   }else {
-    //     return;
-    //   }
-      
-    // } 
-  ),
-),
-            
+                child: TextFormField(
+              controller: controller,
+              obscureText: obscureText,
+              textAlignVertical: TextAlignVertical.top,
+              keyboardType: inputType,
+              enabled: enabled,
+              decoration: InputDecoration(
+                errorText: errorText == "" ? null : errorText,
+                contentPadding: EdgeInsets.only(
+                  top: fieldHeight,
+                  bottom: fieldBottom,
+                  left: fieldWidth,
+                  right: fieldWidth,
+                ),
+                filled: true,
+                fillColor: Colors.white,
+                hintText: hintText,
+                hintStyle: TextStyle(color: Colors.grey[500]),
+                border: OutlineInputBorder(
+                  // Add this line to set border
+
+                  borderSide: BorderSide(
+                      color: Colors.grey,
+                      width: 1.0), // Set border color and width
+                ),
+              ),
+              validator: (value) => errorText,
+              onChanged: onChange,
+              onTap: onTap,
+            )),
           ),
         ],
       ),

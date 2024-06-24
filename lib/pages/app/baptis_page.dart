@@ -26,6 +26,25 @@ class _BaptisPageState extends State<BaptisPage> {
 
   final ScrollController _scrollController = ScrollController();
 
+  String _emailErrorText = "";
+  void _validateEmail(String value) {
+    if (value.isEmpty) {
+      setState(() {
+        _emailErrorText = 'Email is required';
+      });
+    } else if (!isEmailValid(value)) {
+      setState(() {
+        _emailErrorText = 'Enter a valid email address';
+      });
+    }
+  }
+
+  bool isEmailValid(String email) {
+    // Basic email validation using regex
+    // You can implement more complex validation if needed
+    return RegExp(r'^[\w-\.]+@[a-zA-Z]+\.[a-zA-Z]{2,}$').hasMatch(email);
+  }
+
   Future<void> kirimPermohonan() async {
     if (nameController.text == "" ||
         alamatController.text == "" ||
@@ -110,6 +129,8 @@ class _BaptisPageState extends State<BaptisPage> {
                       controller: nameController,
                       obscureText: false,
                       fieldHeight: 8,
+                      errorText: _emailErrorText,
+                      onChange: _validateEmail,
                     ),
                     const SizedBox(
                       height: 10,
