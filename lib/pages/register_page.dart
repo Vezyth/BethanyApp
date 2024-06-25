@@ -135,14 +135,11 @@ class _RegisterPageState extends State<RegisterPage> {
                         1970), //DateTime.now() - not to allow to choose before today.
                     lastDate: DateTime(2101));
 
-                String? tanggalLahir = pickedDate
-                    ?.toString()
-                    .split(' ')[0]; // Use ? to handle null pickedDate
+                String? tanggalLahir = pickedDate?.toString().split(' ')[0];
                 if (tanggalLahir != null && tanggalLahir.isNotEmpty) {
                   tanggalController.text = tanggalLahir;
                 } else {
-                  tanggalController.text =
-                      ""; // Set to empty string if tanggalLahir is null or empty
+                  tanggalController.text = "";
                 }
               },
             ),

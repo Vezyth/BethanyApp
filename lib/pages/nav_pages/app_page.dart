@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:bethany_app/components/my_app.dart';
 import 'package:bethany_app/pages/app/baptis_page.dart';
 import 'package:bethany_app/pages/app/doa_konseling_page.dart';
+import 'package:bethany_app/pages/app/family_page.dart';
 import 'package:bethany_app/pages/app/pernikahan_pria.dart';
 import 'package:bethany_app/pages/app/som_page.dart';
 
@@ -74,7 +75,7 @@ class _AppPageState extends State<AppPage> {
                 child: MyApp(
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (BuildContext context) => const MainPage()));
+                        builder: (BuildContext context) => const FamilyPage()));
                   },
                   name: "Family Altar",
                   imagePath: "assets/bible.png",
@@ -125,7 +126,7 @@ class _AppPageState extends State<AppPage> {
                 child: MyApp(
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (BuildContext context) =>  const BaptisPage()));
+                        builder: (BuildContext context) => const BaptisPage()));
                   },
                   name: "\nBaptisan",
                   imagePath: "assets/blackboard.png",
