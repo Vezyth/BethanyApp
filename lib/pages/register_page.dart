@@ -23,8 +23,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
   final tanggalController = TextEditingController();
 
-  final nijController = TextEditingController();
-
   String tanggalLahir = "", userField = "", nomorField = "", passwordField = "";
 
   int gender = 1;
@@ -77,18 +75,6 @@ class _RegisterPageState extends State<RegisterPage> {
               height: 20,
             ),
 
-            MyTextField(
-              controller: nijController,
-              hintText: 'NIJ',
-              obscureText: false,
-              fieldHeight: 10,
-            ),
-
-            const SizedBox(
-              height: 10,
-            ),
-
-            //username text field
             MyTextField(
                 controller: usernameController,
                 hintText: 'Nama Lengkap',
@@ -273,7 +259,6 @@ class _RegisterPageState extends State<RegisterPage> {
                         "https://bethany-app.000webhostapp.com/user_add.php";
 
                     var res = await http.post(Uri.parse(uri), body: {
-                      "NIJ": nijController.text,
                       "Full_Name": usernameController.text,
                       "Phone_Number": telpController.text,
                       "Born_Date": tanggalController.text,
