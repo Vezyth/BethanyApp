@@ -14,25 +14,11 @@ import 'package:http/http.dart' as http;
 class AppPage extends StatefulWidget {
   const AppPage({super.key});
 
-  //Bible API
-
   @override
   State<AppPage> createState() => _AppPageState();
 }
 
 class _AppPageState extends State<AppPage> {
-  String _references = "";
-  String _text = "";
-  Future getVerse() async {
-    var response =
-        await http.get(Uri.http("bible-api.com", "", {"random": "verse"}));
-    var jsonData = jsonDecode(response.body);
-    var reference = jsonData['reference'];
-    var text = jsonData['text'];
-    _references = reference;
-    _text = text;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -253,69 +239,6 @@ class _AppPageState extends State<AppPage> {
           ),
         ),
         const SizedBox(height: 30),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 8),
-          child: Row(
-            children: [
-              Text(
-                "Bible verse of the day",
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-        ),
-        FutureBuilder(
-            future: getVerse(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                return Stack(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        decoration: const BoxDecoration(
-                            color: Colors.amber,
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(10),
-                                topRight: Radius.circular(10))),
-                        height: 30,
-                        width: MediaQuery.of(context).size.width,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(12),
-                      child: Align(
-                        alignment: Alignment.topLeft,
-                        child: Text(_references),
-                      ),
-                    ),
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(top: 40, left: 10, right: 8),
-                      child: Positioned(
-                        width: MediaQuery.of(context).size.width,
-                        bottom: 0,
-                        child: Text(
-                          _text,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(width: 1, color: Colors.amber),
-                            borderRadius: BorderRadius.circular(10)),
-                        height: MediaQuery.of(context).size.height / 6,
-                        width: MediaQuery.of(context).size.width,
-                      ),
-                    ),
-                  ],
-                );
-              } else {
-                return const CircularProgressIndicator();
-              }
-            }),
       ],
     ));
   }

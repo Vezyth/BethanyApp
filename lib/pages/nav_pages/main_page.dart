@@ -44,10 +44,10 @@ class _MainPageState extends State<MainPage> {
       body: pages[currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.amber,
+        backgroundColor: Colors.white,
         onTap: onTap,
         currentIndex: currentIndex,
-        selectedItemColor: Colors.black54,
+        selectedItemColor: Colors.amber,
         unselectedItemColor: Colors.grey.withOpacity(0.5),
         showSelectedLabels: true,
         showUnselectedLabels: true,

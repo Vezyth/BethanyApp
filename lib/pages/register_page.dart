@@ -40,6 +40,34 @@ class _RegisterPageState extends State<RegisterPage> {
     }
   }
 
+  Future<void> _showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('User Login Info'),
+          content: const SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('NIJ : '),
+                Text('Password: '),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Approve'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   bool isEmailValid(String email) {
     // Basic email validation using regex
     // You can implement more complex validation if needed
@@ -243,40 +271,40 @@ class _RegisterPageState extends State<RegisterPage> {
                 )),
               ),
               onTap: () async {
-                // signUp();
+                _showMyDialog();
+                // if (usernameController.text == "" ||
+                //     emailController.text == "" ||
+                //     passwordController.text == "") {
+                //   ScaffoldMessenger.of(context).showSnackBar(
+                //       const SnackBar(content: Text("Fill all fields!")));
+                // } else {
+                //   try {
+                //     String uri =
+                //         "https://bethany-app.000webhostapp.com/user_add.php";
 
-                if (usernameController.text == "" ||
-                    emailController.text == "" ||
-                    passwordController.text == "") {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text("Fill all fields!")));
-                } else {
-                  try {
-                    String uri =
-                        "https://bethany-app.000webhostapp.com/user_add.php";
+                //     var res = await http.post(Uri.parse(uri), body: {
+                //       "Full_Name": usernameController.text,
+                //       "Phone_Number": telpController.text,
+                //       "Born_Date": tanggalController.text,
+                //       "Email": emailController.text,
+                //       "Password": passwordController.text,
+                //       "Gender": gender.toString(),
+                //     });
 
-                    var res = await http.post(Uri.parse(uri), body: {
-                      "Full_Name": usernameController.text,
-                      "Phone_Number": telpController.text,
-                      "Born_Date": tanggalController.text,
-                      "Email": emailController.text,
-                      "Password": passwordController.text,
-                      "Gender": gender.toString(),
-                    });
+                //     var response = jsonDecode(res.body);
 
-                    var response = jsonDecode(res.body);
-
-                    if (response["success"] == 1) {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          content: Text("Register successfull!")));
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text(response["message"])));
-                    }
-                  } catch (e) {
-                    print(e);
-                  }
-                }
+                //     if (response["success"] == 1) {
+                //       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                //           content: Text("Register successfull!")));
+                //       _showMyDialog();
+                //     } else {
+                //       ScaffoldMessenger.of(context).showSnackBar(
+                //           SnackBar(content: Text(response["message"])));
+                //     }
+                //   } catch (e) {
+                //     print(e);
+                //   }
+                // }
               },
             ),
 
