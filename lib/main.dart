@@ -1,5 +1,6 @@
 import 'package:bethany_app/pages/login_page.dart';
 import 'package:bethany_app/pages/nav_pages/main_page.dart';
+import 'package:bethany_app/pages/register_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {

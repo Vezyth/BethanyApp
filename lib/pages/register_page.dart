@@ -33,6 +33,10 @@ class _RegisterPageState extends State<RegisterPage> {
       setState(() {
         _emailErrorText = 'Email is required';
       });
+    } else if (isEmailValid(value) == false) {
+      setState(() {
+        _emailErrorText = "Email not valid";
+      });
     } else {
       setState(() {
         _emailErrorText = "";
@@ -40,26 +44,27 @@ class _RegisterPageState extends State<RegisterPage> {
     }
   }
 
-  Future<void> _showMyDialog() async {
+  Future<void> _showMyDialog(NIJ, Password) async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('User Login Info'),
-          content: const SingleChildScrollView(
+          content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
-                Text('NIJ : '),
-                Text('Password: '),
+                Text('NIJ : $NIJ'),
+                Text('Password: $Password'),
               ],
             ),
           ),
           actions: <Widget>[
             TextButton(
-              child: const Text('Approve'),
+              child: const Text('Close'),
               onPressed: () {
-                Navigator.of(context).pop();
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (BuildContext context) => LoginPage()));
               },
             ),
           ],
@@ -271,40 +276,52 @@ class _RegisterPageState extends State<RegisterPage> {
                 )),
               ),
               onTap: () async {
-                _showMyDialog();
-                // if (usernameController.text == "" ||
-                //     emailController.text == "" ||
-                //     passwordController.text == "") {
-                //   ScaffoldMessenger.of(context).showSnackBar(
-                //       const SnackBar(content: Text("Fill all fields!")));
-                // } else {
-                //   try {
-                //     String uri =
-                //         "https://bethany-app.000webhostapp.com/user_add.php";
+                if (usernameController.text == "" ||
+                    emailController.text == "" ||
+                    passwordController.text == "") {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text("Fill all fields!")));
+                } else {
+                  try {
+                    String uri =
+                        "https://bethany-app.000webhostapp.com/user_add.php";
 
-                //     var res = await http.post(Uri.parse(uri), body: {
-                //       "Full_Name": usernameController.text,
-                //       "Phone_Number": telpController.text,
-                //       "Born_Date": tanggalController.text,
-                //       "Email": emailController.text,
-                //       "Password": passwordController.text,
-                //       "Gender": gender.toString(),
-                //     });
+                    var res = await http.post(Uri.parse(uri), body: {
+                      "Full_Name": usernameController.text,
+                      "Phone_Number": telpController.text,
+                      "Born_Date": tanggalController.text,
+                      "Email": emailController.text,
+                      "Password": passwordController.text,
+                      "Gender": gender.toString(),
+                      "Created_By": "User",
+                    });
 
-                //     var response = jsonDecode(res.body);
+                    var response = jsonDecode(res.body);
 
-                //     if (response["success"] == 1) {
-                //       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                //           content: Text("Register successfull!")));
-                //       _showMyDialog();
-                //     } else {
-                //       ScaffoldMessenger.of(context).showSnackBar(
-                //           SnackBar(content: Text(response["message"])));
-                //     }
-                //   } catch (e) {
-                //     print(e);
-                //   }
-                // }
+                    if (response["success"] == 1) {
+                      String uri1 =
+                          "https://bethany-app.000webhostapp.com/user_info.php";
+
+                      var res1 = await http.post(Uri.parse(uri1), body: {
+                        "Full_Name": usernameController.text,
+                        "Password": passwordController.text
+                      });
+
+                      var response1 = jsonDecode(res1.body);
+                      String nij = response1["data"]["NIJ"].toString();
+                      String password = passwordController.text;
+
+                      _showMyDialog(nij, password);
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text("Register successfull!")));
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text(response["message"])));
+                    }
+                  } catch (e) {
+                    print(e);
+                  }
+                }
               },
             ),
 

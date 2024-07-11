@@ -5,6 +5,7 @@ import 'package:bethany_app/pages/nav_pages/main_page.dart';
 import 'package:bethany_app/pages/register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({super.key});
@@ -153,10 +154,25 @@ class _LoginPageState extends State<LoginPage> {
                     var response = jsonDecode(res.body);
 
                     if (response["success"] == 1) {
+                      String uri1 =
+                          "https://bethany-app.000webhostapp.com/user_info.php";
+
+                      var res1 = await http.post(Uri.parse(uri1), body: {
+                        "NIJ": nijController.text,
+                      });
+
+                      var response1 = jsonDecode(res1.body);
+                      String FullName = response1["data"]["Full_Name"];
+                      String PhoneNumber = response1["data"]["Phone_Number"];
+                      String BornDate = response1["data"]["Born_Date"];
+                      String Email = response1["data"]["Email"];
+                      String Gender = response1["data"]["Gender"];
+
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text("Selamat Datang $FullName")));
+
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
                           builder: (BuildContext context) => const MainPage()));
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text("Welcome")));
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text(response["message"])));
