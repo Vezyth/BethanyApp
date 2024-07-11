@@ -162,14 +162,22 @@ class _LoginPageState extends State<LoginPage> {
                       });
 
                       var response1 = jsonDecode(res1.body);
-                      String FullName = response1["data"]["Full_Name"];
-                      String PhoneNumber = response1["data"]["Phone_Number"];
-                      String BornDate = response1["data"]["Born_Date"];
-                      String Email = response1["data"]["Email"];
-                      String Gender = response1["data"]["Gender"];
+                      String fullName = response1["data"]["Full_Name"];
+                      String phoneNumber = response1["data"]["Phone_Number"];
+                      String bornDate = response1["data"]["Born_Date"];
+                      String email = response1["data"]["Email"];
+                      String gender = response1["data"]["Gender"];
+                      final prefs = await SharedPreferences.getInstance();
+                      await prefs.setStringList('userInfo', <String>[
+                        fullName,
+                        phoneNumber,
+                        bornDate,
+                        email,
+                        gender
+                      ]);
 
                       ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text("Selamat Datang $FullName")));
+                          SnackBar(content: Text("Selamat Datang $fullName")));
 
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
                           builder: (BuildContext context) => const MainPage()));

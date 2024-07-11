@@ -34,8 +34,6 @@ class _BaptisPageState extends State<BaptisPage> {
 
   final ScrollController _scrollController = ScrollController();
 
-  String _fieldErrorText = "";
-
   Future<void> kirimPermohonan() async {
     if (nameController.text == "" ||
         alamatController.text == "" ||
