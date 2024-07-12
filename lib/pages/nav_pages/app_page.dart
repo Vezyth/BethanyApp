@@ -1,14 +1,11 @@
-import 'dart:convert';
-
 import 'package:bethany_app/components/my_app.dart';
 import 'package:bethany_app/pages/app/baptis_page.dart';
 import 'package:bethany_app/pages/app/doa_konseling_page.dart';
 import 'package:bethany_app/pages/app/family_page.dart';
 import 'package:bethany_app/pages/app/pernikahan_pria.dart';
-import 'package:bethany_app/pages/app/som_page.dart';
-
 import 'package:bethany_app/pages/nav_pages/main_page.dart';
 import 'package:flutter/material.dart';
+// ignore: unused_import
 import 'package:http/http.dart' as http;
 
 class AppPage extends StatefulWidget {
@@ -74,9 +71,10 @@ class _AppPageState extends State<AppPage> {
                 child: MyApp(
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (BuildContext context) => const SOMPage()));
+                        builder: (BuildContext context) =>
+                            const PernikahanPriaPage()));
                   },
-                  name: "\nSOM",
+                  name: "\nPernikahan",
                   imagePath: "assets/blackboard.png",
                   isVisible: true,
                 ),
@@ -87,10 +85,9 @@ class _AppPageState extends State<AppPage> {
                 child: MyApp(
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (BuildContext context) =>
-                            const PernikahanPriaPage()));
+                        builder: (BuildContext context) => const BaptisPage()));
                   },
-                  name: "\nPernikahan",
+                  name: "\nBaptisan",
                   imagePath: "assets/blackboard.png",
                   isVisible: true,
                 ),
@@ -116,7 +113,7 @@ class _AppPageState extends State<AppPage> {
                   },
                   name: "\nBaptisan",
                   imagePath: "assets/blackboard.png",
-                  isVisible: true,
+                  isVisible: false,
                 ),
               ),
               const SizedBox(width: 10),

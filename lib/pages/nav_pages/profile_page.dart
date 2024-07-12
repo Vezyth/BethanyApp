@@ -30,7 +30,10 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Profile Page'),
+        title: const Text(
+          'Profile Page',
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+        ),
       ),
       body: userInfo.isEmpty
           ? EmptyProfileWidget(
@@ -48,7 +51,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 await prefs.remove('userInfo');
                 Navigator.of(context).pushReplacement(
                   MaterialPageRoute(
-                      builder: (BuildContext context) => MainPage()),
+                      builder: (BuildContext context) => const MainPage()),
                 );
               },
             ),
@@ -108,15 +111,44 @@ class FilledProfileWidget extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 20),
-              Text("Full Name: ${userInfo[0]}", style: TextStyle(fontSize: 18)),
-              Text("Phone Number: ${userInfo[1]}",
-                  style: TextStyle(fontSize: 18)),
-              Text("Born Date: ${userInfo[2]}", style: TextStyle(fontSize: 18)),
-              Text("Email: ${userInfo[3]}", style: TextStyle(fontSize: 18)),
-              Text("Gender: ${userInfo[4] == 1 ? "Pria" : "Wanita"}",
-                  style: TextStyle(fontSize: 18)),
-              SizedBox(height: 10),
+              const SizedBox(height: 20),
+              Align(
+                alignment: Alignment.center,
+                child: Column(
+                  children: [
+                    Text(userInfo[0],
+                        style: const TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.w600)),
+                    Text(userInfo[2], style: const TextStyle(fontSize: 14)),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              const Text(
+                "Email",
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+              ),
+              Text(userInfo[3], style: const TextStyle(fontSize: 16)),
+              const SizedBox(
+                height: 15,
+              ),
+              const Text(
+                "Phone Number",
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+              ),
+              Text(userInfo[1], style: const TextStyle(fontSize: 16)),
+              const SizedBox(
+                height: 15,
+              ),
+              const Text(
+                "Gender",
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+              ),
+              Text(userInfo[4] == "1" ? "Pria" : "Wanita",
+                  style: const TextStyle(fontSize: 16)),
+              const SizedBox(height: 10),
             ],
           ),
           GestureDetector(

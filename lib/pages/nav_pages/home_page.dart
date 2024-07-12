@@ -1,10 +1,8 @@
 import 'dart:async';
-
 import 'package:bethany_app/data/api/video_api.dart';
 import 'package:bethany_app/models/channel_model.dart';
 import 'package:bethany_app/models/video_model.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

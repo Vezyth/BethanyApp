@@ -1,10 +1,9 @@
 // ignore_for_file: unrelated_type_equality_checks
 
-import 'dart:convert';
-
 import 'package:bethany_app/components/my_textfield.dart';
 import 'package:bethany_app/pages/app/pernikahan_wanita_page.dart';
 import 'package:flutter/material.dart';
+// ignore: unused_import
 import 'package:http/http.dart' as http;
 
 class PernikahanPriaPage extends StatefulWidget {

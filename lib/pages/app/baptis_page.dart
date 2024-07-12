@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:bethany_app/components/my_textfield.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class BaptisPage extends StatefulWidget {
   const BaptisPage({super.key});
@@ -11,6 +12,12 @@ class BaptisPage extends StatefulWidget {
 }
 
 class _BaptisPageState extends State<BaptisPage> {
+  @override
+  void initState() {
+    super.initState();
+    _loadUserInfo();
+  }
+
   int kategori = 1, gender = 1, bergereja = 1;
   String tanggalLahir = "",
       nameField = "",
@@ -21,6 +28,7 @@ class _BaptisPageState extends State<BaptisPage> {
       ayahField = "",
       ibuField = "",
       gerejaField = "";
+  List<String> userInfo = [];
 
   final nameController = TextEditingController();
   final alamatController = TextEditingController();
@@ -33,6 +41,19 @@ class _BaptisPageState extends State<BaptisPage> {
   final gerejaController = TextEditingController();
 
   final ScrollController _scrollController = ScrollController();
+
+  Future<void> _loadUserInfo() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      userInfo = prefs.getStringList('userInfo') ?? [];
+      if (userInfo.isNotEmpty) {
+        nameController.text = userInfo[0];
+        hpController.text = userInfo[1];
+        tanggalController.text = userInfo[2];
+        gender = int.parse(userInfo[4]);
+      }
+    });
+  }
 
   Future<void> kirimPermohonan() async {
     if (nameController.text == "" ||

@@ -1,12 +1,11 @@
 import 'dart:convert';
 import 'package:bethany_app/pages/login_Page.dart';
-import 'package:bethany_app/pages/nav_pages/main_page.dart';
 import 'package:http/http.dart' as http;
 import 'package:bethany_app/components/my_textfield.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatefulWidget {
-  RegisterPage({super.key});
+  const RegisterPage({super.key});
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();

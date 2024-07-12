@@ -3,7 +3,7 @@
 import 'package:bethany_app/components/my_textfield.dart';
 import 'package:bethany_app/pages/app/pemberkatan_nikah_page.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+// ignore: unused_import
 import 'package:http/http.dart' as http;
 
 class PernikahanWanitaPage extends StatefulWidget {
