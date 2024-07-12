@@ -17,12 +17,17 @@ class _RegisterPageState extends State<RegisterPage> {
   final emailController = TextEditingController();
 
   final passwordController = TextEditingController();
+  final conPasswordController = TextEditingController();
 
   final telpController = TextEditingController();
 
   final tanggalController = TextEditingController();
 
-  String tanggalLahir = "", userField = "", nomorField = "", passwordField = "";
+  String tanggalLahir = "",
+      userField = "",
+      nomorField = "",
+      passwordField = "",
+      conPasswordField = "";
 
   int gender = 1;
 
@@ -213,6 +218,27 @@ class _RegisterPageState extends State<RegisterPage> {
               height: 10,
             ),
 
+            MyTextField(
+                controller: conPasswordController,
+                hintText: 'Confirm Password',
+                obscureText: true,
+                fieldHeight: 10,
+                errorText: conPasswordField,
+                onChange: (String value) {
+                  if (value != passwordController.text) {
+                    setState(() {
+                      conPasswordField = 'Password doesn\'t match';
+                    });
+                  } else {
+                    setState(() {
+                      conPasswordField = "";
+                    });
+                  }
+                }),
+            const SizedBox(
+              height: 10,
+            ),
+
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 25.0),
               child: Row(
@@ -258,70 +284,79 @@ class _RegisterPageState extends State<RegisterPage> {
 
             //sign Up button
 
-            GestureDetector(
-              child: Container(
-                padding: const EdgeInsets.all(25),
-                margin: const EdgeInsets.symmetric(horizontal: 25),
-                decoration: BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.circular(8)),
-                child: const Center(
-                    child: Text(
-                  "Sign Up",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16),
-                )),
-              ),
-              onTap: () async {
-                if (usernameController.text == "" ||
-                    emailController.text == "" ||
-                    passwordController.text == "") {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text("Fill all fields!")));
-                } else {
-                  try {
-                    String uri =
-                        "https://bethany-app.000webhostapp.com/user_add.php";
+            IgnorePointer(
+              ignoring: passwordController.text == conPasswordController.text
+                  ? false
+                  : true,
+              child: GestureDetector(
+                child: Container(
+                  padding: const EdgeInsets.all(25),
+                  margin: const EdgeInsets.symmetric(horizontal: 25),
+                  decoration: BoxDecoration(
+                      color:
+                          passwordController.text == conPasswordController.text
+                              ? Colors.black
+                              : Colors.grey,
+                      borderRadius: BorderRadius.circular(8)),
+                  child: const Center(
+                      child: Text(
+                    "Sign Up",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16),
+                  )),
+                ),
+                onTap: () async {
+                  if (usernameController.text == "" ||
+                      emailController.text == "" ||
+                      passwordController.text == "") {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text("Fill all fields!")));
+                  } else {
+                    try {
+                      String uri =
+                          "https://bethany-app.000webhostapp.com/user_add.php";
 
-                    var res = await http.post(Uri.parse(uri), body: {
-                      "Full_Name": usernameController.text,
-                      "Phone_Number": telpController.text,
-                      "Born_Date": tanggalController.text,
-                      "Email": emailController.text,
-                      "Password": passwordController.text,
-                      "Gender": gender.toString(),
-                      "Created_By": "User",
-                    });
-
-                    var response = jsonDecode(res.body);
-
-                    if (response["success"] == 1) {
-                      String uri1 =
-                          "https://bethany-app.000webhostapp.com/user_info.php";
-
-                      var res1 = await http.post(Uri.parse(uri1), body: {
+                      var res = await http.post(Uri.parse(uri), body: {
                         "Full_Name": usernameController.text,
-                        "Password": passwordController.text
+                        "Phone_Number": telpController.text,
+                        "Born_Date": tanggalController.text,
+                        "Email": emailController.text,
+                        "Password": passwordController.text,
+                        "Gender": gender.toString(),
+                        "Created_By": "User",
                       });
 
-                      var response1 = jsonDecode(res1.body);
-                      String nij = response1["data"]["NIJ"].toString();
-                      String password = passwordController.text;
+                      var response = jsonDecode(res.body);
 
-                      _showMyDialog(nij, password);
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          content: Text("Register successfull!")));
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text(response["message"])));
+                      if (response["success"] == 1) {
+                        String uri1 =
+                            "https://bethany-app.000webhostapp.com/user_info.php";
+
+                        var res1 = await http.post(Uri.parse(uri1), body: {
+                          "Full_Name": usernameController.text,
+                          "Password": passwordController.text
+                        });
+
+                        var response1 = jsonDecode(res1.body);
+                        String nij = response1["data"]["NIJ"].toString();
+                        String password = passwordController.text;
+
+                        _showMyDialog(nij, password);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text("Register successfull!")));
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(response["message"])));
+                      }
+                    } catch (e) {
+                      print(e);
                     }
-                  } catch (e) {
-                    print(e);
                   }
-                }
-              },
+                },
+              ),
             ),
 
             const SizedBox(

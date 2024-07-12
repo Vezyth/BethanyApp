@@ -39,7 +39,6 @@ class _BaptisPageState extends State<BaptisPage> {
   final ayahController = TextEditingController();
   final ibuController = TextEditingController();
   final gerejaController = TextEditingController();
-
   final ScrollController _scrollController = ScrollController();
 
   Future<void> _loadUserInfo() async {

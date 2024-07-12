@@ -42,6 +42,7 @@ class _AppPageState extends State<AppPage> {
               const SizedBox(width: 10),
               SizedBox(
                 width: MediaQuery.of(context).size.width / 5,
+                height: MediaQuery.of(context).size.height / 7,
                 child: MyApp(
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
@@ -55,6 +56,7 @@ class _AppPageState extends State<AppPage> {
               const SizedBox(width: 10),
               SizedBox(
                 width: MediaQuery.of(context).size.width / 5,
+                height: MediaQuery.of(context).size.height / 7,
                 child: MyApp(
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
@@ -68,6 +70,7 @@ class _AppPageState extends State<AppPage> {
               const SizedBox(width: 10),
               SizedBox(
                 width: MediaQuery.of(context).size.width / 5,
+                height: MediaQuery.of(context).size.height / 7,
                 child: MyApp(
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
@@ -82,6 +85,7 @@ class _AppPageState extends State<AppPage> {
               const SizedBox(width: 10),
               SizedBox(
                 width: MediaQuery.of(context).size.width / 5,
+                height: MediaQuery.of(context).size.height / 7,
                 child: MyApp(
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
@@ -106,6 +110,7 @@ class _AppPageState extends State<AppPage> {
               const SizedBox(width: 10),
               SizedBox(
                 width: MediaQuery.of(context).size.width / 5,
+                height: MediaQuery.of(context).size.height / 7,
                 child: MyApp(
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
@@ -119,6 +124,7 @@ class _AppPageState extends State<AppPage> {
               const SizedBox(width: 10),
               SizedBox(
                 width: MediaQuery.of(context).size.width / 5,
+                height: MediaQuery.of(context).size.height / 7,
                 child: MyApp(
                   onTap: () {},
                   name: "Contact Us",
@@ -129,6 +135,7 @@ class _AppPageState extends State<AppPage> {
               const SizedBox(width: 10),
               SizedBox(
                 width: MediaQuery.of(context).size.width / 5,
+                height: MediaQuery.of(context).size.height / 7,
                 child: MyApp(
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
@@ -142,6 +149,7 @@ class _AppPageState extends State<AppPage> {
               const SizedBox(width: 10),
               SizedBox(
                 width: MediaQuery.of(context).size.width / 5,
+                height: MediaQuery.of(context).size.height / 7,
                 child: MyApp(
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
@@ -182,6 +190,7 @@ class _AppPageState extends State<AppPage> {
               const SizedBox(width: 10),
               SizedBox(
                 width: MediaQuery.of(context).size.width / 5,
+                height: MediaQuery.of(context).size.height / 7,
                 child: MyApp(
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
@@ -195,6 +204,7 @@ class _AppPageState extends State<AppPage> {
               const SizedBox(width: 10),
               SizedBox(
                 width: MediaQuery.of(context).size.width / 5,
+                height: MediaQuery.of(context).size.height / 7,
                 child: MyApp(
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(

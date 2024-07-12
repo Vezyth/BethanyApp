@@ -28,12 +28,14 @@ Timer? _timer;
 class _HomePageState extends State<HomePage> {
   void startTimer() {
     _timer = Timer.periodic(const Duration(seconds: 3), (timer) {
-      if (_pageController.page == imagesPaths.length - 1) {
-        //check if current page is last
+      // Check if _pageController has a position and is attached to a PageView
+      if (_pageController.hasClients &&
+          _pageController.page == imagesPaths.length - 1) {
+        // check if current page is last
         _pageController.animateToPage(0,
             duration: const Duration(milliseconds: 500),
             curve: Curves.easeInOut);
-      } else {
+      } else if (_pageController.hasClients) {
         _pageController.nextPage(
             duration: const Duration(milliseconds: 300),
             curve: Curves.easeInOut);
@@ -148,13 +150,16 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Column(
                   children: [
-                    Text(
-                      video.title,
-                      style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 17.0,
-                          fontWeight: FontWeight.w600,
-                          overflow: TextOverflow.ellipsis),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: Text(
+                        video.title,
+                        style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 17.0,
+                            fontWeight: FontWeight.w600,
+                            overflow: TextOverflow.ellipsis),
+                      ),
                     ),
                   ],
                 ),

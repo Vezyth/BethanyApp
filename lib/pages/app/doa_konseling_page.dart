@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:bethany_app/components/my_textfield.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DoaPage extends StatefulWidget {
   const DoaPage({super.key});
@@ -11,6 +12,13 @@ class DoaPage extends StatefulWidget {
 }
 
 class _DoaPageState extends State<DoaPage> {
+  @override
+  void initState() {
+    super.initState();
+    _loadUserInfo();
+  }
+
+  List<String> userInfo = [];
   int kategori = 1, gender = 1, bersedia = 1;
   String tanggalLahir = "", nameField = "", nomorField = "", tanggalField = "";
 
@@ -18,8 +26,20 @@ class _DoaPageState extends State<DoaPage> {
   final nomorController = TextEditingController();
   final tanggalController = TextEditingController();
   final permintaanController = TextEditingController();
-
   final ScrollController _scrollController = ScrollController();
+
+  Future<void> _loadUserInfo() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      userInfo = prefs.getStringList('userInfo') ?? [];
+      if (userInfo.isNotEmpty) {
+        nameController.text = userInfo[0];
+        nomorController.text = userInfo[1];
+        tanggalController.text = userInfo[2];
+        gender = int.parse(userInfo[4]);
+      }
+    });
+  }
 
   Future<void> kirimPermohonan() async {
     if (nameController.text.isEmpty ||
