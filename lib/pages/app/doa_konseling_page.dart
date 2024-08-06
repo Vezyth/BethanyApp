@@ -55,7 +55,7 @@ class _DoaPageState extends State<DoaPage> {
         var res = await http.post(Uri.parse(uri), body: {
           "Full_Name": nameController.text,
           "Phone_Number": nomorController.text,
-          "Born_Date": tanggalLahir,
+          "Born_Date": tanggalController.text,
           "Gender": gender.toString(),
           "Category_ID": kategori.toString(),
           "Prayer_Detail": permintaanController.text,
@@ -69,6 +69,8 @@ class _DoaPageState extends State<DoaPage> {
         } else {
           ScaffoldMessenger.of(context)
               .showSnackBar(SnackBar(content: Text(response["message"])));
+          print(response["message"]);
+          print(tanggalController.text);
         }
       } catch (e) {
         print(e);

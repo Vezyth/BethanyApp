@@ -60,7 +60,7 @@ class _HomePageState extends State<HomePage> {
 
   _initChannel() async {
     Channel channel = await APIService.instance
-        .fetchChannel(channelId: 'UC-lHJZR3Gqxm24_Vd_AJ5Yw');
+        .fetchChannel(channelId: 'UCY-9GTNAiyWEZcyYPgRCmZQ');
     setState(() {
       _channel = channel;
     });
@@ -143,27 +143,16 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            Row(
-              children: [
-                const SizedBox(
-                  width: 20,
-                ),
-                Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 10),
-                      child: Text(
-                        video.title,
-                        style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 17.0,
-                            fontWeight: FontWeight.w600,
-                            overflow: TextOverflow.ellipsis),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Text(
+                video.title,
+                style: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.w600,
+                    overflow: TextOverflow.clip),
+              ),
             ),
             const SizedBox(
               height: 10,

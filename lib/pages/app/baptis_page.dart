@@ -18,7 +18,7 @@ class _BaptisPageState extends State<BaptisPage> {
     _loadUserInfo();
   }
 
-  int kategori = 1, gender = 1, bergereja = 1;
+  int gender = 1, bergereja = 1;
   String tanggalLahir = "",
       nameField = "",
       alamatField = "",
@@ -78,7 +78,7 @@ class _BaptisPageState extends State<BaptisPage> {
           "Full_Name": nameController.text,
           "Gender": gender.toString(),
           "Born_Place": tempatController.text,
-          "Born_Date": tanggalLahir,
+          "Born_Date": tanggalController.text,
           "Father_Name": ayahController.text,
           "Mother_Name": ibuController.text,
           "Address": alamatController.text,

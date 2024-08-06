@@ -103,9 +103,8 @@ class _PemberkatanNikahPageState extends State<PemberkatanNikahPage> {
           ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text("pendaftaran terkirim!")));
         } else {
-          // ScaffoldMessenger.of(context)
-          //     .showSnackBar(SnackBar(content: Text(response["message"])));
-          print(response["message"]);
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text(response["message"])));
         }
       } catch (e) {
         print(e);
